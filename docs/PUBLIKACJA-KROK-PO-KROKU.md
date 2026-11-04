@@ -1,5 +1,8 @@
 # Publikacja i prawdziwe reklamy — co zrobić po kolei
 
+**Aktualizacja 1.2.0:** wybrano dzieci i dorosłych. Używaj `audience=mixed`, `ads_enabled=false`; produkcja tej wersji nie korzysta z reklamowego SDK. Dane wydawcy zostały już zapisane. [Aktualny stan i włączenie strony](FAMILY-EDITION.md). Poniższy opis uruchamiania reklam wymaga najpierw sprawdzonego SDK zgodnego z Families.
+
+
 Kod i paczki testowe nie zakładają za Ciebie konta Google Play ani AdMob. Nie znamy jeszcze nazwy publicznego wydawcy, kontaktu, grupy odbiorców i Twoich identyfikatorów reklam. Nie wpisuj tu haseł, numerów dokumentów, danych płatniczych ani prywatnego klucza.
 
 ## 1. Konta i nazwa aplikacji

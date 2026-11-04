@@ -1,5 +1,8 @@
 # Szkic deklaracji Bezpieczeństwo danych
 
+**1.2.0:** native SDK reklamowy Google został usunięty z eksportu. Brak Internet/AD_ID w manifeście i brak klas Google Ads w DEX. Gra zapisuje postęp lokalnie, nie ma kont ani własnej analityki i nie pyta o wiek w wariancie bez reklam. Poniższe uwagi o AdMob dotyczą wcześniejszej/przyszłej integracji, nie obecnego artefaktu. Uwzględnij rzeczywisty wariant przy formularzu Play; odwiedzenie publicznej strony w przeglądarce podlega również zasadom jej hostingu.
+
+
 To materiał do wypełnienia formularza, nie automatyczna deklaracja zgodności. Potwierdź aktualne definicje Play i dokumentację faktycznie dołączonego **Google Next-Gen Mobile Ads SDK 1.4.0 / UMP** przed wysłaniem. Nie zaznaczaj „brak zbierania danych” tylko dlatego, że wyniki gry są offline.
 
 | Element | Stan aplikacji / co sprawdzić |

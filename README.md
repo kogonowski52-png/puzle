@@ -1,9 +1,11 @@
-# Neon Block Master - Android APK
+# Neon Block Master — Android APK 1.1.0
 
-Download [neon-block-master-debug.apk](https://github.com/kogonowski52-png/puzle/raw/refs/heads/apk-download/neon-block-master-debug.apk).
+[Pobierz APK](https://github.com/kogonowski52-png/puzle/raw/refs/heads/apk-download/neon-block-master-debug.apk) albo otwórz plik i wybierz **Download raw**.
 
-Test build, Android 7.0+ (API 24), ARM64 / OpenGL ES 3.0. Debug-signed, version 1.0.0. Uses test AdMob IDs.
+Android 7.0+ (API 24), ARM64, OpenGL ES 3.0. Wersja 1.1.0, kod 2, podpis debugowy zgodny z poprzednią paczką. To nadal wersja testowa z testowymi identyfikatorami AdMob, nie publikacja Google Play.
 
-2688 automated checks passed. APK signature, AAB structure and ELF 16 KB alignment checked. Physical Android device, real ad delivery and 60 FPS remain to be verified. This is not a production Google Play release.
+Nowości: NEON LAB / PLASMA za trzy dobrowolne reklamy z nagrodą lub 240 monet; jednorazowe podwojenie monet z rozgrywki; migracja zapisów.
 
-This branch distributes the APK separately from game source development.
+2710 sprawdzeń gry i 11 testów narzędzia wydawniczego zaliczonych. APK ma zweryfikowany podpis. Testy prawdziwych reklam/UMP i 60 FPS na fizycznym telefonie pozostają do wykonania.
+
+Ta gałąź służy do dystrybucji APK.

@@ -8,4 +8,15 @@ Nowości: NEON LAB / PLASMA za trzy dobrowolne reklamy z nagrodą lub 240 monet;
 
 2710 sprawdzeń gry i 11 testów narzędzia wydawniczego zaliczonych. APK ma zweryfikowany podpis. Testy prawdziwych reklam/UMP i 60 FPS na fizycznym telefonie pozostają do wykonania.
 
-Ta gałąź służy do dystrybucji APK.
+Ta gałąź służy do dystrybucji APK, AAB i źródeł.
+
+## Źródła i pakiet wydawniczy
+
+- [Pełny projekt Godot / źródła ZIP](neon-block-master-source.zip) — kod gry, grafiki, testy i narzędzia publikacji.
+- [AAB release bez podpisu](neon-block-master-release-unsigned.aab) — wymaga własnego klucza upload przed wysłaniem do Google Play.
+- [Instrukcja publikacji krok po kroku](docs/PUBLIKACJA-KROK-PO-KROKU.md).
+- [Szkic Data safety](docs/DATA-SAFETY.md).
+- [Opis nagród reklamowych](docs/REWARDED-DESIGN.md).
+- [Raport walidacji i ograniczenia](docs/VALIDATION.md) · [Wyniki testów](test-results.txt) · [SHA-256](SHA256SUMS.txt).
+
+Do aktywacji produkcyjnych reklam potrzebne są własne identyfikatory AdMob, publiczne dane wydawcy, właściwa grupa odbiorców oraz opublikowana polityka i konfiguracja UMP. Nie zostało to wykonane przez samo udostępnienie plików. Klucza podpisu i hasła nie umieszczaj w Git ani czacie.

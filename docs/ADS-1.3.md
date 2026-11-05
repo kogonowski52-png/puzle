@@ -1,4 +1,4 @@
-# Wydanie 1.3.0 — reklamy dla wskazanej grupy odbiorców
+# Wydanie 1.3.1 — reklamy dla wskazanej grupy odbiorców
 
 Cel: gra dla dzieci od 3 lat i dorosłych **z reklamami**. Poprzedni wariant 1.2 bez reklam nie jest docelową realizacją tego celu.
 
@@ -21,7 +21,7 @@ Wszystkich graczy traktujemy jednakowo, z restrykcyjnym profilem:
 
 APK z gałęzi `apk-download` ma **oficjalne jednostki testowe Google**, nie jednostki zarabiające. Jest to celowe, aby właściciel nie generował nieprawidłowego ruchu na własnych reklamach. App ID i ad units z konta użytkownika są zapisane osobno dla przyszłego wydania produkcyjnego.
 
-1. Zainstaluj aktualizację 1.3.0 na Androidzie i połącz telefon z internetem.
+1. Zainstaluj aktualizację 1.3.1 na Androidzie i połącz telefon z internetem.
 2. Otwórz Ustawienia → **Reklamy testowe — status**. Na komputerze moduł Android nie jest dostępny.
 3. Poczekaj na załadowanie reklamy, wejdź w sklep/NEON LAB i wybierz przycisk z nagrodą. Zamknięcie przed earned event nie powinno przyznawać nagrody; pełne potwierdzenie SDK przyznaje ją raz.
 4. Sprawdź powrót do gry, dźwięk, brak blokowania przy braku sieci i ponawianie po połączeniu. Nie klikaj własnych reklam produkcyjnych.

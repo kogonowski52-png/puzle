@@ -1,4 +1,4 @@
-# Publikacja i reklamy — wydanie 1.3.0
+# Publikacja i reklamy — wydanie 1.3.1
 
 ## Co już przygotowano
 
@@ -21,7 +21,7 @@ Wybierz **Deploy from a branch → gh-pages → /(root) → Save**. Jeżeli plan
 - https://kogonowski52-png.github.io/puzle/
 - https://kogonowski52-png.github.io/puzle/privacy.html
 
-Dopiero po sprawdzeniu wpisz je w `website_url` i `privacy_url`. Polityka opisuje wersję testową 1.3.0; przed produkcją wygeneruj ją ponownie z produkcyjnej konfiguracji.
+Dopiero po sprawdzeniu wpisz je w `website_url` i `privacy_url`. Polityka opisuje wersję testową 1.3.1; przed produkcją wygeneruj ją ponownie z produkcyjnej konfiguracji.
 
 **app-ads.txt musi znajdować się w katalogu głównym hosta**, czyli dla tego hosta https://kogonowski52-png.github.io/app-ads.txt, nie tylko `/puzle/app-ads.txt`. Potrzebna będzie strona użytkownika w repozytorium `kogonowski52-png.github.io` lub własna domena. Tego hostingu nie potwierdzono. Przygotowana linia zawiera prawdziwe `pub-5988667220268461`; sprawdź wykrycie pliku w AdMob.
 
@@ -57,7 +57,7 @@ Pipeline odrzuca niekompletną konfigurację, testowe ID i znany klucz debugowy,
 
 ## 5. Google Play
 
-Konto Play, potwierdzenie tożsamości, opłaty i akceptacja warunków należą do właściciela. Package: `com.neonblockmaster.puzzle`; przed pierwszym uploadem potwierdź, że chcesz go zachować. Aktualny version code 4, wersja 1.3.0, target API 36, min API 24, ARM64. Włącz Play App Signing i sprawdź aktualne wymagania panelu.
+Konto Play, potwierdzenie tożsamości, opłaty i akceptacja warunków należą do właściciela. Package: `com.neonblockmaster.puzzle`; przed pierwszym uploadem potwierdź, że chcesz go zachować. Aktualny version code 5, wersja 1.3.1, target API 36, min API 24, ARM64. Włącz Play App Signing i sprawdź aktualne wymagania panelu.
 
 Materiały w `store/`: opisy PL/EN, ikona 512×512, feature graphic 1024×500, sześć rzeczywistych zrzutów. Usuń z opisu sklepu notę roboczą dla wydawcy. Wpisz kontakt i działającą politykę, zaznacz **zawiera reklamy**, wybierz prawdziwe grupy wieku obejmujące dzieci i dorosłych. Ocena **3+** jest ustalana przez IARC, nie zastępuje deklaracji odbiorców. Nie zmieniaj grupy na 16+ w celu obejścia wymagań.
 

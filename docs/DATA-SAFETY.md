@@ -1,4 +1,4 @@
-# Szkic deklaracji Bezpieczeństwo danych — 1.3.0
+# Szkic deklaracji Bezpieczeństwo danych — 1.3.1
 
 Wariant z klasycznym Google Mobile Ads **24.9.0 / Poing 4.3.1 / UMP 4.0.0**. APK testowy korzysta z oficjalnych jednostek demonstracyjnych; docelowi odbiorcy to dzieci od 3 lat i dorośli. [Stan reklam](ADS-1.3.md).
 

@@ -1,4 +1,4 @@
-# Android i publikacja — 1.3.0
+# Android i publikacja — 1.3.1
 
 Aktualny wariant: dzieci od 3 lat i dorośli, z klasycznym Google Mobile Ads i oficjalnymi reklamami testowymi. [Instrukcja wydawcy](PUBLIKACJA-KROK-PO-KROKU.md), [stan reklam](ADS-1.3.md).
 

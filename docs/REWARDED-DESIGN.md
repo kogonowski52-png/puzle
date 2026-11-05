@@ -1,3 +1,9 @@
+# Nagrody 1.4.0
+
+Główna nagroda: **1 Młotek 3×3 + 2 Zmiany zestawu za jedną ukończoną reklamę**. Ten sam pakiet kosztuje 90 monet z gry; pakiet startowy gratis. Bez losowania, wymiany na pieniądze i obowiązku oglądania reklam. [Pełny opis i testy](BOOSTERS-1.4.md).
+
+Poniżej historia oferty kosmetycznej.
+
 # Nagrody reklamowe w 1.1.0
 
 - **NEON LAB / PLASMA**: trzy ukończone rewarded ads = trzy zapisane ładunki i konkretny motyw. Postęp nie wygasa. Alternatywa bez reklam: 240 monet zdobytych przez grę. Brak losowania, limitu czasowego i płatności.

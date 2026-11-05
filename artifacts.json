@@ -1,7 +1,7 @@
 {
   "neon-block-master-debug.apk": {
-    "bytes": 89373109,
-    "sha256": "413e5a1df9c1aba97b710838b2f8d4444c9de195b11cbb21d4da486a4c49f236",
+    "bytes": 89387681,
+    "sha256": "5700e011d56a4437a6861f90bb2bb73c8b6a7a2043893f9d3f56751d0c568936",
     "elf_load_alignment": {
       "lib/arm64-v8a/libc++_shared.so": [
         16384,
@@ -16,8 +16,8 @@
     }
   },
   "neon-block-master-debug.aab": {
-    "bytes": 36170225,
-    "sha256": "23f4cc3268065b05a96875a38e113bccb1b7ef25755ccaed9caef08dcbae7f26",
+    "bytes": 36187367,
+    "sha256": "cce9134cd16dc6cf27fa764bb8dbae6d8e6f547a898d0e59cbd659339bc71f38",
     "elf_load_alignment": {
       "base/lib/arm64-v8a/libc++_shared.so": [
         16384,
@@ -32,8 +32,8 @@
     }
   },
   "neon-block-master-release-unsigned.aab": {
-    "bytes": 33668461,
-    "sha256": "98c1689899f07795ce12e230cf226def0d3718ee5359b56a9b7b07822b5b7b80",
+    "bytes": 33682861,
+    "sha256": "74de9658e3173e2ab3ef3f8cdcd3dad8afe215ba141166b05c570ae4c74e796a",
     "elf_load_alignment": {
       "base/lib/arm64-v8a/libc++_shared.so": [
         16384,

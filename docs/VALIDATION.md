@@ -1,3 +1,9 @@
+# Weryfikacja 1.4.0
+
+Aktualny zestaw: **2760 sprawdzeń Godot i 18 testów Python**, wszystkie zaliczone. Nowe testy nagród, Młotka/dotyku, migracji, zapisu, Daily, szybkiego callbacku i błędów SDK: [BOOSTERS-1.4.md](BOOSTERS-1.4.md). Właściciel potwierdził uruchomienie poprzedniego wydania diagnostycznego; nie potwierdzono jeszcze emisji reklam 1.4 na telefonie.
+
+Poniżej zachowano wcześniejsze wyniki 1.3.1 jako historię.
+
 # Weryfikacja wydania 1.3.1
 
 **Zgłoszenie po publikacji:** właściciel potwierdził, że 1.3.1 nadal zamyka się przy starcie na Samsungu S25 FE. Poprawki pakowania i kolejności inicjalizacji nie są potwierdzoną naprawą tego zgłoszenia. Testy plików/JVM nie dowodzą uruchomienia na tym telefonie. [Lokalny raport awarii](../tools/android_diagnostics/README.md) pozwala zebrać rzeczywisty wyjątek lub natywny ślad; przyczyna pozostaje nieustalona.

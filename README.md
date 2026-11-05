@@ -1,52 +1,35 @@
-# Zgłoszona awaria na Samsungu S25 FE — raport diagnostyczny
+# Neon Block Master — 1.4.0
 
-**1.3.1 nadal zamyka się na telefonie właściciela. Nie mamy potwierdzonej naprawy.** Poprzednie poprawki i testy paczek nie rozwiązały całego zgłoszenia.
+**[Pobierz APK 1.4.0](neon-block-master-1.4.0.apk)** → **Download raw**. Zainstaluj aktualizację bez usuwania aplikacji. Code 7, ten sam certyfikat debugowy, zachowane zapisy. Android 7+, ARM64.
 
-[**Pobierz APK do odczytu rzeczywistego raportu awarii**](neon-block-master-diagnostic.apk) → **Download raw**. To `1.3.2-diagnostic`, code 6, z dotychczasowym podpisem. Zainstaluj jako aktualizację, bez usuwania danych gry.
+## Pomocniki, które pomagają w grze
 
-Otwórz aplikację. Jeśli zniknie, otwórz ponownie. Ekran **Raport awarii** działa w osobnym procesie i może pokazać rzeczywisty wyjątek Java albo systemowy ślad natywnej awarii. Wybierz **Kopiuj raport** i wklej tekst w rozmowie, albo **Udostępnij plik raportu** i załącz pliki do rozmowy. Jeżeli ekran raportu jest już widoczny, nie trzeba ponownie wywoływać awarii. Przycisk **Uruchom grę** pozwala ponowić próbę i zebrać nowy wyjątek.
+- **Młotek 3×3:** wybierz obszar, usuń do 9 zajętych pól i zrób miejsce. Pusty cel nie zużywa ładunku.
+- **Zmiana:** trzy nowe figury bez kasowania planszy i wyniku.
+- **Jedna ukończona reklama = 1 Młotek + 2 Zmiany.** Nagroda wyłącznie z earned-reward SDK, bez losowania.
+- **Pakiet startowy gratis**, także po aktualizacji. Ten sam pakiet można kupić za **90 monet zdobytych w grze**.
+- Przyciski pod planszą i w menu **POMOCNIKI**. Przy braku ruchów wybierz ratunek lub zakończenie partii. W Daily pomocniki są wyłączone.
 
-Raporty zostają na telefonie; nic nie jest wysyłane automatycznie. Provider jest prywatny, udostępnia tylko dwa stałe pliki do odczytu z tymczasowym uprawnieniem. Postęp gry nie jest kasowany. Reklamy testowe pozostają włączone.
+PLASMA zostaje dodatkowym kosmetycznym motywem. Główna oferta nagrody prowadzi teraz do pakietu ratunkowego.
 
-Sprawdzono cztery testy Android/Robolectric: start bez błędu, ekran i schowek, zapis nieobsłużonego wyjątku z przekazaniem do Androida, odmowa odczytu innych plików i zapisu. Sprawdzono podpis APK, klasy DEX, manifest, wyrównanie 16 KB i zgodność skryptów oraz bibliotek silnika z 1.3.1. **To diagnostyka, a nie potwierdzenie usunięcia awarii na Samsungu.** Próba testu sprzętowego nie została zaliczona; emulacja bez KVM nie uruchomiła stabilnie Androida.
+## Reklamy
 
-- [Źródła z odtwarzalnym buildem diagnostycznym](neon-block-master-diagnostic-source.zip).
-- [Wyniki kontroli APK](diagnostic-validation.json).
-- [Wynik testów ekranu raportu](diagnostic-tests.txt).
-- [Opis lokalnego raportowania](docs/DIAGNOSTICS.md).
-- [Sumy SHA-256 paczki diagnostycznej](DIAGNOSTIC-SHA256SUMS.txt).
+Naprawiono kolejność inicjalizacji: listener jest podłączany **przed** wywołaniem SDK. Test natychmiastowego natywnego callbacku potwierdza, że odpowiedź nie ginie. Dodano ponowne wiązanie singletonów Android, limity czasu, retry, odrzucanie spóźnionych odpowiedzi i prawidłowe zwalnianie loaderów.
 
-Nie publikuj prywatnego raportu ani natywnego śladu w publicznym repozytorium bez jego sprawdzenia. Przekaż go w rozmowie do analizy konkretnej awarii.
+Otwórz **POMOCNIKI → Status reklam / Ponów**. Widać stan i rzeczywisty kod/domenę/komunikat błędu SDK, zamiast samego „niedostępna”. Gdy reklama jest gotowa, oferta pakietu uruchamia rzeczywisty SDK.
 
----
+APK nadal korzysta z **oficjalnych jednostek testowych Google; nie zarabia**. Prawdziwe ID właściciela pozostają zapisane do przyszłej produkcji. Nie potwierdzono jeszcze emisji 1.4 na fizycznym telefonie — testy mostka nie dowodzą wyświetlenia reklamy. Gra zachowuje launcher z ostatniego APK, którego uruchomienie potwierdził właściciel, oraz lokalny raport awarii.
 
-Poniżej zachowano poprzednią instrukcję 1.3.1; jej stwierdzenia o naprawie startu nie stanowią potwierdzenia działania na zgłoszonym telefonie.
+Odbiorcy: dzieci od 3 lat i dorośli. Wszyscy mają child-directed/under-age/G/npa=1; brak AD_ID. Nie zmieniono grupy na starszą.
 
-# Neon Block Master — poprawka 1.3.1
+## Sprawdzenie i pliki
 
-## Pobierz nowe APK
+**2760 sprawdzeń Godot i 18 testów Python zaliczonych.** Migracja, zapis planszy z inventory, earned-reward i jego powtórzenie, dotyk Młotka, ratunek z braku ruchów, blokada Daily i błędy SDK. Sprawdzono DEX, manifest, podpis, AAB, 16 KB i zgodność skryptów w paczkach. Render: siedem zrzutów, kontrola kilku proporcji ekranu; brak deklaracji 60 FPS na telefonie.
 
-**[APK 1.3.1 — poprawiony start aplikacji](neon-block-master-1.3.1.apk)**. Otwórz plik i wybierz **Download raw**. Android 7.0+, ARM64, OpenGL ES 3.0. To version code 5, z dotychczasowym certyfikatem debugowym. Zainstaluj jako aktualizację; nie trzeba odinstalowywać gry ani usuwać postępu.
-
-Naprawiono dwa błędy startu: stare ustawienia Next-Gen usuwały główną bibliotekę klasycznego AdMob z paczki, a adapter wyciszał SDK przed jego inicjalizacją. [Opis i testy regresji](docs/STARTUP-1.3.1.md). Wersja 1.3.0 jest wadliwa; użyj 1.3.1.
-
-- [Pełne źródła Godot (ZIP)](neon-block-master-source.zip).
-- [Release AAB bez podpisu](neon-block-master-release-unsigned.aab) — konfiguracja testowa, wymaga właściwej konfiguracji i klucza przed Google Play.
-- [Pliki strony i polityki (ZIP)](neon-block-master-website.zip).
+- [Pełne źródła Godot](neon-block-master-source.zip).
+- [Release AAB bez podpisu — konfiguracja testowa](neon-block-master-release-unsigned.aab).
+- [Strona i polityka prywatności](neon-block-master-website.zip).
 - [Sumy SHA-256](SHA256SUMS.txt).
+- [Opis zmian i nagród](docs/BOOSTERS-1.4.md).
 
-## Reklamy i test
-
-Gra dla dzieci od 3 lat i dorosłych. Klasyczny Google Mobile Ads 24.9.0 / Poing 4.3.1 z jednolitym profilem child-directed, under-age, G i npa=1. **Reklamy pozostają włączone**; nie rozwiązano problemu przez ich usunięcie. APK do testów używa oficjalnych jednostek Google i nie zarabia. Produkcyjne trzy ID właściciela są zapisane osobno do przyszłego wydania.
-
-Po aktualizacji włącz internet, otwórz **Ustawienia → Reklamy testowe — status**, potem sklep/NEON LAB. Nagrody przyznaje wyłącznie earned-reward SDK. Zwykła gra działa offline, a PLASMA jest też dostępna za 240 monet z gry.
-
-**2731 sprawdzeń Godot i 18 testów Python zaliczonych.** Weryfikator sprawdza rzeczywiste definicje MobileAds, AdRequest, RewardedAd i InterstitialAd w DEX, a nie same odwołania do tych nazw. Odrzuca wadliwe poprzednie APK. Sprawdzono manifest SDK, podpis, AAB i 16 KB. [Aktualny raport wraz z ograniczeniami testu urządzenia](docs/VALIDATION.md).
-
-## Publikacja produkcyjna
-
-Wydawca: **Krystian Development**, **kogonowski52@gmail.com**. Zaktualizowane pliki polityki są w `gh-pages`. [Ustawienia Pages](https://github.com/kogonowski52-png/puzle/settings/pages): **Deploy from a branch → gh-pages → /(root) → Save**. Push gałęzi nie potwierdza publicznego hostingu. app-ads.txt musi być też w katalogu głównym hosta.
-
-Pozostają działające publiczne URL, konfiguracja AdMob/UMP, aktualne potwierdzenie Families dla dokładnej wersji SDK, własny klucz upload, testy telefonu i deklaracje Play/IARC. Nie deklarujemy zatwierdzenia przez Google. Nie publikuj klucza ani hasła w czacie/repozytorium.
-
-[Stan reklam](docs/ADS-1.3.md) · [Instrukcja publikacji](docs/PUBLIKACJA-KROK-PO-KROKU.md) · [Bezpieczeństwo danych](docs/DATA-SAFETY.md).
+Wydawca: **Krystian Development**, **kogonowski52@gmail.com**. Do produkcji pozostają publiczne URL strony/polityki, aktualne potwierdzenie Families dla dokładnej wersji SDK, konfiguracja AdMob/UMP, własny klucz upload i deklaracje Play/IARC. Pliki strony są na `gh-pages`; sam push nie uruchamia hostingu. Nie deklarujemy zatwierdzenia Play ani certyfikacji sprawdzonej w tej sesji.

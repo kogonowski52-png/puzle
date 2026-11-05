@@ -1,0 +1,17 @@
+{
+  "passed": 9,
+  "failed": 0,
+  "runtime": "PowerShell 7.4.6 + JDK 21 on Linux; not a native Windows test",
+  "tests": [
+    "modified AAB is rejected before key creation",
+    "actual candidate signed with a new local RSA upload key",
+    "signing preserves the exact original bundle payload including production ad config",
+    "signature report matches real AAB and does not claim policy approval or upload",
+    "repeat signing reuses the exact key without overwriting it",
+    "wrong password preserves existing key and previously verified output",
+    "Android Debug certificate is rejected",
+    "secure password confirmation rejects case differences before key creation",
+    "secure-input path signs and clears the password after confirmation"
+  ],
+  "private_test_keys_deleted": true
+}

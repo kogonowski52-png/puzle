@@ -21,6 +21,10 @@ python3 tools/verify_production.py --bundle builds/neon-block-master-production-
 
 Kandydat dopuszcza przegląd pliku przed zakończeniem weryfikacji Families. Nadal odrzuca testowe/niepoprawne ID, pomieszanych wydawców i nieprawidłowe ustawienia. Zwykłe `--check` oraz podpisany `--build` nadal wymagają rzeczywistej weryfikacji Families. Nie wpisano fikcyjnego `status=verified`.
 
+## Podpisanie na Windows
+
+Dostępna jest [paczka podpisywania na własnym komputerze](WINDOWS-PLAY.md). Zawiera AAB i skrypty, ale nie klucz ani hasło. Umożliwia przygotowanie podpisu przed zakończeniem pozostałych sprawdzeń; nie zastępuje ich ani nie wysyła wydania do Play.
+
 ## Co pozostaje przed uploadem
 
 1. **Własny klucz upload.** Nie ma go w środowisku ani w GitHubie. Na pierwsze wydanie można stworzyć nowy, zachować jego kopię i użyć Play App Signing. Skrypt `tools/create_upload_key.sh` tworzy klucz lokalnie, nie nadpisuje istniejącego i nie wypisuje hasła. Klucz/hasło nie powinny trafić do czatu, repozytorium ani publicznych artefaktów.

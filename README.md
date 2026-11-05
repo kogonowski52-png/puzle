@@ -1,3 +1,15 @@
+# Podpisanie AAB na Windows — pierwszy upload
+
+**[Pobierz paczkę Windows](neon-block-master-windows-signing.zip)** → **Download raw**. Rozpakuj całość i uruchom `podpisz.cmd`. Gdy brakuje JDK, instrukcja podaje instalację Microsoft OpenJDK 21 przez winget. Hasło ustawiasz i potwierdzasz na swoim komputerze. Klucz powstaje w `%USERPROFILE%\NeonBlockMaster-Signing\neon-upload.p12` i nie jest nigdzie wysyłany.
+
+Podpisany AAB powstaje w folderze **wynik**, wraz z publicznym raportem. Zachowaj prywatną kopię klucza i hasła. **Nie wysyłaj klucza ani hasła na czat/GitHub.**
+
+[Dokładna instrukcja Windows i dalsze kroki Play](docs/WINDOWS-PLAY.md). Dziewięć testów podpisywania zaliczono w PowerShell 7.4.6/JDK 21 na Linuksie; nie deklarujemy wykonanego testu natywnego Windows. Sprawdzono rzeczywisty podpis AAB, zachowanie zawartości paczki, ponowne użycie klucza, błędne hasło, potwierdzenie hasła i odrzucenie certyfikatu debugowego. [Raport](windows-signing-tests.json).
+
+Samo podpisanie **nie potwierdza** Families, publicznego hostingu, ustawień kont ani zgody Google. Nie wysłano wydania do Play. Po pozostałych sprawdzeniach zacznij od testu wewnętrznego; wymagania konta i weryfikacja Google mogą uniemożliwić publiczny start tego samego dnia.
+
+---
+
 # Przygotowanie pierwszego wydania Google Play
 
 **Dotychczasowy APK 1.4.1 nadal służy do testów i wyświetla oficjalne reklamy testowe Google.** Poniżej są osobne pliki z prawdziwymi ID właściciela, przygotowane do dalszego podpisania i kontroli przed Play.

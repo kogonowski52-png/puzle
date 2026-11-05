@@ -1,3 +1,7 @@
+# Weryfikacja 1.4.1
+
+Aktualnie: **2769 sprawdzeń Godot, 18 testów Python i 11 testów Android/Robolectric zaliczonych**. [WebView, granice i wyniki](WEBVIEW-1.4.1.md). Brak potwierdzonej emisji na fizycznym Samsungu. Poniżej historia poprzednich wydań.
+
 # Weryfikacja 1.4.0
 
 Aktualny zestaw: **2760 sprawdzeń Godot i 18 testów Python**, wszystkie zaliczone. Nowe testy nagród, Młotka/dotyku, migracji, zapisu, Daily, szybkiego callbacku i błędów SDK: [BOOSTERS-1.4.md](BOOSTERS-1.4.md). Właściciel potwierdził uruchomienie poprzedniego wydania diagnostycznego; nie potwierdzono jeszcze emisji reklam 1.4 na telefonie.

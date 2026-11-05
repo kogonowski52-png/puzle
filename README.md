@@ -1,35 +1,33 @@
-# Neon Block Master — 1.4.0
+# Neon Block Master — 1.4.1
 
-**[Pobierz APK 1.4.0](neon-block-master-1.4.0.apk)** → **Download raw**. Zainstaluj aktualizację bez usuwania aplikacji. Code 7, ten sam certyfikat debugowy, zachowane zapisy. Android 7+, ARM64.
+**[Pobierz APK 1.4.1](neon-block-master-1.4.1.apk)** → **Download raw**. Zainstaluj jako aktualizację, bez usuwania gry. Code 8, ten sam certyfikat debugowy i zachowane zapisy. Android 7+, ARM64.
 
-## Pomocniki, które pomagają w grze
+## WebView i reklamy
 
-- **Młotek 3×3:** wybierz obszar, usuń do 9 zajętych pól i zrób miejsce. Pusty cel nie zużywa ładunku.
-- **Zmiana:** trzy nowe figury bez kasowania planszy i wyniku.
-- **Jedna ukończona reklama = 1 Młotek + 2 Zmiany.** Nagroda wyłącznie z earned-reward SDK, bez losowania.
-- **Pakiet startowy gratis**, także po aktualizacji. Ten sam pakiet można kupić za **90 monet zdobytych w grze**.
-- Przyciski pod planszą i w menu **POMOCNIKI**. Przy braku ruchów wybierz ratunek lub zakończenie partii. W Daily pomocniki są wyłączone.
+Odpowiedź na zgłoszenie `Unable to obtain a JavascriptEngine`: przed uruchomieniem AdMob aplikacja przygotowuje systemowy WebView na wątku UI i sprawdza wykonanie lokalnego JavaScript. Na Androidzie 9+ próbuje też oddzielić profil WebView według procesu. To poprawka sposobu przygotowania oraz diagnostyki; sam ogólny komunikat SDK nie ustala dokładnej przyczyny na telefonie.
 
-PLASMA zostaje dodatkowym kosmetycznym motywem. Główna oferta nagrody prowadzi teraz do pakietu ratunkowego.
+W **POMOCNIKI → Status reklam / Ponów** są wersja WebView, wynik JS i pełny błąd SDK. Debug APK po ponownym błędzie próbuje zebrać ograniczony log SDK z własnego procesu. **Kopiuj szczegóły** kopiuje lokalny raport; nic nie jest automatycznie wysyłane. Naprawiono też nachodzenie długiego komunikatu na dolny przycisk.
 
-## Reklamy
+**Nie potwierdzono jeszcze emisji 1.4.1 na fizycznym Samsungu.** Test lokalnego JS i testy mostka nie dowodzą wyświetlenia reklamy. APK używa oficjalnych jednostek testowych Google, które nie generują przychodu. Prawdziwe ID właściciela są zachowane do przyszłej konfiguracji produkcyjnej. Nie symulujemy reklam ani nagrody za błąd SDK.
 
-Naprawiono kolejność inicjalizacji: listener jest podłączany **przed** wywołaniem SDK. Test natychmiastowego natywnego callbacku potwierdza, że odpowiedź nie ginie. Dodano ponowne wiązanie singletonów Android, limity czasu, retry, odrzucanie spóźnionych odpowiedzi i prawidłowe zwalnianie loaderów.
+## Nagrody
 
-Otwórz **POMOCNIKI → Status reklam / Ponów**. Widać stan i rzeczywisty kod/domenę/komunikat błędu SDK, zamiast samego „niedostępna”. Gdy reklama jest gotowa, oferta pakietu uruchamia rzeczywisty SDK.
+- Jedna ukończona reklama daje **1 Młotek 3×3 + 2 Zmiany klocków**; wyłącznie po earned-reward SDK.
+- Młotek usuwa do 9 zajętych pól, Zmiana wymienia trzy figury bez kasowania planszy i wyniku.
+- Pakiet startowy gratis; kolejny pakiet także za 90 monet zdobytych w grze.
+- Pomocniki działają w Classic i Time Attack. Przy braku ruchów można wybrać ratunek; Daily pozostaje bez pomocników.
 
-APK nadal korzysta z **oficjalnych jednostek testowych Google; nie zarabia**. Prawdziwe ID właściciela pozostają zapisane do przyszłej produkcji. Nie potwierdzono jeszcze emisji 1.4 na fizycznym telefonie — testy mostka nie dowodzą wyświetlenia reklamy. Gra zachowuje launcher z ostatniego APK, którego uruchomienie potwierdził właściciel, oraz lokalny raport awarii.
+Zachowano działający launcher i lokalny raport awarii. Odbiorcy: dzieci od 3 lat i dorośli. Profil reklam nadal child-directed/under-age/G/npa=1, bez AD_ID.
 
-Odbiorcy: dzieci od 3 lat i dorośli. Wszyscy mają child-directed/under-age/G/npa=1; brak AD_ID. Nie zmieniono grupy na starszą.
+## Weryfikacja i pliki
 
-## Sprawdzenie i pliki
+**2769 sprawdzeń Godot, 18 testów Python i 11 testów Android/Robolectric zaliczonych.** Zweryfikowano manifest i definicje klas DEX, podpis APK, AAB, wyrównanie 16 KB i zgodność skryptów w paczkach. Renderowane scenariusze błędów są jawnymi danymi testowymi UI, nie zdjęciami emisji reklamy.
 
-**2760 sprawdzeń Godot i 18 testów Python zaliczonych.** Migracja, zapis planszy z inventory, earned-reward i jego powtórzenie, dotyk Młotka, ratunek z braku ruchów, blokada Daily i błędy SDK. Sprawdzono DEX, manifest, podpis, AAB, 16 KB i zgodność skryptów w paczkach. Render: siedem zrzutów, kontrola kilku proporcji ekranu; brak deklaracji 60 FPS na telefonie.
-
-- [Pełne źródła Godot](neon-block-master-source.zip).
-- [Release AAB bez podpisu — konfiguracja testowa](neon-block-master-release-unsigned.aab).
+- [Źródła](neon-block-master-source.zip).
+- [Release AAB unsigned — konfiguracja testowa](neon-block-master-release-unsigned.aab).
 - [Strona i polityka prywatności](neon-block-master-website.zip).
-- [Sumy SHA-256](SHA256SUMS.txt).
-- [Opis zmian i nagród](docs/BOOSTERS-1.4.md).
+- [Opis poprawki i ograniczeń](docs/WEBVIEW-1.4.1.md).
+- [Opis pomocników](docs/BOOSTERS-1.4.md).
+- [SHA-256](SHA256SUMS.txt).
 
-Wydawca: **Krystian Development**, **kogonowski52@gmail.com**. Do produkcji pozostają publiczne URL strony/polityki, aktualne potwierdzenie Families dla dokładnej wersji SDK, konfiguracja AdMob/UMP, własny klucz upload i deklaracje Play/IARC. Pliki strony są na `gh-pages`; sam push nie uruchamia hostingu. Nie deklarujemy zatwierdzenia Play ani certyfikacji sprawdzonej w tej sesji.
+Wydawca: **Krystian Development**, **kogonowski52@gmail.com**. Do produkcji pozostają publiczne URL strony/polityki, weryfikacja Families dla dokładnej wersji SDK, konfiguracja AdMob/UMP, własny klucz upload oraz deklaracje Play/IARC. Pliki strony są na `gh-pages`; sam push nie potwierdza działającego hostingu. AAB nie jest gotowym, podpisanym wydaniem Google Play.

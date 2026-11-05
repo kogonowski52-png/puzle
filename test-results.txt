@@ -1,3 +1,5 @@
-Godot 4.6.3: CHECKS 2760 / PASSED 2760 / FAILED 0
-Python unittest: 18 tests / OK
-SDK bridge tests are automated test probes, not evidence of phone ad serving.
+Neon Block Master 1.4.1
+Godot: 2769 checks passed, 0 failed.
+Python: 18 tests passed.
+Android/Robolectric: 11 tests passed (4 startup, 4 WebView readiness, 3 bounded own-process log capture).
+No physical phone ad serving was verified. Robolectric controlled JS callbacks are not a real ad impression.

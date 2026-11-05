@@ -1,3 +1,4 @@
-neon-block-master-debug.apk 89387681 bytes: PASS
-neon-block-master-debug.aab 36187367 bytes: PASS
-neon-block-master-release-unsigned.aab 33682861 bytes: PASS
+neon-block-master-debug.apk 89391029 bytes: PASS
+neon-block-master-debug.aab 36193805 bytes: PASS
+neon-block-master-release-unsigned.aab 33688597 bytes: PASS
+Local artifact checks only; no phone installation or ad impression was verified.

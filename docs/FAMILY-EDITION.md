@@ -1,4 +1,7 @@
-# Wydanie rodzinne 1.2.0 — aktualny stan
+# Archiwum wydania rodzinnego 1.2.0
+
+**Aktualizacja 1.3.0:** przywrócono reklamy przez klasyczny Google Mobile Ads 24.9.0 / Poing 4.3.1 z jednolitym profilem dla dzieci. APK używa jednostek testowych. [Aktualna instrukcja i ograniczenia](ADS-1.3.md). Opis wariantu bez reklam 1.2.0 poniżej jest archiwalny.
+
 
 Użytkownik wybrał odbiorców **dzieci i dorośli**, wydawcę **Krystian Development** i publiczny kontakt **kogonowski52@gmail.com**. „3+” jest propozycją oceny treści; właściwą ocenę wyznacza ankieta IARC. Nie jest to odpowiedź na pytanie o docelowe grupy wieku.
 

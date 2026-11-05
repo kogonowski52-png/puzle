@@ -1,29 +1,30 @@
-# Szkic deklaracji Bezpieczeństwo danych
+# Szkic deklaracji Bezpieczeństwo danych — 1.3.0
 
-**1.2.0:** native SDK reklamowy Google został usunięty z eksportu. Brak Internet/AD_ID w manifeście i brak klas Google Ads w DEX. Gra zapisuje postęp lokalnie, nie ma kont ani własnej analityki i nie pyta o wiek w wariancie bez reklam. Poniższe uwagi o AdMob dotyczą wcześniejszej/przyszłej integracji, nie obecnego artefaktu. Uwzględnij rzeczywisty wariant przy formularzu Play; odwiedzenie publicznej strony w przeglądarce podlega również zasadom jej hostingu.
+Wariant z klasycznym Google Mobile Ads **24.9.0 / Poing 4.3.1 / UMP 4.0.0**. APK testowy korzysta z oficjalnych jednostek demonstracyjnych; docelowi odbiorcy to dzieci od 3 lat i dorośli. [Stan reklam](ADS-1.3.md).
 
-
-To materiał do wypełnienia formularza, nie automatyczna deklaracja zgodności. Potwierdź aktualne definicje Play i dokumentację faktycznie dołączonego **Google Next-Gen Mobile Ads SDK 1.4.0 / UMP** przed wysłaniem. Nie zaznaczaj „brak zbierania danych” tylko dlatego, że wyniki gry są offline.
+To materiał do wypełnienia formularza, nie automatyczna deklaracja zgodności. Potwierdź aktualne definicje Play i dokumentację dołączonej wersji SDK. Nie zaznaczaj „brak zbierania danych” tylko dlatego, że wyniki gry są offline.
 
 | Element | Stan aplikacji / co sprawdzić |
 |---|---|
 | Konto gracza | Brak rejestracji i logowania; nie ma serwera kont ani formularza usunięcia konta. |
 | Wyniki, monety, motywy, wyzwania | Lokalny JSON na urządzeniu. Aplikacja nie wysyła ich na serwer gry. Czyszczenie danych aplikacji usuwa postęp. |
-| Identyfikatory urządzenia/reklam | SDK reklam może je przetwarzać; zadeklaruj zgodnie z dokumentacją Google, faktyczną zgodą i konfiguracją. |
+| Identyfikatory urządzenia/reklam | Usunięto uprawnienia AD_ID, telefonu i reklamowe Privacy Sandbox. To nie jest deklaracja braku wszystkich identyfikatorów technicznych SDK; potwierdź zakres w aktualnej dokumentacji Google. |
 | Przybliżona lokalizacja/IP | SDK może przetwarzać adres IP i wnioskować lokalizację; brak uprawnienia GPS nie oznacza automatycznie braku danych lokalizacyjnych. |
 | Interakcje z aplikacją/reklamą | SDK reklam może raportować wyświetlenia i interakcje. Celem jest obsługa reklam, pomiar i zapobieganie nadużyciom według dokumentacji Google. |
 | Diagnostyka / awarie / wydajność | Zależności Google mogą je przetwarzać. Zweryfikuj zakres oraz ewentualne ustawienia wyłączenia przed deklaracją. |
 | Udostępnianie / role dostawców | Nie utożsamiaj każdego dostawcy automatycznie z wyjątkiem „service provider”. Sprawdź definicje i warunki Google dla tego SDK. |
 | Szyfrowanie transmisji | Gra nie ma własnych żądań API. Sprawdź deklarację Google dla całego ruchu SDK; nie zgaduj odpowiedzi za zewnętrzne biblioteki. |
-| Zgody i opcjonalność | UMP przed żądaniem reklam. Rewarded dobrowolne, osobna korzyść pokazana wcześniej; odmowa nie blokuje gry. Interstitial ograniczone i między rozgrywkami. |
-| Dzieci / Families | Nie zadeklarowano zgodności Families. Pipeline wymaga świadomego wyboru 16+ lub 18+ zgodnego z rzeczywistymi odbiorcami. |
+| Zgody i opcjonalność | W produkcji UMP under-age przed żądaniem reklam; testowe ID bez formularza dla dorosłych. Rewarded dobrowolne, osobna korzyść pokazana wcześniej; odmowa nie blokuje gry. Interstitial ograniczone i między rozgrywkami. |
+| Dzieci / Families | Dzieci od 3 lat i dorośli, jednolity profil child-directed/under-age/G/npa. Bieżąca certyfikacja dokładnej wersji SDK wymaga potwierdzenia; nie zadeklarowano zatwierdzenia Play. |
 | Zakupy | Nie są zaimplementowane. Neon Coins nie mają wartości pieniężnej i nie są wymienialne. |
 
-Rzeczywisty scalony manifest poprzedniej kompilacji zawierał m.in. Internet, stan sieci, wibracje, AD_ID, READ_BASIC_PHONE_STATE, WAKE_LOCK i FOREGROUND_SERVICE. Sprawdź bieżący manifest po każdej aktualizacji SDK.
+
+Bieżący manifest ma Internet i metadane SDK; AD_ID, uprawnienia telefonu i reklamowe Privacy Sandbox są usunięte. Sprawdź manifest po aktualizacji biblioteki. Brak tych uprawnień nie oznacza, że Google nie przetwarza IP, diagnostyki lub interakcji z reklamą.
 
 Źródła do aktualnego sprawdzenia:
+
 - https://developers.google.com/admob/android/privacy/play-data-disclosure
 - https://developers.google.com/admob/android/privacy
 - https://support.google.com/googleplay/android-developer/answer/10787469
 
-Stan zadań dla wydawcy: prawdziwy URL polityki, kontakt, wybór grupy, konfiguracja UMP, analiza deklaracji SDK i wpisanie formularza w Play Console. Nie zostały potwierdzone przez samą walidację AAB.
+Pozostają: publiczny URL polityki, konfiguracja konta AdMob/UMP, potwierdzenie Families dla dokładnej wersji SDK, analiza deklaracji dostawcy i wpisanie formularza w Play Console. Walidacja AAB ich nie potwierdza.

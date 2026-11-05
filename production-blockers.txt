@@ -1,0 +1,6 @@
+Release blocked:
+- privacy_url: required
+- website_url: required
+- privacy_url: public HTTPS URL required
+- website_url: public HTTPS URL required
+- Families production review still required for this exact SDK version; development APK uses official Google test units

@@ -1,26 +1,28 @@
-# Neon Block Master — 1.2.0
+# Neon Block Master — 1.3.0 z reklamami testowymi
 
-## Pobierz
+## Pobierz APK
 
-- [APK do testowania — 77 MB](neon-block-master-debug.apk). Otwórz plik i wybierz **Download raw**. Android 7.0+, ARM64, OpenGL ES 3.0; zachowano podpis poprzedniego APK.
-- [AAB release bez podpisu](neon-block-master-release-unsigned.aab) — wymaga własnego klucza upload przed Play.
+**[APK 1.3.0 do zainstalowania na telefonie — 85 MB](neon-block-master-debug.apk)**. Otwórz plik i wybierz **Download raw**. Android 7.0+, ARM64, OpenGL ES 3.0. Zachowano dotychczasowy certyfikat debugowy, więc można zainstalować aktualizację.
+
 - [Pełne źródła Godot (ZIP)](neon-block-master-source.zip).
+- [Release AAB bez podpisu](neon-block-master-release-unsigned.aab) — również konfiguracja testowa, wymaga właściwej konfiguracji i klucza przed Google Play.
 - [Pliki strony i polityki (ZIP)](neon-block-master-website.zip).
+- [Sumy kontrolne SHA-256](SHA256SUMS.txt).
 
-## Dzieci i dorośli
+## Reklamy dla dzieci i dorosłych
 
-Odbiorcy zostali określeni jako dzieci i dorośli. Wydanie 1.2.0 jest **bez reklam i bez natywnego SDK reklamowego Google**. Motywy można odblokować za monety z gry; zachowano starszy zapis. Nie zbieramy wieku w tym wariancie. Ocena treści 3+ nie została nadana automatycznie — określi ją ankieta IARC.
+Gra jest przeznaczona dla dzieci od 3 lat i dorosłych. Ta wersja zawiera **rzeczywisty klasyczny Google Mobile Ads SDK 24.9.0 / Poing 4.3.1**, zamiast wariantu 1.2 bez reklam. Wszyscy gracze używają profilu child-directed, under-age, G i npa=1; brak uprawnienia AD_ID. Ocena sklepu jest ustalana przez IARC.
 
-Aktualnych wymagań Families i przydatności poprzedniego SDK nie udało się zweryfikować z powodu blokady dostępu do oficjalnej dokumentacji. Nie deklarujemy certyfikacji SDK ani zgodności/akceptacji Google Play. Realne reklamy pozostają wyłączone do prawidłowej weryfikacji i konfiguracji.
+APK do Twoich testów używa **oficjalnych jednostek testowych Google i nie zarabia**. Produkcyjne App ID, Rewarded i Interstitial od właściciela są zapisane w konfiguracji źródeł do przyszłego wydania produkcyjnego.
 
-**2725 sprawdzeń gry + 14 testów narzędzi zaliczonych.** W gotowych paczkach sprawdzono brak natywnych klas SDK reklam, reklamowych metadanych i Internet/AD_ID; APK ma tylko uprawnienie wibracji. Sprawdzono podpis, strukturę AAB, 16 KB ELF i zgodność skryptów między paczkami. Telefon, 60 FPS i proces Play Console pozostają do weryfikacji.
+Na telefonie włącz internet, otwórz **Ustawienia → Reklamy testowe — status**, następnie sklep/NEON LAB i poczekaj na załadowanie reklamy. Za earned-reward SDK dostępne są monety, dodatkowa szansa, podwojenie monet z rozgrywki albo ładunek do PLASMA. Nagrody nie wymagają klikania reklamy. Motyw można też zdobyć za 240 monet z gry.
 
-## Strona i publikacja
+**2727 sprawdzeń Godot i 14 testów Python zaliczonych.** Sprawdzono podpis APK, manifest, obecność klasycznego SDK, brak Next-Gen, strukturę AAB, wyrównanie bibliotek 16 KB oraz zgodność skryptów w paczkach. W chmurze nie ma fizycznego telefonu, więc nie potwierdzono rzeczywistego wyświetlenia reklamy ani wydajności telefonu.
 
-Publiczne dane wydawcy podano i zatwierdzono do publikacji: **Krystian Development**, **kogonowski52@gmail.com**. Pliki strony są na gałęzi `gh-pages`; sam push nie potwierdza uruchomienia hostingu.
+## Strona i wydanie produkcyjne
 
-[Otwórz ustawienia GitHub Pages](https://github.com/kogonowski52-png/puzle/settings/pages) i wybierz **Deploy from a branch → gh-pages → /(root) → Save**. Sprawdź publiczny adres wyświetlony przez GitHuba.
+Publiczny wydawca: **Krystian Development**, **kogonowski52@gmail.com**. Aktualne pliki strony i polityki są na gałęzi `gh-pages`. [Ustawienia GitHub Pages](https://github.com/kogonowski52-png/puzle/settings/pages): **Deploy from a branch → gh-pages → /(root) → Save**. Push plików nie potwierdza działającego publicznego hostingu; zweryfikuj URL. Dla AdMob app-ads.txt musi być także w katalogu głównym hosta.
 
-[Stan wydania rodzinnego i dalsze kroki](docs/FAMILY-EDITION.md) · [Raport walidacji](docs/VALIDATION.md) · [Instrukcja publikacji](docs/PUBLIKACJA-KROK-PO-KROKU.md) · [Data safety](docs/DATA-SAFETY.md).
+Do produkcji nadal potrzebne są: działający URL polityki/strony, konfiguracja konta AdMob i UMP, aktualna weryfikacja dokładnej wersji SDK na oficjalnej liście Families, własny klucz upload, testy urządzenia i deklaracje Play. Dokumentacja Google jest blokowana przez sieć środowiska; nie zadeklarowano certyfikacji ani zatwierdzenia przez Google Play. Klucza ani hasła nie wysyłaj do czatu lub repozytorium.
 
-Nie wysyłaj prywatnego klucza ani hasła do repozytorium lub czatu. Podpisany produkcyjny AAB, działający publiczny URL polityki, deklaracje i testy w Play Console wymagają osobnych czynności właściciela.
+[Stan reklam i testowanie](docs/ADS-1.3.md) · [Publikacja krok po kroku](docs/PUBLIKACJA-KROK-PO-KROKU.md) · [Raport walidacji](docs/VALIDATION.md) · [Bezpieczeństwo danych](docs/DATA-SAFETY.md).

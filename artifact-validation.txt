@@ -1,0 +1,3 @@
+neon-block-master-debug.apk 84889974 bytes: PASS
+neon-block-master-debug.aab 32210146 bytes: PASS
+neon-block-master-release-unsigned.aab 30043122 bytes: PASS

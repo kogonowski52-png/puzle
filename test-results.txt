@@ -1,9 +1,9 @@
 Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
 
-SIMULATION: 60 games / 1256 moves / 499 ms
-CHECKS: 2725; PASSED: 2725; FAILED: 0
+SIMULATION: 60 games / 1256 moves / 480 ms
+CHECKS: 2727; PASSED: 2727; FAILED: 0
 ..............
 ----------------------------------------------------------------------
-Ran 14 tests in 0.154s
+Ran 14 tests in 0.060s
 
 OK

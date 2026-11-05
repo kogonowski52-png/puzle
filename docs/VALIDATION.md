@@ -1,3 +1,7 @@
+# Weryfikacja przygotowania produkcji
+
+**2771 sprawdzeń Godot i 21 testów Python zaliczonych.** Zbudowano niepodpisany AAB z produkcyjnymi ID właściciela; sprawdzono rzeczywistą konfigurację, manifest, klasy SDK, bundletool i wyrównanie ELF 16 KB. Stary AAB z jednostkami demo jest odrzucany jako produkcyjny. Podpis upload, hosting, aktualna lista Families i ustawienia kont pozostają do uzupełnienia. Nie wysłano wydania do Play. [Pełny stan](PRODUCTION-PREP.md).
+
 # Weryfikacja 1.4.1
 
 Aktualnie: **2769 sprawdzeń Godot, 18 testów Python i 11 testów Android/Robolectric zaliczonych**. [WebView, granice i wyniki](WEBVIEW-1.4.1.md). Brak potwierdzonej emisji na fizycznym Samsungu. Poniżej historia poprzednich wydań.

@@ -1,3 +1,18 @@
+# Przygotowanie pierwszego wydania Google Play
+
+**Dotychczasowy APK 1.4.1 nadal służy do testów i wyświetla oficjalne reklamy testowe Google.** Poniżej są osobne pliki z prawdziwymi ID właściciela, przygotowane do dalszego podpisania i kontroli przed Play.
+
+- [AAB z produkcyjną konfiguracją — NIEPODPISANY KANDYDAT](neon-block-master-production-candidate-unsigned.aab). **Nie jest gotowy do wgrania do Play.**
+- [Materiały Play Console: opisy PL/EN i grafiki](neon-block-master-play-console.zip).
+- [Źródła wariantu produkcyjnego i narzędzia podpisywania/kontroli](neon-block-master-production-source.zip).
+- [Strona i polityka dla wariantu produkcyjnego](neon-block-master-production-website.zip).
+- [Aktualna instrukcja i pozostałe kroki](docs/PRODUCTION-PREP.md).
+- [Raport gotowości](production-readiness.json) i [kontrola AAB](production-artifact-validation.json).
+
+Potwierdzono w rzeczywistym AAB tryb production, trzy ID AdMob właściciela, brak debugowego podpisu/launchera, target API 36 i biblioteki 16 KB. 2771 sprawdzeń Godot i 21 testów Python przeszło. **Nie ma jeszcze podpisanego pliku do Play:** brakuje klucza upload, aktualnego sprawdzenia Families, potwierdzenia hostingu oraz ustawień/deklaracji kont. Nic nie wysłano do Play Console. Oczekiwane URL są wpisane w konfiguracji, ale dostęp do nich i do dokumentacji Google jest blokowany przez obecną sieć środowiska. app-ads.txt musi być w głównym katalogu hosta, nie tylko /puzle/.
+
+---
+
 # Neon Block Master — 1.4.1
 
 **[Pobierz APK 1.4.1](neon-block-master-1.4.1.apk)** → **Download raw**. Zainstaluj jako aktualizację, bez usuwania gry. Code 8, ten sam certyfikat debugowy i zachowane zapisy. Android 7+, ARM64.

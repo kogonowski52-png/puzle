@@ -1,0 +1,5 @@
+Production preparation: 2771 Godot checks and 21 Python tests passed.
+Actual production candidate: bundletool validation, ZIP, real AdMob config + manifest, native class definitions, no debug reporter/signature, 16 KiB ELF alignment passed.
+Existing demo AAB correctly rejected as production.
+No signed production artifact, Play upload, hosted URLs, Families review or live production ad serving were established.
+The existing 1.4.1 test APK was not rebuilt in this preparation.

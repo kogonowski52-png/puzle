@@ -1,0 +1,31 @@
+{
+  "artifact": "neon-block-master-production-candidate-unsigned.aab",
+  "sha256": "056be151f256b772acb76b49c94123ae16020dd9f9e3d3e70b8e34c64bfd2c4f",
+  "bytes": 33688681,
+  "package": "com.neonblockmaster.puzzle",
+  "version_code": "8",
+  "version_name": "1.4.1",
+  "mode": "production",
+  "admob": {
+    "app_id": "ca-app-pub-5988667220268461~2690935374",
+    "rewarded_id": "ca-app-pub-5988667220268461/2523414410",
+    "interstitial_id": "ca-app-pub-5988667220268461/3644924391"
+  },
+  "signed": false,
+  "debuggable": false,
+  "elf_alignment": {
+    "base/lib/arm64-v8a/libc++_shared.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "base/lib/arm64-v8a/libgodot_android.so": [
+      16384,
+      16384,
+      16384
+    ]
+  },
+  "artifact_checks_passed": true,
+  "play_approval_verified": false,
+  "device_ad_serving_verified": false
+}

@@ -1,0 +1,21 @@
+{
+  "artifact": "neon-block-master-production-candidate-unsigned.aab",
+  "sha256": "056be151f256b772acb76b49c94123ae16020dd9f9e3d3e70b8e34c64bfd2c4f",
+  "config_mode": "production",
+  "admob": {
+    "app_id": "ca-app-pub-5988667220268461~2690935374",
+    "rewarded_id": "ca-app-pub-5988667220268461/2523414410",
+    "interstitial_id": "ca-app-pub-5988667220268461/3644924391"
+  },
+  "signed": false,
+  "play_upload_ready": false,
+  "outstanding_configuration_checks": [
+    "Families production review still required for this exact SDK version; development APK uses official Google test units"
+  ],
+  "other_required_steps": [
+    "owner upload signing key",
+    "public hosting and app-ads.txt verification",
+    "AdMob/UMP account setup and device checks",
+    "Play Console declarations and review"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "artifact": "neon-block-master-production-candidate-unsigned.aab",
+  "mode": "production",
+  "owner_admob_ids_embedded": true,
+  "artifact_checks_passed": true,
+  "signed": false,
+  "ready_for_play_upload": false,
+  "play_console_account": "owner confirmed account exists; this game has never been uploaded",
+  "version": {
+    "name": "1.4.1",
+    "code": 8,
+    "package": "com.neonblockmaster.puzzle"
+  },
+  "checks": {
+    "godot_checks_passed": 2771,
+    "python_tests_passed": 21,
+    "production_bundletool_validation": "passed",
+    "production_manifest_and_native_classes": "passed",
+    "elf_16kb_alignment": "passed",
+    "demo_bundle_rejected_as_production": true
+  },
+  "blockers": [
+    {
+      "id": "upload_signing",
+      "state": "missing",
+      "detail": "No owner upload key or release signing variables are configured. Debug key is not used."
+    },
+    {
+      "id": "families_review",
+      "state": "unverified",
+      "detail": "Exact Google Mobile Ads 24.9.0 Families listing not checked; official support.google.com blocked by current proxy."
+    },
+    {
+      "id": "public_hosting",
+      "state": "unverified",
+      "detail": "Expected website/privacy/root app-ads URLs were denied by current proxy. Denial does not establish hosting status."
+    },
+    {
+      "id": "admob_and_play_console",
+      "state": "owner_action_required",
+      "detail": "Configure/check AdMob readiness, UMP and Play association; complete app declarations and account-specific requirements. No Play API access configured."
+    }
+  ],
+  "expected_urls": {
+    "website": "https://kogonowski52-png.github.io/puzle/",
+    "privacy": "https://kogonowski52-png.github.io/puzle/privacy.html",
+    "app_ads": "https://kogonowski52-png.github.io/app-ads.txt"
+  },
+  "network_draft_saved": true,
+  "network_draft_applied_to_runtime": false,
+  "release_uploaded_to_play": false,
+  "live_ad_serving_verified": false
+}

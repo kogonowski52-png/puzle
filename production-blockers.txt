@@ -1,6 +1,3 @@
-Release blocked:
-- privacy_url: required
-- website_url: required
-- privacy_url: public HTTPS URL required
-- website_url: public HTTPS URL required
-- Families production review still required for this exact SDK version; development APK uses official Google test units
+Not ready for Play upload. Candidate uses real owner AdMob IDs and is unsigned.
+Missing: owner upload signing key; exact SDK Families review; public website/privacy/root app-ads verification; AdMob/UMP readiness, Play disclosures and device checks.
+The saved network draft is not proof that destinations are accessible in the current runtime. No Play upload performed.

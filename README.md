@@ -1,3 +1,27 @@
+# Zgłoszona awaria na Samsungu S25 FE — raport diagnostyczny
+
+**1.3.1 nadal zamyka się na telefonie właściciela. Nie mamy potwierdzonej naprawy.** Poprzednie poprawki i testy paczek nie rozwiązały całego zgłoszenia.
+
+[**Pobierz APK do odczytu rzeczywistego raportu awarii**](neon-block-master-diagnostic.apk) → **Download raw**. To `1.3.2-diagnostic`, code 6, z dotychczasowym podpisem. Zainstaluj jako aktualizację, bez usuwania danych gry.
+
+Otwórz aplikację. Jeśli zniknie, otwórz ponownie. Ekran **Raport awarii** działa w osobnym procesie i może pokazać rzeczywisty wyjątek Java albo systemowy ślad natywnej awarii. Wybierz **Kopiuj raport** i wklej tekst w rozmowie, albo **Udostępnij plik raportu** i załącz pliki do rozmowy. Jeżeli ekran raportu jest już widoczny, nie trzeba ponownie wywoływać awarii. Przycisk **Uruchom grę** pozwala ponowić próbę i zebrać nowy wyjątek.
+
+Raporty zostają na telefonie; nic nie jest wysyłane automatycznie. Provider jest prywatny, udostępnia tylko dwa stałe pliki do odczytu z tymczasowym uprawnieniem. Postęp gry nie jest kasowany. Reklamy testowe pozostają włączone.
+
+Sprawdzono cztery testy Android/Robolectric: start bez błędu, ekran i schowek, zapis nieobsłużonego wyjątku z przekazaniem do Androida, odmowa odczytu innych plików i zapisu. Sprawdzono podpis APK, klasy DEX, manifest, wyrównanie 16 KB i zgodność skryptów oraz bibliotek silnika z 1.3.1. **To diagnostyka, a nie potwierdzenie usunięcia awarii na Samsungu.** Próba testu sprzętowego nie została zaliczona; emulacja bez KVM nie uruchomiła stabilnie Androida.
+
+- [Źródła z odtwarzalnym buildem diagnostycznym](neon-block-master-diagnostic-source.zip).
+- [Wyniki kontroli APK](diagnostic-validation.json).
+- [Wynik testów ekranu raportu](diagnostic-tests.txt).
+- [Opis lokalnego raportowania](docs/DIAGNOSTICS.md).
+- [Sumy SHA-256 paczki diagnostycznej](DIAGNOSTIC-SHA256SUMS.txt).
+
+Nie publikuj prywatnego raportu ani natywnego śladu w publicznym repozytorium bez jego sprawdzenia. Przekaż go w rozmowie do analizy konkretnej awarii.
+
+---
+
+Poniżej zachowano poprzednią instrukcję 1.3.1; jej stwierdzenia o naprawie startu nie stanowią potwierdzenia działania na zgłoszonym telefonie.
+
 # Neon Block Master — poprawka 1.3.1
 
 ## Pobierz nowe APK

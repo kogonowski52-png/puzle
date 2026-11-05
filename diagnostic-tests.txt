@@ -1,0 +1,79 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :preBuild UP-TO-DATE
+> Task :preDebugBuild UP-TO-DATE
+> Task :generateDebugResValues UP-TO-DATE
+> Task :generateDebugResources UP-TO-DATE
+> Task :packageDebugResources UP-TO-DATE
+> Task :parseDebugLocalResources UP-TO-DATE
+> Task :generateDebugRFile UP-TO-DATE
+> Task :javaPreCompileDebug UP-TO-DATE
+
+> Task :compileDebugJavaWithJavac
+Java compiler version 21 has deprecated support for compiling with source/target version 8.
+Try one of the following options:
+    1. [Recommended] Use Java toolchain with a lower language version
+    2. Set a higher source/target version
+    3. Use a lower version of the JDK running the build (if you're not using Java toolchain)
+For more details on how to configure these settings, see https://developer.android.com/build/jdks.
+To suppress this warning, set android.javaCompile.suppressSourceTargetDeprecationWarning=true in gradle.properties.
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+Note: /workspace/puzle/tools/android_diagnostics/src/com/neonblockmaster/diagnostics/StartupActivity.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+3 warnings
+
+> Task :preDebugUnitTestBuild UP-TO-DATE
+> Task :javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :writeDebugAarMetadata UP-TO-DATE
+> Task :bundleLibRuntimeToJarDebug
+> Task :bundleLibCompileToJarDebug
+> Task :checkDebugUnitTestAarMetadata
+> Task :generateDebugUnitTestResValues
+> Task :compileDebugLibraryResources
+> Task :mapDebugUnitTestSourceSetPaths
+> Task :generateDebugUnitTestResources
+> Task :mergeDebugUnitTestResources
+> Task :extractDeepLinksDebug
+> Task :mergeDebugShaders
+> Task :compileDebugShaders NO-SOURCE
+> Task :generateDebugAssets UP-TO-DATE
+> Task :mergeDebugAssets
+> Task :generateDebugUnitTestAssets UP-TO-DATE
+> Task :packageDebugAssets
+> Task :mergeDebugUnitTestAssets
+> Task :processDebugJavaRes NO-SOURCE
+> Task :processDebugUnitTestJavaRes NO-SOURCE
+> Task :processDebugManifest
+> Task :processDebugUnitTestManifest
+> Task :processDebugUnitTestResources
+
+> Task :compileDebugUnitTestJavaWithJavac
+Java compiler version 21 has deprecated support for compiling with source/target version 8.
+Try one of the following options:
+    1. [Recommended] Use Java toolchain with a lower language version
+    2. Set a higher source/target version
+    3. Use a lower version of the JDK running the build (if you're not using Java toolchain)
+For more details on how to configure these settings, see https://developer.android.com/build/jdks.
+To suppress this warning, set android.javaCompile.suppressSourceTargetDeprecationWarning=true in gradle.properties.
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+
+> Task :packageDebugUnitTestForUnitTest
+> Task :generateDebugUnitTestConfig
+> Task :testDebugUnitTest
+
+StartupTest > providerRejectsUnknownFilesAndWriting PASSED
+
+StartupTest > javaCrashIsVisibleAndCanBeCopied PASSED
+
+StartupTest > uncaughtJavaFailureIsSavedAndDelegatesToAndroid PASSED
+
+StartupTest > noCrashStartsGameWithoutAReportScreen PASSED
+[Incubating] Problems report is available at: file:///workspace/toolchain/crash16/jvm-tests/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 2m 47s
+29 actionable tasks: 21 executed, 8 up-to-date

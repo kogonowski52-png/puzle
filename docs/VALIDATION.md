@@ -1,5 +1,8 @@
 # Weryfikacja wydania 1.3.1
 
+**Zgłoszenie po publikacji:** właściciel potwierdził, że 1.3.1 nadal zamyka się przy starcie na Samsungu S25 FE. Poprawki pakowania i kolejności inicjalizacji nie są potwierdzoną naprawą tego zgłoszenia. Testy plików/JVM nie dowodzą uruchomienia na tym telefonie. [Lokalny raport awarii](../tools/android_diagnostics/README.md) pozwala zebrać rzeczywisty wyjątek lub natywny ślad; przyczyna pozostaje nieustalona.
+
+
 Poprawka pakowania: usunięto pozostawione przez dawny plugin Next-Gen wykluczenia klasycznego SDK. Nowy weryfikator odróżnia definicje klas DEX od odwołań i odrzuca wadliwe APK 1.3.0. [Opis](STARTUP-1.3.1.md).
 
 ## Wykonane

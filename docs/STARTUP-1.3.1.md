@@ -1,5 +1,8 @@
 # Poprawka uruchamiania 1.3.1
 
+**Zgłoszenie po publikacji:** właściciel potwierdził, że 1.3.1 nadal zamyka się przy starcie na Samsungu S25 FE. Poprawki pakowania i kolejności inicjalizacji nie są potwierdzoną naprawą tego zgłoszenia. Testy plików/JVM nie dowodzą uruchomienia na tym telefonie. [Lokalny raport awarii](../tools/android_diagnostics/README.md) pozwala zebrać rzeczywisty wyjątek lub natywny ślad; przyczyna pozostaje nieustalona.
+
+
 Zgłoszenie: aplikacja otwiera się na sekundę i zamyka na Samsungu S25 FE.
 
 ## Znaleziony błąd

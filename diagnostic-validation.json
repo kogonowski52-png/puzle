@@ -1,0 +1,13 @@
+{
+  "file": "neon-block-master-diagnostic.apk",
+  "bytes": 89374549,
+  "sha256": "c49b17f5453ef07f16e540bcf7d695544e1a78cceb33a4f8b171506081d3859a",
+  "game_scripts_match_1_3_1": true,
+  "engine_libraries_match_1_3_1": true,
+  "same_debug_certificate": true,
+  "sdk_and_reporter_classes_defined": true,
+  "separate_report_process": true,
+  "native_report_tests": 4,
+  "phone_crash_root_cause": "not yet known",
+  "hardware_startup_test": false
+}

@@ -16,12 +16,13 @@ nie uruchamia reklam i nie oznacza zatwierdzenia aplikacji przez Google.
 
    Potwierdzenia instalatora wykonujesz na swoim komputerze. Zamknij okno
    instalacji i ponownie otwórz paczkę. Sam instalator nie podpisuje gry.
-3. Kliknij podpisz.cmd. Jeśli hasło jest potrzebne, wpisujesz je lokalnie,
-   bez widocznych znaków. Wybierz minimum 12 znaków i zapisz je bezpiecznie.
-4. Klucz zostanie utworzony w:
+3. Kliknij podpisz.cmd. Wpisz lokalnie hasło tego samego klucza, którego
+   użyłeś do podpisania wersji 1.4.1. Znaki hasła nie są wyświetlane.
+4. Dotychczasowy klucz musi znajdować się w:
    C:\Users\TWÓJ_LOGIN\NeonBlockMaster-Signing\neon-upload.p12
-   Istniejący plik nie jest nadpisywany. Kolejne uruchomienie wymaga tego
-   samego hasła i używa tego samego klucza. Nie usuwaj go po wysłaniu gry.
+   Ta aktualizacja nie utworzy nowego klucza. Jeśli go brakuje, przywróć
+   poprzedni z prywatnej kopii. Odcisk certyfikatu musi pasować do wersji 1.4.1.
+   Nie usuwaj go po wysłaniu gry.
 5. Podpisany AAB i raport powstaną w folderze wynik:
    neon-block-master-1.4.2-play-signed.aab
    raport-podpisu.json

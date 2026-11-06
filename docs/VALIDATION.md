@@ -1,3 +1,7 @@
+# Kontrola reklam 1.4.2 / code 9
+
+**2798 sprawdzeń źródeł i 2798 sprawdzeń skompilowanych zasobów AAB zaliczonych**, 21 testów Python i 12 testów podpisywania. [Raport, naprawione błędy i niepotwierdzona emisja/przychód](ADS-AUDIT-1.4.2.md). Poniżej historia wcześniejszych wydań.
+
 # Weryfikacja przygotowania produkcji
 
 **2771 sprawdzeń Godot i 21 testów Python zaliczonych.** Zbudowano niepodpisany AAB z produkcyjnymi ID właściciela; sprawdzono rzeczywistą konfigurację, manifest, klasy SDK, bundletool i wyrównanie ELF 16 KB. Stary AAB z jednostkami demo jest odrzucany jako produkcyjny. Podpis upload, hosting, aktualna lista Families i ustawienia kont pozostają do uzupełnienia. Nie wysłano wydania do Play. [Pełny stan](PRODUCTION-PREP.md).

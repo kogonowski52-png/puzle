@@ -1,0 +1,18 @@
+{
+  "version_name": "1.4.2",
+  "version_code": 9,
+  "source_checks_passed": 2798,
+  "compiled_aab_checks_passed": 2798,
+  "python_tests_passed": 21,
+  "signing_tests_passed": 12,
+  "aab_sha256": "5426c7ca6c90b3ed7902316bf1df460d806262b86b1226a2772d444652a59ca5",
+  "findings_fixed": [
+    "missing runtime plugin.cfg",
+    "UMP signal connected after request",
+    "earned signal connected after show"
+  ],
+  "live_ad_delivery_confirmed": false,
+  "revenue_confirmed": false,
+  "app_ads_line": "google.com, pub-5988667220268461, DIRECT, f08c47fec0942fa0",
+  "owner_installed_play_version": false
+}

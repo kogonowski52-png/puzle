@@ -1,6 +1,6 @@
 {
   "artifact": "neon-block-master-production-candidate-unsigned.aab",
-  "sha256": "056be151f256b772acb76b49c94123ae16020dd9f9e3d3e70b8e34c64bfd2c4f",
+  "sha256": "5426c7ca6c90b3ed7902316bf1df460d806262b86b1226a2772d444652a59ca5",
   "config_mode": "production",
   "admob": {
     "app_id": "ca-app-pub-5988667220268461~2690935374",

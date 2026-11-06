@@ -1,5 +1,5 @@
-Production preparation: 2771 Godot checks and 21 Python tests passed.
-Actual production candidate: bundletool validation, ZIP, real AdMob config + manifest, native class definitions, no debug reporter/signature, 16 KiB ELF alignment passed.
-Existing demo AAB correctly rejected as production.
-No signed production artifact, Play upload, hosted URLs, Families review or live production ad serving were established.
-The existing 1.4.1 test APK was not rebuilt in this preparation.
+1.4.2 / code 9 audit: 2798 source Godot checks + 2798 compiled AAB checks + 21 Python tests + 12 PowerShell signing checks passed.
+Compiled AAB test uses Linux Godot and controlled native callback fixtures; it is not physical Android ad serving.
+Fixed missing runtime plugin.cfg and two callback-order races (UMP / earned reward).
+No real production ad serving, AdMob readiness, Families review, public app-ads hosting or revenue was verified.
+Owner must sign code9 with existing upload key and update the test track.

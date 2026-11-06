@@ -10,7 +10,7 @@
 | Wydawca | Krystian Development |
 | E-mail wsparcia | kogonowski52@gmail.com |
 | Pakiet | com.neonblockmaster.puzzle |
-| Wersja AAB | 1.4.1 / code 8 |
+| Wersja AAB | 1.4.2 / code 9 |
 | Dostęp do aplikacji | Pełny dostęp bez logowania i bez konta gracza |
 | Odbiorcy | Dzieci od 3 lat i dorośli; wybierz odpowiadające im rzeczywiste zakresy wieku w panelu |
 | Ocena treści | Wypełnij IARC. „3+” nie jest automatycznie nadaną oceną |

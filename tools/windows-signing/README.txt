@@ -1,6 +1,8 @@
 NEON BLOCK MASTER — PODPISYWANIE NA WINDOWS
 
-To przygotowanie pliku do pierwszego wydania. Niczego nie wysyła do Play,
+To poprawka do wersji 1.4.1. Uzyj poprzedniego klucza upload.
+Paczka sprawdza jego odcisk SHA-256; brak lub inny klucz zatrzyma podpisanie.
+To przygotowanie pliku do aktualizacji. Niczego nie wysyła do Play,
 nie uruchamia reklam i nie oznacza zatwierdzenia aplikacji przez Google.
 
 1. Pobierz pełną paczkę neon-block-master-windows-signing.zip z GitHuba.
@@ -21,7 +23,7 @@ nie uruchamia reklam i nie oznacza zatwierdzenia aplikacji przez Google.
    Istniejący plik nie jest nadpisywany. Kolejne uruchomienie wymaga tego
    samego hasła i używa tego samego klucza. Nie usuwaj go po wysłaniu gry.
 5. Podpisany AAB i raport powstaną w folderze wynik:
-   neon-block-master-1.4.1-play-signed.aab
+   neon-block-master-1.4.2-play-signed.aab
    raport-podpisu.json
 
 Zrób prywatną kopię klucza neon-upload.p12 i zapisz hasło w menedżerze haseł.
@@ -35,7 +37,7 @@ app-ads.txt, aktualnej listy Families, konfiguracji AdMob/UMP i formularzy Play.
 Pierwsze uruchomienie podpisanego wydania sprawdź przez tor testów wewnętrznych.
 Termin publikacji i wymagania testów zależą od konta i decyzji Google.
 
-Ta paczka dotyczy pierwszej publikacji, package com.neonblockmaster.puzzle,
-wersja 1.4.1 / code 8. AAB ma produkcyjne ID właściciela. Na urządzeniu
+Ta paczka dotyczy aktualizacji, package com.neonblockmaster.puzzle,
+wersja 1.4.2 / code 9. AAB ma produkcyjne ID właściciela. Na urządzeniu
 zarejestrowanym jako testowe w AdMob reklama może nadal mieć oznaczenie testowe.
 Nie sprawdzaj reklam produkcyjnych przez klikanie własnych reklam.

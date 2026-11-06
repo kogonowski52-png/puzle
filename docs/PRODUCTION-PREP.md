@@ -1,3 +1,7 @@
+# Aktualizacja 1.4.2 / code 9
+
+Właściciel podpisał 1.4.1 na Windows i przesłał code 8 do Google Play. Kontrola ujawniła usterki mostka reklam; przygotowano poprawkę code 9. Użyj [aktualnej instrukcji i raportu](ADS-AUDIT-1.4.2.md) oraz [app-ads.txt](APP-ADS.md). Tekst poniżej opisuje wcześniejsze przygotowanie pierwszego uploadu.
+
 # Przygotowanie do pierwszego wydania Google Play
 
 Właściciel ma konto Play Console; ta gra nie była jeszcze wysyłana. Identyfikator pakietu to `com.neonblockmaster.puzzle`, wersja 1.4.1, code 8, Android 7+/ARM64, target API 36. Nie wysłano nic do Play Console ani do weryfikacji Google.

@@ -84,6 +84,10 @@ try {
     if (-not $OutputDirectory) { $OutputDirectory = Join-Path $PSScriptRoot 'wynik' }
     $key = Join-Path $KeyDirectory 'neon-upload.p12'
     $newKey = -not (Test-Path -LiteralPath $key)
+    $expectedCertificate = $metadata.PSObject.Properties['expected_upload_certificate_sha256']
+    if ($expectedCertificate -and $newKey) {
+        throw ('Ta aktualizacja wymaga Twojego poprzedniego klucza upload. Przywroc plik: ' + $key)
+    }
     Write-Host 'Neon Block Master: podpisanie lokalne. Nic nie jest wysylane do internetu.'
     Write-Host ('Klucz: ' + $key)
     if (-not $env:NEON_UPLOAD_PASSWORD) {
@@ -132,6 +136,9 @@ try {
     $fingerprint = Get-CertificateFingerprint $certificate
     if ($certificate -match 'CN=Android Debug' -or $fingerprint -eq '54ab76826c313997d97a8c73ec7a808b5fc230ccc2817f503df1b067134cf18d') {
         throw 'Klucz debugowy nie moze sluzyc do publikacji Google Play.'
+    }
+    if ($expectedCertificate -and $fingerprint -ne ([string]$expectedCertificate.Value).ToLowerInvariant()) {
+        throw 'Ten klucz rozni sie od klucza uzytego dla wersji 1.4.1. Uzyj poprzedniego klucza upload.'
     }
     $temporaryBundle = Join-Path $OutputDirectory ('podpis-' + [Guid]::NewGuid().ToString('N') + '.aab')
     Invoke-JavaTool -Tool $java.Jarsigner -ToolArguments ($locale + @(

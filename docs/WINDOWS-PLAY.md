@@ -1,3 +1,7 @@
+# Poprawka 1.4.2
+
+Pobierz aktualną paczkę i użyj dotychczasowego klucza: [ADS-AUDIT-1.4.2.md](ADS-AUDIT-1.4.2.md). Nowa paczka sprawdza certyfikat upload właściciela i zatrzyma podpisanie przy innym/brakującym kluczu. Pierwsze podpisanie 1.4.1 na Windows właściciel potwierdził. Instrukcja pierwszego podpisu poniżej pozostaje historią.
+
 # Windows: pierwszy podpis i dalsze kroki w Play
 
 Właściciel potwierdził, że ma komputer z Windows i konto Play Console; tej gry jeszcze nie wysyłał. Nowy klucz upload utwórz na własnym komputerze. Paczka nie przesyła go do Codexa, GitHuba ani Google. Do Play dodaje się podpisany AAB; klucz pozostaje prywatny.

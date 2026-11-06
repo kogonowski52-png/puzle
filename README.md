@@ -1,3 +1,27 @@
+# Neon Block Master 1.4.2 — poprawka reklam, code 9
+
+**[Pobierz paczkę Windows 1.4.2](neon-block-master-1.4.2-windows-signing.zip)** → **Download raw**. Rozpakuj i uruchom `podpisz.cmd`, używając swojego istniejącego klucza upload. Wynik: `wynik/neon-block-master-1.4.2-play-signed.aab`. Zaktualizuj tę samą grę i używaną ścieżkę testową w Google Play. Klucz i hasło pozostają u właściciela; paczka sprawdza zgodność publicznego certyfikatu z poprzednim uploadem.
+
+Naprawiono trzy problemy: brak eksportu wersji pluginu, podłączenie odpowiedzi UMP po żądaniu i podłączenie nagrody po rozpoczęciu pokazywania reklamy. **2798 sprawdzeń źródeł, 2798 sprawdzeń skompilowanych zasobów finalnego AAB, 21 testów Python i 12 testów podpisywania zaliczonych.** Testy z kontrolowanymi callbackami nie są prawdziwymi wyświetleniami Google. [Raport kontroli](docs/ADS-AUDIT-1.4.2.md).
+
+**Zarabianie i rzeczywista emisja nadal nie zostały potwierdzone.** Właściciel nie instalował jeszcze wersji z Play. AAB ma jego produkcyjne ID, ale status AdMob, publiczny app-ads.txt/polityka i aktualna lista Families pozostają do sprawdzenia. Code9 jest niepodpisany do czasu uruchomienia paczki na komputerze właściciela; code8 był już podpisany i wysłany przez właściciela.
+
+## app-ads.txt
+
+Zrzut z AdMob potwierdza treść wpisu, a nie jego publikację. Dla używanego hosta wymagany adres to **https://kogonowski52-png.github.io/app-ads.txt**. Odczyt repozytorium głównej strony zwracał `Repository not found`; nie opublikowano go tam z tego środowiska. [Instrukcja dodania pliku](docs/APP-ADS.md), [gotowy plik](app-ads.txt) i **[cała gotowa strona GitHub](neon-block-master-github-site.zip)** do wgrania w repozytorium strony głównej. Paczka zawiera root app-ads.txt oraz stronę i politykę pod /puzle/.
+
+## Aktualne pliki
+
+- [AAB 1.4.2 z produkcyjnymi ID — unsigned](neon-block-master-1.4.2-production-candidate-unsigned.aab).
+- [Źródła](neon-block-master-production-source.zip).
+- [Materiały Play Console](neon-block-master-play-console.zip).
+- [Strona i polityka](neon-block-master-production-website.zip).
+- [Aktualny stan](production-readiness.json), [kontrola AAB](production-artifact-validation.json), [raport reklamy](production-ad-audit.json), [sumy](SHA256SUMS.txt).
+
+Poprzednie pliki i raporty poniżej dotyczą historii przygotowania wersji 1.4.1.
+
+---
+
 # Podpisanie AAB na Windows — pierwszy upload
 
 **[Pobierz paczkę Windows](neon-block-master-windows-signing.zip)** → **Download raw**. Rozpakuj całość i uruchom `podpisz.cmd`. Gdy brakuje JDK, instrukcja podaje instalację Microsoft OpenJDK 21 przez winget. Hasło ustawiasz i potwierdzasz na swoim komputerze. Klucz powstaje w `%USERPROFILE%\NeonBlockMaster-Signing\neon-upload.p12` i nie jest nigdzie wysyłany.

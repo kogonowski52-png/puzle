@@ -1,44 +1,56 @@
 {
   "artifact": "neon-block-master-production-candidate-unsigned.aab",
-  "mode": "production",
+  "version": {
+    "name": "1.4.2",
+    "code": 9,
+    "package": "com.neonblockmaster.puzzle"
+  },
   "owner_admob_ids_embedded": true,
   "artifact_checks_passed": true,
   "signed": false,
-  "ready_for_play_upload": false,
-  "play_console_account": "owner confirmed account exists; this game has never been uploaded",
-  "version": {
-    "name": "1.4.1",
-    "code": 8,
-    "package": "com.neonblockmaster.puzzle"
-  },
+  "ready_for_public_release": false,
   "checks": {
-    "godot_checks_passed": 2771,
-    "python_tests_passed": 21,
-    "production_bundletool_validation": "passed",
-    "production_manifest_and_native_classes": "passed",
-    "elf_16kb_alignment": "passed",
-    "demo_bundle_rejected_as_production": true
+    "godot_source_passed": 2798,
+    "godot_compiled_aab_passed": 2798,
+    "python_passed": 21,
+    "signing_contract_passed": 12
+  },
+  "code8": {
+    "owner_reported_signed": true,
+    "owner_upload_certificate_sha256": "813efb0ae5ebf0cba2c270a7492d623a94053b46417bc00053c541c567fee467",
+    "owner_reported_play_upload": true,
+    "owner_reported_installed_from_play": false
+  },
+  "code9": {
+    "owner_signed_file_received": false,
+    "uploaded_to_play": false,
+    "requires_existing_upload_key": true
   },
   "blockers": [
     {
-      "id": "upload_signing",
-      "state": "missing",
-      "detail": "No owner upload key or release signing variables are configured. Debug key is not used."
+      "id": "owner_sign_code9",
+      "state": "pending",
+      "detail": "Sign update on owner Windows using existing upload key."
     },
     {
       "id": "families_review",
       "state": "unverified",
-      "detail": "Exact Google Mobile Ads 24.9.0 Families listing not checked; official support.google.com blocked by current proxy."
+      "detail": "Exact SDK Families listing still not verified; official Google host blocked by runtime policy."
     },
     {
       "id": "public_hosting",
       "state": "unverified",
-      "detail": "Expected website/privacy/root app-ads URLs were denied by current proxy. Denial does not establish hosting status."
+      "detail": "Root app-ads URL and privacy hosting not verified; root site repo returns Repository not found for current Git identity."
     },
     {
-      "id": "admob_and_play_console",
-      "state": "owner_action_required",
-      "detail": "Configure/check AdMob readiness, UMP and Play association; complete app declarations and account-specific requirements. No Play API access configured."
+      "id": "admob_readiness",
+      "state": "unverified",
+      "detail": "Owner supplied app-ads setup instructions, not a verified readiness state."
+    },
+    {
+      "id": "device_ad_delivery",
+      "state": "unverified",
+      "detail": "Owner has not installed the Play version; no production ad/reward delivery observed."
     }
   ],
   "expected_urls": {
@@ -48,27 +60,7 @@
   },
   "network_draft_saved": true,
   "network_draft_applied_to_runtime": false,
-  "release_uploaded_to_play": false,
   "live_ad_serving_verified": false,
-  "windows_signing_package": "neon-block-master-windows-signing.zip",
-  "owner_computer": "Windows",
-  "local_signing_tests": {
-    "passed": 9,
-    "failed": 0,
-    "runtime": "PowerShell 7.4.6 + JDK 21 on Linux; not a native Windows test",
-    "tests": [
-      "modified AAB is rejected before key creation",
-      "actual candidate signed with a new local RSA upload key",
-      "signing preserves the exact original bundle payload including production ad config",
-      "signature report matches real AAB and does not claim policy approval or upload",
-      "repeat signing reuses the exact key without overwriting it",
-      "wrong password preserves existing key and previously verified output",
-      "Android Debug certificate is rejected",
-      "secure password confirmation rejects case differences before key creation",
-      "secure-input path signs and clears the password after confirmation"
-    ],
-    "private_test_keys_deleted": true
-  },
-  "owner_key_created_by_cloud": false,
-  "owner_signed_bundle_received": false
+  "revenue_confirmed": false,
+  "windows_signing_package": "neon-block-master-1.4.2-windows-signing.zip"
 }

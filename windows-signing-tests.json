@@ -1,5 +1,5 @@
 {
-  "passed": 9,
+  "passed": 12,
   "failed": 0,
   "runtime": "PowerShell 7.4.6 + JDK 21 on Linux; not a native Windows test",
   "tests": [
@@ -10,6 +10,9 @@
     "repeat signing reuses the exact key without overwriting it",
     "wrong password preserves existing key and previously verified output",
     "Android Debug certificate is rejected",
+    "update signed only with its pinned existing upload certificate",
+    "different existing upload certificate is rejected for an update",
+    "update never creates a replacement key when the existing key is missing",
     "secure password confirmation rejects case differences before key creation",
     "secure-input path signs and clears the password after confirmation"
   ],

@@ -1,3 +1,3 @@
-Not ready for Play upload. Candidate uses real owner AdMob IDs and is unsigned.
-Missing: owner upload signing key; exact SDK Families review; public website/privacy/root app-ads verification; AdMob/UMP readiness, Play disclosures and device checks.
-The saved network draft is not proof that destinations are accessible in the current runtime. No Play upload performed.
+Code9 remains unsigned until owner runs Windows signing package using the existing upload key.
+Families exact SDK review, root app-ads and privacy hosting, AdMob readiness and physical Play ad/reward test remain unverified.
+No real revenue confirmed. Code8 was signed/uploaded by owner; user has not installed Play version.

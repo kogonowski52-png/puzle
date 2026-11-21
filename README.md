@@ -1,3 +1,13 @@
+# APK 1.4.2 do instalacji bezpośredniej
+
+**[Pobierz APK 1.4.2](neon-block-master-1.4.2.apk)** → **Download raw**. Android 7+/ARM64, code 9.
+
+**Osobny podpis instalacyjny:** instalacja może wymagać odinstalowania dotychczasowej gry, co usuwa lokalny postęp. APK nie jest podpisany kluczem właściciela ani kluczem Google Play. Konfiguracja reklam jest produkcyjna, z ID właściciela; emisja i przychód pozostają niepotwierdzone.
+
+Zachowano wszystkie oryginalne zasoby, DEX i biblioteki z AAB 1.4.2. Sprawdzono manifest, podpisy v2/v3 i wyrównanie ZIP 16 KB. Nie wykonano testu na fizycznym telefonie. [Szczegóły](docs/APK-1.4.2.md) · [Raport](apk-1.4.2-validation.json).
+
+---
+
 # Neon Block Master 1.4.2 — poprawka reklam, code 9
 
 **[Pobierz paczkę Windows 1.4.2](neon-block-master-1.4.2-windows-signing.zip)** → **Download raw**. Rozpakuj i uruchom `podpisz.cmd`, używając swojego istniejącego klucza upload. Wynik: `wynik/neon-block-master-1.4.2-play-signed.aab`. Zaktualizuj tę samą grę i używaną ścieżkę testową w Google Play. Klucz i hasło pozostają u właściciela; paczka sprawdza zgodność publicznego certyfikatu z poprzednim uploadem.

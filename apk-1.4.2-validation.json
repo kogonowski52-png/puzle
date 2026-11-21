@@ -1,0 +1,40 @@
+{
+  "artifact": "neon-block-master-1.4.2.apk",
+  "sha256": "d6b66f14788aede180d644df6efb40846f87be3936aa825e29058b032999c8ce",
+  "bytes": 82578923,
+  "package": "com.neonblockmaster.puzzle",
+  "version_name": "1.4.2",
+  "version_code": 9,
+  "min_sdk": 24,
+  "target_sdk": 36,
+  "architectures": [
+    "arm64-v8a"
+  ],
+  "derived_from_aab_sha256": "5426c7ca6c90b3ed7902316bf1df460d806262b86b1226a2772d444652a59ca5",
+  "bundletool_version": "1.18.3",
+  "all_original_game_assets_preserved": 197,
+  "all_original_dex_preserved": 3,
+  "native_payloads_preserved": true,
+  "native_zip_offsets_16kb_aligned": {
+    "lib/arm64-v8a/libc++_shared.so": 8749056,
+    "lib/arm64-v8a/libgodot_android.so": 10125312
+  },
+  "signature": {
+    "verified": true,
+    "v1": false,
+    "v2": true,
+    "v3": true,
+    "certificate_sha256": "2911ae6515a1cdd450467ec71f016313353a461bc50fa96f7cdd04a904646f7f",
+    "signer_subject": "Android Debug / Neon Block Master Local Testing"
+  },
+  "signing_key_type": "separate local installation test key; not owner upload key or Google Play app signing key",
+  "ad_config_mode": "production",
+  "admob": {
+    "app_id": "ca-app-pub-5988667220268461~2690935374",
+    "rewarded_id": "ca-app-pub-5988667220268461/2523414410",
+    "interstitial_id": "ca-app-pub-5988667220268461/3644924391"
+  },
+  "physical_phone_launch_verified": false,
+  "live_ad_serving_verified": false,
+  "revenue_verified": false
+}

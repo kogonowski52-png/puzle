@@ -1,0 +1,119 @@
+﻿NEON BLOCK MASTER — KOPIA ZAPASOWA 1.4.2 / KOD 9
+Przygotowano: 21 listopada 2026 r.
+
+ZACHOWAJ TĘ PACZKĘ ORAZ APK
+ZIP zawiera projekt, narzędzia i materiały publikacyjne. Instalator APK jest
+osobnym plikiem (około 83 MB), do pobrania z tej samej gałęzi GitHuba:
+https://github.com/kogonowski52-png/puzle/blob/apk-download/neon-block-master-1.4.2.apk
+Otwórz link i wybierz Download raw. Pobierz oba pliki na swój dysk i zrób
+drugą kopię, np. na pendrive. Same linki nie zastępują kopii lokalnej.
+
+NAJWAŻNIEJSZE — DODAJ PRYWATNIE ZE SWOJEGO KOMPUTERA
+1. Skopiuj cały folder C:\Users\PC\NeonBlockMaster-Signing
+   Zawiera neon-upload.p12 — Twój klucz upload do aktualizacji Google Play.
+   Nie mam tego klucza, więc NIE MA GO w publicznym ZIP.
+   Oczekiwany SHA-256 certyfikatu upload:
+   813efb0ae5ebf0cba2c270a7492d623a94053b46417bc00053c541c567fee467
+2. Zachowaj hasło klucza w menedżerze haseł, oddzielnie od publicznych plików.
+   Nie wysyłaj klucza ani hasła na GitHuba lub czat.
+3. Zachowaj cały folder wynik ze swojego podpisywania:
+   C:\Users\PC\Desktop\neon\wynik
+   W nim: neon-block-master-1.4.2-play-signed.aab i raport-podpisu.json.
+   Potwierdziłeś podpisanie tego AAB, ale plik pozostał na Twoim komputerze.
+4. Zachowaj prywatnie dane odzyskiwania dostępu do Google/Play Console,
+   AdMob i GitHuba. ZIP nie zawiera dostępów do kont ani ich ustawień.
+
+CO JEST W PACZCE
+01-projekt/neon-block-master
+  Źródła Godot 1.4.2, grafika, audio, logika gry, testy, dodatki reklamowe,
+  gotowe AAR oraz natywne źródła Kotlin i narzędzia budowania. Do dalszych zmian.
+02-podpisywanie-Windows
+  Dokładny niepodpisany AAB 1.4.2/kod 9 oraz podpisz.cmd i podpisz.ps1.
+  Do ponownego podpisania TEGO wydania dotychczasowym kluczem. Skrypt sprawdza
+  hash AAB i odcisk certyfikatu. Do nowej wersji trzeba zaktualizować jego
+  parametry i oczekiwany hash; nie podmieniaj AAB bez aktualizacji weryfikacji.
+03-materialy-Google-Play
+  Ikona, grafika promocyjna, zrzuty ekranu, opisy i informacje o wydaniu PL/EN.
+  Deklaracje i instrukcje są materiałami pomocniczymi, wymagają zgodności
+  z rzeczywistym stanem gry i konta w chwili kolejnej publikacji.
+04-strona-GitHub
+  Kopia strony i polityki. Zawartość do-wgrania umieść w katalogu głównym
+  repozytorium kogonowski52-png/kogonowski52-png.github.io (main, Pages /root).
+  Zachowaj układ podfolderów: app-ads.txt w root, polityka w puzle/privacy.html.
+05-dokumentacja-i-raporty
+  Raport APK oraz dokumentacja i wyniki wcześniejszych kontroli.
+  Podfolder historyczne zachowuje stare raporty bez zmian: mogą opisywać
+  wcześniejszy etap lub starsze testowe APK. Poniższy stan dotyczy tej kopii.
+06-narzedzie-bundletool
+  Oficjalne bundletool 1.18.3 do sprawdzania AAB i generowania APK.
+KONFIGURACJA-PRODUKCYJNA.json
+  Publiczne dane wydawcy, adresy strony i produkcyjne ID reklam.
+SHA256SUMS.txt
+  Lista sum kontrolnych plików wewnątrz paczki.
+
+AKTUALNY STAN I WAŻNE RÓŻNICE
+Pakiet: com.neonblockmaster.puzzle. Wersja 1.4.2, versionCode 9.
+Android 7+ / min API 24, target API 36, ARM64, układ pionowy.
+Do Google Play służy AAB podpisany Twoim kluczem upload; NIE surowy unsigned.
+Potwierdziłeś lokalne podpisanie kodu 9 tym samym certyfikatem co wcześniej.
+Klucz podpisywania aplikacji przez Google Play jest oddzielny od klucza upload.
+APK 1.4.2 z GitHuba ma osobny lokalny podpis, więc może nie zaktualizować
+wcześniejszej instalacji. Odinstalowanie gry usuwa lokalny postęp.
+ZIP nie zawiera zapisów graczy; gra nie ma synchronizacji postępu w chmurze.
+APK i AAB z tej kopii mają produkcyjne ID reklam właściciela. Źródłowy projekt
+domyślnie uruchamia reklamy TESTOWE; jest to zamierzone dla pracy nad grą.
+Nie zmieniaj grupy odbiorców na dorosłych: gra jest dla dzieci i dorosłych.
+Sam ZIP/podpis nie potwierdza emisji reklam, zarobków, bieżącej zgodności
+Families ani zatwierdzenia Google Play. Tych wyników nie potwierdzono.
+Zgłoszone przez Play ograniczenie android.hardware.screen.portrait nadal
+dotyczy kodu 9; ta kopia nie zawiera nowej poprawki manifestu.
+
+GDY BĘDZIESZ CHCIAŁ COŚ ZMIENIĆ W GRZE
+1. Rozpakuj ZIP. Otwórz 01-projekt/neon-block-master/project.godot
+   w Godot 4.6.3 i uruchom F5. Do edycji gry nie potrzebujesz klucza upload.
+2. Do nowego Android build potrzebujesz pełnego JDK 21, Python 3.11+,
+   Android SDK (platform-tools, platforms;android-36, build-tools;36.1.0)
+   oraz oficjalnych szablonów eksportu Godot 4.6.3. Instalatory, systemowe
+   narzędzia, cache Gradle/SDK i zależności pobierane z internetu nie są w ZIP.
+3. Wskaż JDK/SDK w Godot i zainstaluj Android Build Template. Projekt używa
+   Gradle 8.11.1, AGP 8.6.1, Poing 4.3.1, GMA 24.9.0 i UMP 4.0.0.
+   Narzędzia tools/cloud_env.sh i build_cloud.sh zawierają ścieżki poprzedniej
+   maszyny chmurowej; na nowym komputerze trzeba je dostosować.
+4. Skopiuj KONFIGURACJA-PRODUKCYJNA.json do config/publishing.json projektu.
+   Budowanie Android wymaga przygotowania natywnych komponentów z tools/;
+   opis jest w docs/ANDROID.md i tools/build_cloud.sh. Z poziomu katalogu
+   projektu eksport niepodpisanego kandydata uruchamia:
+   python tools/prepare_release.py --config config/publishing.json --export-candidate
+   Ten eksport tymczasowo wstawia ID produkcyjne, po czym przywraca ustawienia
+   projektu. Nie jest deklaracją gotowości do produkcji ani testem na telefonie.
+5. Przy następnym wydaniu zwiększ versionCode do liczby większej niż najwyższa
+   już użyta w Play Console (co najmniej 10, jeśli najwyższy nadal wynosi 9).
+   Zachowaj nazwę pakietu oraz dotychczasowy klucz upload. Dostosuj nazwę
+   wersji, podpisywanie i raporty do rzeczywiście zbudowanego nowego pliku.
+6. Przed publikacją sprawdź aktualne wymagania Play, Families, reklam i SDK,
+   wykonaj test na telefonie ze ścieżki Play. Nie traktuj starych raportów
+   z tej kopii jako potwierdzenia nowego wydania.
+
+GDY WINDOWS ZABLOKUJE PODPISZ.PS1
+Najpierw rozpakuj ZIP. Dla tego jednego pobranego skryptu możesz użyć:
+Unblock-File -LiteralPath 'PEŁNA_ŚCIEŻKA_DO_ROZPAKOWANEGO_FOLDERU\podpisz.ps1'
+Następnie uruchom podpisz.cmd z tego samego folderu. Użyj pierwotnego hasła
+klucza. Błąd keystore password was incorrect oznacza odrzucenie podanego hasła;
+nie usuwaj klucza ani nie generuj innego w celu obejścia tego błędu.
+
+STRONA I REKLAMY — ZAPISANE ADRESY
+Wydawca: Krystian Development
+Kontakt: kogonowski52@gmail.com
+Strona: https://kogonowski52-png.github.io/puzle/
+Polityka: https://kogonowski52-png.github.io/puzle/privacy.html
+app-ads.txt: https://kogonowski52-png.github.io/app-ads.txt
+Nie używaj wcześniejszego błędnego adresu warszawa-uslugi.pl/polityka.
+W Play witryna i polityka to osobne pola. Plik app-ads.txt musi leżeć w root
+domeny witryny wpisanej w Play. Ustawienia Play/AdMob nie odtwarzają się z ZIP;
+trzeba je sprawdzić w swoich kontach. Gra może pozostawać w testach, a dostęp
+do produkcji i weryfikacja AdMob zależą od faktycznego stanu paneli Google.
+
+SPRAWDZENIE KOPII
+ZIP został otwarty i sprawdzony, pliki porównano z opublikowanymi artefaktami,
+hash AAB sprawdzono z oryginałem kodu 9. Archiwum nie było testem ponownej
+kompilacji na nowym Windowsie. Nie zawiera prywatnych kluczy ani haseł.

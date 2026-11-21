@@ -1,3 +1,16 @@
+# Kopia zapasowa 1.4.2 / kod 9
+
+**[Pobierz ZIP — projekt, podpisywanie, strona i materiały Google Play](neon-block-master-1.4.2-kopia-zapasowa.zip)** → **Download raw**.
+**[Pobierz osobno instalator APK 1.4.2](neon-block-master-1.4.2.apk)** → **Download raw**.
+
+Zachowaj oba pliki. W ZIP zacznij od `00-ZACZNIJ-TUTAJ.txt`.
+**Osobno zrób prywatną kopię folderu `C:\Users\PC\NeonBlockMaster-Signing`, hasła klucza oraz folderu `wynik` z podpisanym AAB. Nie są w publicznej paczce.**
+
+[Instrukcja kopii i odzyskiwania](docs/KOPIA-ZAPASOWA-1.4.2.txt) · [Weryfikacja ZIP](backup-1.4.2-validation.json).
+ZIP zawiera źródła, natywne biblioteki i ich źródła, gotowy unsigned AAB kodu 9, skrypty Windows, materiały sklepu, stronę, publiczną konfigurację reklam, dokumentację i bundletool. Wymaga osobnej instalacji Godot/JDK/SDK do przyszłej kompilacji. Starsze raporty w paczce opisują stan historyczny.
+
+---
+
 # APK 1.4.2 do instalacji bezpośredniej
 
 **[Pobierz APK 1.4.2](neon-block-master-1.4.2.apk)** → **Download raw**. Android 7+/ARM64, code 9.

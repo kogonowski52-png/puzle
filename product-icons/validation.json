@@ -5,14 +5,15 @@
   "opaque": true,
   "icons": {
     "neon_plus.png": {
-      "bytes": 248317,
-      "sha256": "545aefe28ad3279bc2e324958268e55f168b467ad62cfab4c6e487f4adb1106b",
+      "bytes": 282409,
+      "sha256": "a66f935f6d6e063caf0cf3f4e0fffd7a040f94ebdf84b1734175d079b39bb1da",
       "product_id": "neon_plus"
     },
     "rescue_pack_10_20.png": {
-      "bytes": 253203,
-      "sha256": "9429f0e1a342b80f6acddd121f9139d011de27231f1c011bbef908c3eb5dce7e",
+      "bytes": 288474,
+      "sha256": "d8cadfce5d48fb43fe2b12b20664d47f0176ba861c6b48b82eabd24de2168846",
       "product_id": "rescue_pack_10_20"
     }
-  }
+  },
+  "bits_per_pixel": 32
 }

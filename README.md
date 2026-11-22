@@ -1,7 +1,7 @@
 # Ikony produktów do Google Play
 
 **[Pobierz obie ikony w ZIP](neon-block-master-product-icons.zip)** → Download raw.
-Gotowe do formularzy produktów: PNG RGB, **512 × 512**, bez przezroczystości, każda poniżej 1 MB.
+Gotowe do formularzy produktów: PNG 32-bit, **512 × 512**, bez przezroczystości, każda poniżej 1 MB.
 
 - [neon_plus.png](product-icons/neon_plus.png) → Neon Plus / `neon_plus`.
 - [rescue_pack_10_20.png](product-icons/rescue_pack_10_20.png) → Duży pakiet / `rescue_pack_10_20`.

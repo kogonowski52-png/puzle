@@ -4,6 +4,7 @@
 - Fonty DejaVu Sans Regular/Bold: Bitstream Vera oraz Arev; pełny tekst `assets/FONT-LICENSE.txt`. Oryginalne pliki fontów z pakietu DejaVu; nie zmieniano nazw ani glifów.
 - Godot Engine i oficjalne szablony: MIT oraz licencje zależności silnika: https://godotengine.org/license/ i https://github.com/godotengine/godot/blob/4.6.3-stable/COPYRIGHT.txt . Informacja MIT jest też w zakładce Informacje gry. Przed dystrybucją uwzględnij wykaz zależności silnika z oficjalnego wydania, jeżeli dystrybuujesz jego pliki osobno.
 - Poing Studios Godot AdMob Plugin 4.3.1: MIT; `addons/admob/LICENSE`, `third_party/admob/LICENSE`. Natywne źródła Kotlin w `third_party/admob/android-source/`, przypięty commit w `REVISION`. AAR pochodzą z oficjalnego wydania dla Godot 4.6.3.
+- Google Play Billing 8.0.0: Android Software Development Kit License, zgodnie z oficjalnym POM biblioteki; https://developer.android.com/studio/terms.html . Nie jest częścią własnego kodu MIT. Własny most NeonBilling i weryfikator są na licencji projektu MIT.
 - Google Mobile Ads, UMP i AndroidX: zależności pobierane przez Gradle, obowiązują warunki i licencje ich dostawców. Biblioteki te nie są naszymi własnymi zasobami MIT. Google AdMob wymaga konta i zgodności z jego warunkami.
 
 Przykładowe media Poing w `addons/admob/assets` należą do dystrybucji upstream; nie są używane przez grę i są wyłączone z eksportu. Nie są reklamowane jako własna grafika lub muzyka gry. Folder `third_party` jest wyłączony ze skanowania i eksportu Godot.

@@ -1,3 +1,19 @@
+# Sklep 1.5.0 / kod 10 — najpierw testy wewnętrzne
+
+Nowy sklep ma Neon Plus (bez reklam automatycznych, Galaxy + Nova), pakiet 10 Młotków + 20 Zmian, ekran rodzica i przywracanie Neon Plus. Publiczny klucz licencyjny jest dodany. **Produkty nie są jeszcze utworzone/aktywowane przez właściciela; płatności i uruchomienie na telefonie pozostają niepotwierdzone. Nie zastępuj tym bez testów wersji produkcyjnej 1.4.2.**
+
+- **[Windows: pobierz paczkę AAB 1.5.0 do podpisania](neon-block-master-1.5.0-windows-signing.zip)** → Download raw. W ZIP zacznij od README.txt. Użyj dotychczasowego prywatnego klucza i wyślij podpisany wynik do testów wewnętrznych.
+- **[APK 1.5.0 — podgląd sklepu](neon-block-master-1.5.0-shop-preview.apk)** → Download raw. Osobny podpis lokalny; instalacja zamiast wersji z Play może wymagać odinstalowania, które usuwa postęp. APK nie zastępuje testów płatności z wersji Play.
+- **[Źródła 1.5.0](neon-block-master-1.5.0-shop-source.zip)** → Download raw. Publiczny klucz jest częścią aplikacji; prywatnego klucza/hasła nie ma w paczkach.
+- [Instrukcja uruchomienia zakupów i ograniczenia](docs/SHOP-1.5.0.md) · [raport testów](shop-1.5.0-validation.json) · [sumy plików](SHOP-1.5.0-SHA256SUMS.txt).
+- [Podgląd Premium](shop-preview/screenshot-09-premium-1.5-pl.png) · [Podgląd Galaxy](shop-preview/screenshot-10-galaxy-1.5-pl.png).
+
+Sprawdzono 2798 kontroli gry i 110 sklepu zarówno w źródłach, jak i skompilowanych zasobach AAB; 22 testy Python obejmują 14 rzeczywistych prób podpisów RSA. Natywny most zbudowano przeciw rzeczywistym API; UI sprawdzono rendererem Godot na pulpicie. APK ma poprawne podpisy v2/v3 i wyrównanie 16 KB. **To nie jest potwierdzenie transakcji w Google Play, reklam, przychodu ani aktualnej zgodności Families.**
+
+Wcześniejsze, oddzielne wydanie i kopia zapasowa 1.4.2 poniżej:
+
+---
+
 # Kopia zapasowa 1.4.2 / kod 9
 
 **[Pobierz ZIP — projekt, podpisywanie, strona i materiały Google Play](neon-block-master-1.4.2-kopia-zapasowa.zip)** → **Download raw**.

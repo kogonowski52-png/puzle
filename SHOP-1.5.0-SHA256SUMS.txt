@@ -1,0 +1,5 @@
+17fd75995362d2af28555a8a91c4abdef1213efb636251fec5f53cb789fd63a7  neon-block-master-1.5.0-shop-preview.apk
+69c60092d313c8648ff72323b025670adc97935e5f000db20c7c5bda37fdd9ea  neon-block-master-1.5.0-windows-signing.zip
+125365003a10beb77117219b1fd2c8900840b2a95934219a42f4e59783ed2a4e  neon-block-master-1.5.0-shop-source.zip
+3d7a8fa98d9d21d37eae4e68d3b3a2a1f4ea8029f65c17cc9168314c6ae2e2cb  shop-1.5.0-validation.json
+9c15363190d874d6d99f375c86ca058fbc87c111786baae8991243ec16b14c59  INSTRUKCJA-SKLEPU-1.5.0.txt

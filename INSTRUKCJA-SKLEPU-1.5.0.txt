@@ -1,0 +1,46 @@
+﻿NEON BLOCK MASTER 1.5.0 / KOD 10 — TESTY SKLEPU
+
+Ta paczka zawiera nowy sklep, Google Play Billing 8.0.0, publiczny klucz
+licencyjny właściciela i dotychczasowe produkcyjne ID reklam AdMob.
+Nie potwierdzono transakcji ani działania reklam na telefonie.
+Właściciel musi jeszcze utworzyć i aktywować produkty.
+
+1. Pobierz ZIP. Prawy przycisk na pobranym ZIP → Właściwości → Odblokuj
+   (jeżeli pole jest dostępne), Zastosuj. Potem Wyodrębnij wszystkie.
+2. Uruchom podpisz.cmd z ROZPAKOWANEGO folderu. Użyj dotychczasowego
+   hasła i klucza C:\Users\PC\NeonBlockMaster-Signing\neon-upload.p12.
+   Klucz i hasło pozostają prywatne; paczka nie tworzy innego klucza.
+   Potrzebny pełny JDK, np. ten sam którego używałeś przy 1.4.2.
+3. Po komunikacie PODPIS POTWIERDZONY wybierz plik:
+   wynik\neon-block-master-1.5.0-play-signed.aab
+4. W Play Console otwórz TESTY WEWNĘTRZNE → nowe wydanie. Dodaj powyższy
+   podpisany AAB (kod 10) i udostępnij testerom tej ścieżki. Nie używaj
+   do tego surowego unsigned.aab ani APK z GitHuba. Nie zastępuj
+   nieprzetestowanym sklepem wersji 1.4.2 sprawdzanej na produkcji.
+5. Zarabianie → Produkty → Produkty jednorazowe: utwórz, ustaw cenę,
+   kraje i aktywuj DWIE oferty, każda ze zwykłą opcją zakupu:
+   neon_plus — Neon Plus — 14,99 zł jednorazowo
+   rescue_pack_10_20 — Duży pakiet ratunkowy — 6,99 zł
+   To nie subskrypcje. Wyłącz zakup wielu sztuk naraz (multi-quantity).
+   Jeśli tej sekcji nie ma lub jest zablokowana, najpierw prześlij
+   AAB z kroku 4, który zawiera uprawnienie BILLING.
+6. Dodaj swoje konto do testerów licencji Play Console i testerów
+   ścieżki. Zainstaluj z linku Google Play. Wybieraj testowe metody
+   płatności, aby sprawdzić bez rzeczywistego obciążenia.
+7. Sprawdź zakup, anulowanie, płatność oczekującą, restart, przywrócenie
+   Neon Plus i odbiór pakietu dokładnie raz. Dopiero po tych testach
+   przygotuj publikację aktualizacji. Instrukcja: SHOP-1.5.0.md.
+
+Neon Plus: Galaxy + Nova i wyłączenie reklam automatycznych. Dobrowolne
+reklamy nagradzane pozostają. Pakiet: 10 Młotków i 20 Zmian. Cenę i walutę
+pobiera Google Play; przed aktywacją ofert przyciski będą niedostępne.
+Neon Plus można przywrócić z konta zakupu; zużyte pomocniki i postęp są
+lokalne i nie odtwarzają się po skasowaniu danych.
+
+Jeśli podpisz.ps1 nadal jest blokowany, odblokuj TYLKO ten plik w PowerShell:
+Unblock-File -LiteralPath 'PEŁNA_ŚCIEŻKA\podpisz.ps1'
+Potem ponownie uruchom podpisz.cmd. Nie zmieniaj polityki całego Windowsa.
+
+Jeśli kod 10 był już użyty w Twojej Play Console, następne wydanie musi
+mieć wyższy kod — nie zmieniaj ręcznie AAB ani metadanych podpisu.
+Klucza P12 i hasła nie wysyłaj na GitHuba ani czat. Zrób prywatną kopię.

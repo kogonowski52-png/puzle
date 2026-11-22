@@ -1,3 +1,15 @@
+# Ikony produktów do Google Play
+
+**[Pobierz obie ikony w ZIP](neon-block-master-product-icons.zip)** → Download raw.
+Gotowe do formularzy produktów: PNG RGB, **512 × 512**, bez przezroczystości, każda poniżej 1 MB.
+
+- [neon_plus.png](product-icons/neon_plus.png) → Neon Plus / `neon_plus`.
+- [rescue_pack_10_20.png](product-icons/rescue_pack_10_20.png) → Duży pakiet / `rescue_pack_10_20`.
+
+ZIP zawiera także oryginały w większej rozdzielczości. Do Play wybieraj pliki 512 × 512 z katalogu głównego ZIP. [Instrukcja](product-icons/README.txt). Nie potrzeba nowego AAB do dodania ikon ofert.
+
+---
+
 # Sklep 1.5.0 / kod 10 — najpierw testy wewnętrzne
 
 Nowy sklep ma Neon Plus (bez reklam automatycznych, Galaxy + Nova), pakiet 10 Młotków + 20 Zmian, ekran rodzica i przywracanie Neon Plus. Publiczny klucz licencyjny jest dodany. **Produkty nie są jeszcze utworzone/aktywowane przez właściciela; płatności i uruchomienie na telefonie pozostają niepotwierdzone. Nie zastępuj tym bez testów wersji produkcyjnej 1.4.2.**

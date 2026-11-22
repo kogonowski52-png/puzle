@@ -11,6 +11,8 @@ Zdobywaj Neon Coins za wyzwania, codzienne uruchomienie gry i nowe rekordy. Odbl
 
 Ciesz się oryginalną elektroniczną muzyką, świetlnymi efektami i czytelnym podglądem ruchu. Wyłącz dźwięki lub wibracje, gdy potrzebujesz ciszy. Interfejs dostępny po polsku i angielsku.
 
-Gra działa offline i automatycznie zapisuje Twój postęp na urządzeniu. Zawiera reklamy z nagrodą oraz ograniczone reklamy między rozgrywkami; reklamy wymagają internetu. Bez zakupów w aplikacji.
+Gra działa offline i automatycznie zapisuje Twój postęp na urządzeniu. Zawiera reklamy z nagrodą oraz ograniczone reklamy między rozgrywkami; reklamy wymagają internetu.
 
 Bez konta. Bez serwera gry. Po prostu Twoja plansza i kolejny dobry ruch.
+
+Opcjonalne zakupy przez Google Play: Neon Plus wyłącza reklamy automatyczne i odblokowuje motyw Cyber Galaxy oraz efekt Nova; duży pakiet daje 10 Młotków i 20 Zmian. Reklamy z nagrodą pozostają dobrowolne. Dostęp do płatności prowadzi przez ekran rodzica. Neon Plus można przywrócić na koncie zakupu. Zużyte pomocniki i lokalny postęp nie są przywracane po usunięciu danych.

@@ -1,0 +1,22 @@
+{
+  "package": "com.neonblockmaster.puzzle",
+  "note": "Dane do ręcznego utworzenia produktów, nie plik importu ani potwierdzenie ich aktywacji.",
+  "products": [
+    {
+      "id": "neon_plus",
+      "type": "one_time_non_consumable",
+      "title": "Neon Plus",
+      "description": "Na stałe usuwa reklamy automatyczne i odblokowuje Cyber Galaxy oraz efekt Nova. Reklamy z nagrodą pozostają dobrowolne.",
+      "suggested_price_pln": "14.99",
+      "multi_quantity_enabled": false
+    },
+    {
+      "id": "rescue_pack_10_20",
+      "type": "one_time_consumable",
+      "title": "Duży pakiet ratunkowy",
+      "description": "10 Młotków i 20 Zmian do Classic i Time Attack. Zużytych pomocników nie można przywrócić po usunięciu danych gry.",
+      "suggested_price_pln": "6.99",
+      "multi_quantity_enabled": false
+    }
+  ]
+}

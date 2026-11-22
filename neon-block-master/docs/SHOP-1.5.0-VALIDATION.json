@@ -1,0 +1,103 @@
+{
+  "version_name": "1.5.0",
+  "version_code": 10,
+  "package": "com.neonblockmaster.puzzle",
+  "godot": "4.6.3",
+  "google_play_billing": "8.0.0",
+  "public_licensing_key_configured": true,
+  "public_licensing_key_sha256": "59a5f20c093aa4c1d364c6b3b06a8bcd0e2dd55c59cd9aee3ffdfdbe948c2d20",
+  "source_game_checks_passed": 2798,
+  "compiled_aab_game_checks_passed": 2798,
+  "source_billing_checks_passed": 110,
+  "compiled_aab_billing_checks_passed": 110,
+  "python_tests_passed": 22,
+  "real_rsa_signature_checks_with_ephemeral_test_keys_passed": 14,
+  "native_bridge_compiled_against_actual_android_godot_billing_api": true,
+  "real_renderer": "Godot Compatibility / Mesa llvmpipe / Xvfb",
+  "real_renderer_shop_layouts_verified": [
+    [
+      360,
+      640
+    ],
+    [
+      1080,
+      1920
+    ],
+    [
+      720,
+      1600
+    ]
+  ],
+  "aab": {
+    "sha256": "cf928e71d54103e210f88d341728a482c78018834e344be692deeabad9d62029",
+    "bytes": 33960416,
+    "signed": false,
+    "artifact_checks": {
+      "artifact": "neon-block-master-production-candidate-unsigned.aab",
+      "sha256": "cf928e71d54103e210f88d341728a482c78018834e344be692deeabad9d62029",
+      "bytes": 33960416,
+      "package": "com.neonblockmaster.puzzle",
+      "version_code": "10",
+      "version_name": "1.5.0",
+      "mode": "production",
+      "admob": {
+        "app_id": "ca-app-pub-5988667220268461~2690935374",
+        "rewarded_id": "ca-app-pub-5988667220268461/2523414410",
+        "interstitial_id": "ca-app-pub-5988667220268461/3644924391"
+      },
+      "signed": false,
+      "debuggable": false,
+      "elf_alignment": {
+        "base/lib/arm64-v8a/libc++_shared.so": [
+          16384,
+          16384,
+          16384
+        ],
+        "base/lib/arm64-v8a/libgodot_android.so": [
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "artifact_checks_passed": true,
+      "billing_library": "8.0.0",
+      "billing_configured": true,
+      "billing_products": {
+        "neon_plus": "neon_plus",
+        "rescue_pack": "rescue_pack_10_20"
+      },
+      "live_payments_verified": false,
+      "play_approval_verified": false,
+      "device_ad_serving_verified": false
+    }
+  },
+  "apk": {
+    "filename": "neon-block-master-1.5.0-shop-preview.apk",
+    "sha256": "17fd75995362d2af28555a8a91c4abdef1213efb636251fec5f53cb789fd63a7",
+    "bytes": 82842884,
+    "signature_v2_v3_verified": true,
+    "certificate_sha256": "2911ae6515a1cdd450467ec71f016313353a461bc50fa96f7cdd04a904646f7f",
+    "signing_type": "separate local preview certificate, not owner upload or Google Play app signing",
+    "all_game_assets_preserved": 207,
+    "native_zip_offsets_16kb_aligned": {
+      "lib/arm64-v8a/libc++_shared.so": 9011200,
+      "lib/arm64-v8a/libgodot_android.so": 10387456
+    }
+  },
+  "owner_private_key_included": false,
+  "owner_reported_products_created": false,
+  "real_play_billing_transaction_verified": false,
+  "physical_android_launch_verified": false,
+  "live_ad_serving_verified": false,
+  "ready_for_public_release": false,
+  "purchase_verification": "client-side Play RSA signature; no server token verification or RTDN",
+  "required_next_steps": [
+    "owner upload signing",
+    "internal testing release",
+    "create and activate both one-time products",
+    "license-tester purchases/cancel/pending/restore on Android",
+    "current Play/Families review before production"
+  ],
+  "privacy_policy_git_commit": "6505cef9a26b5ba46b077f5cf4b8446bfce795cb",
+  "privacy_policy_http_deployment_independently_verified": false
+}

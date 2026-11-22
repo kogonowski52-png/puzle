@@ -1,3 +1,11 @@
+# Sklep 1.5.0 / kod 10 — podgląd aktualizacji
+
+Neon Plus (Galaxy + Nova, bez reklam automatycznych), pakiet 10 Młotków + 20 Zmian, Google Play Billing 8.0.0, ekran rodzica i przywracanie trwałego zakupu. **Publiczny klucz licencyjny jest dodany. Właściciel musi jeszcze utworzyć i aktywować produkty w Play oraz sprawdzić transakcje w testach wewnętrznych. Nie potwierdzono sprzedaży.** [Uruchomienie i ograniczenia](docs/SHOP-1.5.0.md).
+
+Wcześniejsze instrukcje poniżej dokumentują wersje historyczne. Wydanie 1.4.2 wysłane do Google pozostaje oddzielne od tej aktualizacji.
+
+---
+
 # Neon Block Master – Puzzle
 
 **1.4.2 / code 9:** poprawione zgody produkcyjne UMP, kolejność podłączenia nagrody i eksport wersji pluginu. Sprawdzono również skompilowane zasoby finalnego AAB. [Raport i granice potwierdzenia zarabiania](docs/ADS-AUDIT-1.4.2.md). [app-ads.txt](docs/APP-ADS.md).

@@ -1,0 +1,7 @@
+{
+  "public_key_base64": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA627+fo5LZTlyM1orZpTOD6O3Js3M0+EsZCOym5jCjOXdYxmcemYJaTIEXeEVEBNP1d1rXR3sWsGj89ReAe0htMNYOyGgFOlfcXsjmIz8/L0wysPCEEbezLtS+TYD3QnSUPFsrFp9KACcu8QbYszsTVwLPT10EKsD3Y7Tl4522ZDeaZiYs6mpboXpmfDAqDenSG6BOcHQAwfcml3/ygKEMNs4Am+DsvKLj+eILsEJZzjklHkrw26wV78RspwMGfKQruNgUz1P5bQDCL4+iDyazZ2De1g4k4ovlBqFNu12CHvvcidXKyzVEE36a6vl72uWQ0j7Is7zttdUuZv4DV1VKQIDAQAB",
+  "products": {
+    "neon_plus": "neon_plus",
+    "rescue_pack": "rescue_pack_10_20"
+  }
+}

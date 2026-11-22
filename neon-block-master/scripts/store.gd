@@ -10,7 +10,7 @@ func defaults() -> Dictionary:
 		"settings":{"sound":true,"music":true,"vibration":true,"language":"pl"},
 		"best":{"classic":0,"time":0,"daily":0},"stats":{"games":0,"moves":0,"lines":0,"points":0},
 		"daily":{},"login":"","session":{},"ad_free":false,"lab_charges":0,"result_bonus":{},"age_band":"unknown","age_choice_made":false,
-		"boosts":{"hammer":1,"shuffle":2},"boost_receipts":[]}
+		"boosts":{"hammer":1,"shuffle":2},"boost_receipts":[],"neon_plus":false,"billing_receipts":[]}
 
 func _ready() -> void:
 	load_data()
@@ -23,7 +23,7 @@ func validate(value: Variant) -> bool:
 		if not value.get(k) is Array or value[k].size() > 20: return false
 		for entry in value[k]:
 			if not entry is String: return false
-	if not value.get("theme") in ["neon","aurora","sunset","plasma"] or not value.get("effect") in ["spark","orbit"]: return false
+	if not value.get("theme") in ["neon","aurora","sunset","plasma","cyber_galaxy"] or not value.get("effect") in ["spark","orbit","nova"]: return false
 	if not value.theme in value.themes or not value.effect in value.effects: return false
 	for k in ["settings","best","stats","daily","session"]:
 		if not value.get(k) is Dictionary: return false
@@ -42,7 +42,12 @@ func validate(value: Variant) -> bool:
 	var boosts = value.get("boosts",{"hammer":1,"shuffle":2})
 	if not boosts is Dictionary or boosts.size()!=2: return false
 	for key in ["hammer","shuffle"]:
-		if not _number(boosts.get(key)) or int(boosts[key])!=boosts[key] or boosts[key]>999: return false
+		if not _number(boosts.get(key)) or int(boosts[key])!=boosts[key]: return false
+	if not value.get("neon_plus",false) is bool: return false
+	var billing_receipts = value.get("billing_receipts",[])
+	if not billing_receipts is Array or billing_receipts.size()>10000: return false
+	for receipt in billing_receipts:
+		if not valid_billing_receipt(receipt): return false
 	var receipts = value.get("boost_receipts",[])
 	if not receipts is Array or receipts.size()>128: return false
 	for receipt in receipts:
@@ -111,7 +116,7 @@ func daily_reward(date: String) -> int:
 	return 80
 
 func purchase(id: String, price: int, effect := false) -> bool:
-	var catalog := {"spark":0,"orbit":90} if effect else {"neon":0,"aurora":120,"sunset":180,"plasma":240}
+	var catalog := {"spark":0,"orbit":90,"nova":-1} if effect else {"neon":0,"aurora":120,"sunset":180,"plasma":240,"cyber_galaxy":-1}
 	if not catalog.has(id) or int(catalog[id]) != price: return false
 	var before := data.duplicate(true)
 	var key := "effects" if effect else "themes"
@@ -121,10 +126,50 @@ func purchase(id: String, price: int, effect := false) -> bool:
 		if save(): return true
 		data = before
 		return false
+	if price<0: return false
 	if data.coins < price: return false
 	data.coins -= price
 	data[key].append(id)
 	data[active] = id
+	if save(): return true
+	data = before
+	return false
+
+func valid_billing_receipt(receipt: Variant) -> bool:
+	if not receipt is String or receipt.length()!=64: return false
+	for character in receipt:
+		if not character in "0123456789abcdef": return false
+	return true
+
+func apply_verified_purchase(product: String, receipt: String) -> bool:
+	if not product in ["neon_plus","rescue_pack_10_20"] or not valid_billing_receipt(receipt): return false
+	var duplicate: bool = receipt in data.billing_receipts
+	if duplicate and product=="rescue_pack_10_20": return true
+	if not duplicate and data.billing_receipts.size()>=10000: return false
+	if product=="rescue_pack_10_20" and (data.boosts.hammer>999999990 or data.boosts.shuffle>999999980): return false
+	var before := data.duplicate(true)
+	if product=="neon_plus":
+		data.neon_plus = true
+		data.ad_free = true
+		if not "cyber_galaxy" in data.themes: data.themes.append("cyber_galaxy")
+		if not "nova" in data.effects: data.effects.append("nova")
+	else:
+		data.boosts.hammer += 10
+		data.boosts.shuffle += 20
+	if not duplicate: data.billing_receipts.append(receipt)
+	if save(): return true
+	data = before
+	return false
+
+func revoke_neon_plus() -> bool:
+	if not data.neon_plus: return true
+	var before := data.duplicate(true)
+	data.neon_plus = false
+	data.ad_free = false
+	data.themes.erase("cyber_galaxy")
+	data.effects.erase("nova")
+	if data.theme=="cyber_galaxy": data.theme="neon"
+	if data.effect=="nova": data.effect="spark"
 	if save(): return true
 	data = before
 	return false

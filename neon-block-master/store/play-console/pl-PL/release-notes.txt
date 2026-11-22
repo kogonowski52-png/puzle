@@ -1,1 +1,1 @@
-Usprawniono uruchamianie reklam i odbieranie nagród. Poprawiono niezawodność pakietu ratunkowego.
+Nowy sklep: Motywy, Pomocnicy i Premium. Opcjonalny Neon Plus (Galaxy + Nova, bez reklam automatycznych), płatny pakiet 10 Młotków i 20 Zmian, przywracanie Neon Plus i ekran rodzica. Poprawiona dostępność urządzeń w manifeście.

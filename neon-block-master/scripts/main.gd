@@ -30,6 +30,7 @@ var ad_detail_label: Label
 var ad_ui_clock := 0.0
 var hammer_button: Button
 var game_instruction: Label
+var premium_status: Label
 
 func t(pl: String, en: String) -> String:
 	return pl if Store.data.settings.language == "pl" else en
@@ -59,6 +60,8 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(resize_stage)
 	resize_stage()
 	Ads.availability_changed.connect(_ads_changed)
+	Billing.changed.connect(_billing_changed)
+	Billing.message.connect(_billing_message)
 	Ads.fullscreen_changed.connect(func(active):
 		if active and screen == "game": pause_game()
 		elif screen == "result": result_screen())
@@ -96,6 +99,7 @@ func style(bg: Color, border: Color, radius := 20) -> StyleBoxFlat:
 
 func label(parent: Node, text: String, font_size: int, pos: Vector2, dims: Vector2, color := WHITE, heavy := false, align := HORIZONTAL_ALIGNMENT_CENTER) -> Label:
 	var l := Label.new()
+	l.clip_text = true
 	l.text = text
 	l.position = pos
 	l.size = dims
@@ -193,7 +197,7 @@ func menu() -> void:
 	if can_resume(): button(ui,t("Wznów rozgrywkę","Continue game"),Rect2(60,738,600,72),resume_game)
 	else: label(ui,t("8 × 8  •  Bez limitów  •  Offline","8 × 8  •  No limits  •  Offline"),17,Vector2(60,742),Vector2(600,60),MUTED)
 	button(ui,t("Wyzwanie dnia","Daily challenge"),Rect2(60,838,290,76),daily_screen)
-	button(ui,t("Motywy","Themes"),Rect2(370,838,290,76),shop)
+	button(ui,t("Sklep","Shop"),Rect2(370,838,290,76),shop)
 	button(ui,t("Statystyki","Statistics"),Rect2(60,934,290,76),stats)
 	button(ui,t("Ustawienia","Settings"),Rect2(370,934,290,76),settings)
 	button(ui,t("POMOCNIKI  /  Pakiet ratunkowy","BOOSTERS  /  Rescue pack"),Rect2(60,1034,600,76),func(): boosters(false),true)
@@ -253,7 +257,7 @@ func game_screen() -> void:
 	sub_label = label(ui,"",18,Vector2(50,296),Vector2(620,35),CYAN)
 	game_instruction = label(ui,t("PRZECIĄGNIJ FIGURĘ NA PLANSZĘ","DRAG A BLOCK ONTO THE BOARD"),15,Vector2(44,966),Vector2(632,36),MUTED)
 	notice.position = Vector2(44,105)
-	notice.size = Vector2(632,32)
+	notice.size = Vector2(632,26)
 	if model.mode!="daily":
 		hammer_button = button(ui,t("Młotek ×%d","Hammer ×%d") % int(Store.data.boosts.hammer),Rect2(44,1190,200,64),select_hammer,false,Store.data.boosts.hammer<1)
 		hammer_button.add_theme_font_size_override("font_size",18)
@@ -492,7 +496,8 @@ func stats() -> void:
 
 func shop() -> void:
 	change("shop")
-	header(t("Twój neonowy styl","Make it yours"),"◈ "+str(int(Store.data.coins))+" NEON COINS")
+	header(t("Twój neonowy styl","Make it yours"))
+	shop_tabs("themes")
 	var items := [["neon","NEON ORIGINAL",0,false,CYAN],["aurora","AURORA",120,false,Color("9df6c4")],["sunset","SUNSET",180,false,Color("ffb280")],["spark",t("Efekt: Iskry","Effect: Sparks"),0,true,PURPLE],["orbit",t("Efekt: Orbity","Effect: Orbits"),90,true,PURPLE]]
 	for i in items.size():
 		var item: Array = items[i]
@@ -505,8 +510,99 @@ func shop() -> void:
 		button(ui,text,Rect2(410,y+68,240,50),func():
 			if not Store.purchase(item[0],item[2],item[3]): toast(t("Za mało monet lub błąd zapisu","Not enough coins or save error"))
 			shop(),false,selected)
-	button(ui,t("POMOCNIKI  /  Młotek + Zmiana","BOOSTERS  /  Hammer + Shuffle"),Rect2(44,1010,632,76),func(): boosters(false),true)
+	label(ui,"◈ "+str(int(Store.data.coins))+" NEON COINS",16,Vector2(44,974),Vector2(632,30),MUTED)
+	button(ui,t("NEON PLUS  /  Galaxy + Nova","NEON PLUS  /  Galaxy + Nova"),Rect2(44,1010,632,76),premium_shop,true)
 	button(ui,t("PLASMA  /  dodatkowy motyw","PLASMA  /  extra theme"),Rect2(44,1110,632,64),lab)
+
+func shop_tabs(selected: String) -> void:
+	var tabs := [["themes",t("Motywy","Themes"),shop],["boosters",t("Pomocnicy","Boosters"),func(): boosters(false)],["premium","Premium",premium_shop]]
+	for i in tabs.size():
+		button(ui,tabs[i][1],Rect2(44+i*216,145,200,48),tabs[i][2],selected==tabs[i][0]).add_theme_font_size_override("font_size",18)
+
+func premium_shop() -> void:
+	change("premium")
+	notice.position = Vector2(44,1210)
+	notice.size = Vector2(632,55)
+	header(t("Sklep • Premium","Shop • Premium"))
+	shop_tabs("premium")
+	panel(ui,Rect2(44,218,632,510))
+	label(ui,"NEON PLUS",32,Vector2(70,235),Vector2(580,50),CYAN,true,HORIZONTAL_ALIGNMENT_LEFT)
+	label(ui,t("Jednorazowy zakup • na stałe","One-time purchase • permanent"),18,Vector2(70,289),Vector2(580,36),MUTED,false,HORIZONTAL_ALIGNMENT_LEFT)
+	var preview = preload("res://scripts/cosmetic_preview.gd").new()
+	preview.position = Vector2(70,337)
+	preview.size = Vector2(580,88)
+	ui.add_child(preview)
+	label(ui,"CYBER GALAXY  +  NOVA ✦",21,Vector2(70,440),Vector2(580,40),PURPLE,true)
+	label(ui,t("Wyłącza reklamy automatyczne. Odblokowuje motyw Galaxy i efekt Nova. Reklamy z nagrodą pozostają dobrowolne.","Removes automatic ads. Unlocks the Galaxy theme and Nova effect. Rewarded ads remain optional."),20,Vector2(70,492),Vector2(580,104),WHITE,false,HORIZONTAL_ALIGNMENT_LEFT).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	var plus_text := t("Wybierz Galaxy + Nova ✓","Select Galaxy + Nova ✓") if Store.data.neon_plus else purchase_caption(Billing.PLUS)
+	button(ui,plus_text,Rect2(64,625,592,76),func():
+		if Store.data.neon_plus:
+			if Store.purchase("cyber_galaxy",-1) and Store.purchase("nova",-1,true):
+				toast(t("Galaxy i Nova aktywne.","Galaxy and Nova selected."))
+		else: parent_purchase(Billing.PLUS),true,not Store.data.neon_plus and not Billing.available(Billing.PLUS)).add_theme_font_size_override("font_size",21)
+	panel(ui,Rect2(44,750,632,225))
+	label(ui,t("DUŻY PAKIET RATUNKOWY","LARGE RESCUE PACK"),23,Vector2(64,768),Vector2(592,44),WHITE,true)
+	label(ui,t("10 Młotków + 20 Zmian","10 Hammers + 20 Shuffles"),24,Vector2(64,818),Vector2(592,44),CYAN,true)
+	button(ui,purchase_caption(Billing.PACK),Rect2(64,883,592,66),func(): parent_purchase(Billing.PACK),true,not Billing.available(Billing.PACK)).add_theme_font_size_override("font_size",21)
+	premium_status = label(ui,billing_status(),16,Vector2(44,990),Vector2(632,58),MUTED)
+	premium_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	button(ui,t("Przywróć zakup Neon Plus","Restore Neon Plus purchase"),Rect2(44,1060,632,60),func(): Billing.restore()).add_theme_font_size_override("font_size",19)
+	label(ui,t("Zakupy przez Google Play • dostęp dla rodzica\nZużytych pomocników nie można przywrócić po usunięciu danych gry.","Google Play purchases • parent access\nConsumed boosters cannot be restored after deleting game data."),16,Vector2(44,1140),Vector2(632,65),MUTED).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+
+func purchase_caption(product: String) -> String:
+	if Billing.busy: return t("Trwa obsługa zakupu…","Processing purchase…")
+	var price: String = Billing.price(product)
+	if price.is_empty(): return t("Zakup obecnie niedostępny","Purchase currently unavailable")
+	return t("Kup za ","Buy for ")+price
+
+func billing_status() -> String:
+	if Billing.pending: return t("Płatność oczekuje na potwierdzenie Google Play.","Payment is pending Google Play confirmation.")
+	if OS.get_name()!="Android": return t("Zakupy są dostępne w wersji Android z Google Play.","Purchases are available in the Android version from Google Play.")
+	if Billing.state=="configuration_required": return t("Zakupy nie zostały jeszcze uruchomione.","Purchases have not been activated yet.")
+	if Billing.products.is_empty(): return t("Nie udało się pobrać ofert. Sprawdź internet i spróbuj ponownie.","Offers could not load. Check your connection and try again.")
+	return t("Ceny i płatność obsługuje Google Play.","Prices and payment are handled by Google Play.")
+
+func parent_purchase(product: String) -> void:
+	if not Billing.available(product): return
+	change("parent_gate")
+	header(t("Dostęp dla rodzica","Parent access"))
+	label(ui,t("Ten ekran jest dla rodzica lub opiekuna.","This screen is for a parent or guardian."),24,Vector2(60,248),Vector2(600,90),WHITE,true).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label(ui,t("Po potwierdzeniu otworzy się płatność Google Play. Możesz ją anulować.","After confirmation, Google Play payment will open. You can cancel it."),21,Vector2(60,365),Vector2(600,100),MUTED).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	var gate = preload("res://scripts/parent_gate.gd").new()
+	label(ui,"%d × %d = ?" % [gate.left,gate.right],40,Vector2(60,500),Vector2(600,80),CYAN,true)
+	var answer := LineEdit.new()
+	answer.position = Vector2(180,615)
+	answer.size = Vector2(360,78)
+	answer.max_length = 5
+	answer.placeholder_text = t("Wpisz wynik","Enter the answer")
+	answer.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
+	answer.add_theme_font_size_override("font_size",25)
+	ui.add_child(answer)
+	var confirm := func():
+		if Billing.purchase(product,gate,answer.text):
+			premium_shop()
+		else:
+			premium_shop()
+			toast(t("Nie potwierdzono dostępu. Spróbuj ponownie.","Access not confirmed. Please try again."))
+	button(ui,t("Przejdź do płatności — ","Continue to payment — ")+Billing.price(product),Rect2(44,775,632,80),confirm,true).add_theme_font_size_override("font_size",20)
+	answer.text_submitted.connect(func(_text): confirm.call())
+	button(ui,t("Anuluj i wróć do sklepu","Cancel and return to shop"),Rect2(44,885,632,76),premium_shop)
+
+func _billing_changed() -> void:
+	if screen=="premium": premium_shop()
+
+func _billing_message(code: String) -> void:
+	var texts := {
+		"delivered":["Zakup zapisany. Dziękujemy!","Purchase saved. Thank you!"],
+		"restored":["Sprawdzono zakupy konta Google Play.","Google Play account purchases checked."],
+		"pending":["Płatność oczekuje. Nagroda pojawi się po potwierdzeniu.","Payment pending. Items arrive after confirmation."],
+		"cancelled":["Zakup anulowany.","Purchase cancelled."],
+		"save_failed":["Nie zapisano zakupu. Nie usuwaj danych gry; spróbuj przywrócić zakup.","Purchase could not be saved. Keep game data and try restoring."],
+		"verification_failed":["Nie udało się potwierdzić zakupu.","Purchase verification failed."],
+		"settlement_pending":["Zakup zapisany. Potwierdzenie Google Play zostanie ponowione.","Purchase saved. Google Play confirmation will retry."]}
+	if screen=="premium": premium_shop()
+	var text: Array = texts.get(code,["Zakup niedostępny. Spróbuj ponownie w Google Play.","Purchase unavailable. Please try again in Google Play."])
+	call_deferred("toast",t(text[0],text[1]))
 
 func settings() -> void:
 	change("settings")
@@ -528,7 +624,7 @@ func settings() -> void:
 		info())
 	button(ui,t("Informacje i prywatność","About & privacy"),Rect2(44,900,632,85),info)
 	if not AppConfig.production(): button(ui,t("Reklamy testowe — status","Test ads — status"),Rect2(44,1010,632,60),ad_status)
-	label(ui,"NEON BLOCK MASTER  /  1.4.2",16,Vector2(44,1090),Vector2(632,45),MUTED)
+	label(ui,"NEON BLOCK MASTER  /  1.5.0",16,Vector2(44,1090),Vector2(632,45),MUTED)
 
 func info() -> void:
 	change("info")
@@ -547,13 +643,13 @@ func info() -> void:
 	content.add_theme_font_override("font",regular)
 	content.add_theme_font_size_override("font_size",21)
 	content.add_theme_color_override("font_color",WHITE)
-	content.text = t("JAK GRAĆ\n\nPrzeciągnij jedną z trzech figur na planszę 8 × 8. Figura unosi się nad palcem, aby podgląd był widoczny. Zielony podgląd oznacza poprawne miejsce, czerwony — kolizję. Nie można obracać figur.\n\nWypełnij cały rząd lub kolumnę, aby zwolnić miejsce. Pełne linie znikają jednocześnie. Nowe trzy figury otrzymasz po wykorzystaniu całej ręki. Gra kończy się, gdy żadna figura nie pasuje.\n\nPUNKTY I COMBO\n\n10 punktów za kwadrat, 100 za linię, 75 za każdą dodatkową linię w ruchu. Kolejne ruchy z kasowaniem linii dodają combo: +50 za każdy poziom powyżej pierwszego. Ruch bez linii zeruje combo.\n\nTIME ATTACK\n\n180 sekund aktywnej gry. Co najmniej dwie linie w jednym ruchu dodają po 3 sekundy za linię, maksymalnie 15. Pauza i tło zatrzymują zegar.\n\nNEON COINS\n\n15 monet za pierwszy start dnia, 10 za nowy rekord po grze, 80 za pierwsze ukończenie wyzwania dnia i 25 za dobrowolną reklamę z nagrodą. Monety nie mają wartości pieniężnej.\n\nPRYWATNOŚĆ\n\nPostęp i ustawienia zapisują się wyłącznie lokalnie. Nie wymagamy konta, lokalizacji, kontaktów ani serwera. Usunięcie danych aplikacji usuwa zapis. Reklamy, jeśli SDK jest dostępne, obsługuje Google AdMob; zgody obsługuje Google UMP. Preferencje zgód zmienisz w Ustawieniach. Brak internetu nie blokuje gry.\n\nTa wersja używa identyfikatorów reklam testowych. Nie realizuje zakupów. Polityka HTML, licencje i instrukcje publikacji znajdują się w źródłach projektu.\n\n© 2026 Neon Block Master\nOryginalne grafiki i syntezowane audio.\nGodot Engine — MIT. DejaVu Fonts — licencja Bitstream Vera / Arev. Integracja AdMob — Poing Studios (MIT).",
-	"HOW TO PLAY\n\nDrag one of three blocks onto the 8 × 8 board. The block floats above your finger so you can see its preview. Green means a valid placement; red means a collision. Blocks cannot be rotated.\n\nFill an entire row or column to free space. All full lines clear simultaneously. Use all three blocks to get a fresh hand. The game ends when no remaining block fits.\n\nSCORE & COMBO\n\n10 points per square, 100 per line, and 75 per additional line in the same move. Consecutive line-clearing moves build a combo: +50 per level above the first. A move without a clear resets the combo.\n\nTIME ATTACK\n\n180 seconds of active play. Clear at least two lines in one move to gain 3 seconds per line, capped at 15. Pausing or backgrounding stops the clock.\n\nNEON COINS\n\n15 coins for the first launch each day, 10 for a new personal best at game end, 80 for the first daily completion with an optional rewarded-ad rescue pack. Coins have no cash value.\n\nPRIVACY\n\nProgress and settings stay on your device. No accounts, location, contacts or game servers are required. Clearing app data removes progress. Where the ad SDK is available, Google AdMob handles ads and Google UMP handles consent. Manage consent in Settings. Offline play always works.\n\nThis build uses test ad IDs and offers no purchases. The HTML policy, licenses and publishing instructions are included in the project source.\n\n© 2026 Neon Block Master\nOriginal art and synthesized audio.\nGodot Engine — MIT. DejaVu Fonts — Bitstream Vera / Arev license. AdMob integration — Poing Studios (MIT).")
+	content.text = t("JAK GRAĆ\n\nPrzeciągnij jedną z trzech figur na planszę 8 × 8. Figura unosi się nad palcem, aby podgląd był widoczny. Zielony podgląd oznacza poprawne miejsce, czerwony — kolizję. Nie można obracać figur.\n\nWypełnij cały rząd lub kolumnę, aby zwolnić miejsce. Pełne linie znikają jednocześnie. Nowe trzy figury otrzymasz po wykorzystaniu całej ręki. Gra kończy się, gdy żadna figura nie pasuje.\n\nPUNKTY I COMBO\n\n10 punktów za kwadrat, 100 za linię, 75 za każdą dodatkową linię w ruchu. Kolejne ruchy z kasowaniem linii dodają combo: +50 za każdy poziom powyżej pierwszego. Ruch bez linii zeruje combo.\n\nTIME ATTACK\n\n180 sekund aktywnej gry. Co najmniej dwie linie w jednym ruchu dodają po 3 sekundy za linię, maksymalnie 15. Pauza i tło zatrzymują zegar.\n\nNEON COINS\n\n15 monet za pierwszy start dnia, 10 za nowy rekord po grze, 80 za pierwsze ukończenie wyzwania dnia oraz pakiet pomocników za dobrowolną reklamę z nagrodą. Monety nie mają wartości pieniężnej.\n\nPRYWATNOŚĆ\n\nPostęp i ustawienia zapisują się wyłącznie lokalnie. Nie wymagamy konta, lokalizacji, kontaktów ani serwera. Usunięcie danych aplikacji usuwa zapis. Reklamy, jeśli SDK jest dostępne, obsługuje Google AdMob; zgody obsługuje Google UMP. Preferencje zgód zmienisz w Ustawieniach. Brak internetu nie blokuje gry.\n\nZakupy opcjonalne obsługuje Google Play. Neon Plus wyłącza reklamy automatyczne i odblokowuje Galaxy + Nova. Płatny pakiet daje 10 Młotków i 20 Zmian. Polityka HTML, licencje i instrukcje publikacji znajdują się w źródłach projektu.\n\n© 2026 Neon Block Master\nOryginalne grafiki i syntezowane audio.\nGodot Engine — MIT. DejaVu Fonts — licencja Bitstream Vera / Arev. Integracja AdMob — Poing Studios (MIT).",
+	"HOW TO PLAY\n\nDrag one of three blocks onto the 8 × 8 board. The block floats above your finger so you can see its preview. Green means a valid placement; red means a collision. Blocks cannot be rotated.\n\nFill an entire row or column to free space. All full lines clear simultaneously. Use all three blocks to get a fresh hand. The game ends when no remaining block fits.\n\nSCORE & COMBO\n\n10 points per square, 100 per line, and 75 per additional line in the same move. Consecutive line-clearing moves build a combo: +50 per level above the first. A move without a clear resets the combo.\n\nTIME ATTACK\n\n180 seconds of active play. Clear at least two lines in one move to gain 3 seconds per line, capped at 15. Pausing or backgrounding stops the clock.\n\nNEON COINS\n\n15 coins for the first launch each day, 10 for a new personal best at game end, 80 for the first daily completion with an optional rewarded-ad rescue pack. Coins have no cash value.\n\nPRIVACY\n\nProgress and settings stay on your device. No accounts, location, contacts or game servers are required. Clearing app data removes progress. Where the ad SDK is available, Google AdMob handles ads and Google UMP handles consent. Manage consent in Settings. Offline play always works.\n\nOptional purchases use Google Play. Neon Plus removes automatic ads and unlocks Galaxy + Nova. A paid pack grants 10 Hammers and 20 Shuffles. The HTML policy, licenses and publishing instructions are included in the project source.\n\n© 2026 Neon Block Master\nOriginal art and synthesized audio.\nGodot Engine — MIT. DejaVu Fonts — Bitstream Vera / Arev license. AdMob integration — Poing Studios (MIT).")
 	content.text += t("\n\nNEON LAB\nMotyw PLASMA: 240 monet lub trzy dobrowolne reklamy z nagrodą. Postęp nie wygasa. Po rozgrywce możesz obejrzeć reklamę, aby raz podwoić zdobyte w niej monety. Nowe POMOCNIKI: Młotek usuwa obszar 3×3, a Zmiana wymienia zestaw klocków. Jedna dobrowolna reklama daje 1 Młotek i 2 Zmiany; ten sam pakiet kupisz za 90 monet. Pakiet startowy jest gratis. Pomocniki są wyłączone w Daily.","\n\nNEON LAB\nPLASMA theme: 240 coins or three optional rewarded ads. Progress never expires. After a run, you can watch an ad to double the coins earned in that run once. BOOSTERS: Hammer clears a 3×3 area, Shuffle replaces your hand. One optional rewarded ad gives 1 Hammer and 2 Shuffles; the same pack costs 90 coins. A starter pack is free. Boosters are disabled in Daily.")
 	if AppConfig.production():
 		content.text = content.text.replace("Ta wersja używa identyfikatorów reklam testowych.","Ta wersja korzysta z Google AdMob.").replace("This build uses test ad IDs","This build uses Google AdMob")
 	if not AppConfig.advertising_enabled():
-		content.text = content.text.split("NEON COINS")[0]+t("NEON COINS\n\nMonety zdobędziesz za codzienne uruchomienie, rekordy i wyzwania. Motywy są kosmetyczne i nie zmieniają zasad.\n\nPRYWATNOŚĆ\n\nTa wersja działa bez reklam i bez modułu reklamowego Google. Nie ma kont, płatności ani serwera gry. Nie pytamy o wiek. Wyniki, monety, motywy i ustawienia są zapisywane wyłącznie na urządzeniu. Czyszczenie danych aplikacji usuwa zapis. Nie mamy dostępu do kontaktów, zdjęć ani lokalizacji GPS.\n\nDLA DZIECI I DOROSŁYCH\n\nGra jest przeznaczona dla różnych grup wiekowych. Ocena treści w sklepie zostanie ustalona na podstawie ankiety IARC.\n\nWYDAWCA\n","NEON COINS\n\nEarn coins through daily visits, records and challenges. Themes are cosmetic and do not change the rules.\n\nPRIVACY\n\nThis version has no ads or Google advertising module. There are no accounts, purchases or game servers. We do not ask your age. Scores, coins, themes and settings stay on your device. Clearing app data removes your save. We do not access contacts, photos or GPS location.\n\nCHILDREN AND ADULTS\n\nThe game is intended for different age groups. The store content rating will be determined through the IARC questionnaire.\n\nPUBLISHER\n")+AppConfig.data.get("publisher_name","")+"\n"+AppConfig.data.get("contact_email","")
+		content.text = content.text.split("NEON COINS")[0]+t("NEON COINS\n\nMonety zdobędziesz za codzienne uruchomienie, rekordy i wyzwania. Motywy są kosmetyczne i nie zmieniają zasad.\n\nPRYWATNOŚĆ\n\nTa wersja działa bez reklam i bez modułu reklamowego Google. Nie ma własnych kont ani serwera gry. Opcjonalne płatności obsługuje Google Play. Nie pytamy o wiek. Wyniki, monety, motywy i ustawienia są zapisywane wyłącznie na urządzeniu. Czyszczenie danych aplikacji usuwa zapis. Nie mamy dostępu do kontaktów, zdjęć ani lokalizacji GPS.\n\nDLA DZIECI I DOROSŁYCH\n\nGra jest przeznaczona dla różnych grup wiekowych. Ocena treści w sklepie zostanie ustalona na podstawie ankiety IARC.\n\nWYDAWCA\n","NEON COINS\n\nEarn coins through daily visits, records and challenges. Themes are cosmetic and do not change the rules.\n\nPRIVACY\n\nThis version has no ads or Google advertising module. There are no game accounts or servers. Optional payments are handled by Google Play. We do not ask your age. Scores, coins, themes and settings stay on your device. Clearing app data removes your save. We do not access contacts, photos or GPS location.\n\nCHILDREN AND ADULTS\n\nThe game is intended for different age groups. The store content rating will be determined through the IARC questionnaire.\n\nPUBLISHER\n")+AppConfig.data.get("publisher_name","")+"\n"+AppConfig.data.get("contact_email","")
 	if AppConfig.advertising_enabled():
 		content.text = content.text.split("PRYWATNOŚĆ")[0] if Store.data.settings.language=="pl" else content.text.split("PRIVACY")[0]
 		content.text += t("\nPRYWATNOŚĆ\n\nReklamy Google AdMob używają ograniczonego profilu dla dzieci dla wszystkich graczy: child-directed, under-age, limit treści G i żądania niepersonalizowane. Nie pytamy o datę urodzenia ani nie przyznajemy korzyści za deklarację starszego wieku. SDK może przetwarzać dane techniczne, np. IP i diagnostykę; nie obiecujemy braku danych po stronie dostawcy. Wyniki i monety pozostają lokalnie.\n\n","\nPRIVACY\n\nGoogle AdMob ads use the restricted child-directed, under-age, G-rated, non-personalised request profile for all players. We do not ask your birth date or reward an older age declaration. The provider may process technical information such as IP and diagnostics; this is not a zero-data claim. Scores and coins remain local.\n\n")
@@ -586,6 +682,7 @@ func back() -> void:
 	elif screen == "menu":
 		modal(t("Zakończyć grę?","Exit game?"),t("Postęp jest zapisany.","Your progress is saved."),[[t("Zakończ","Exit"),func(): get_tree().quit()],[t("Zostań","Stay"),func(): clear_nodes(overlay)]])
 	elif screen == "lab": shop()
+	elif screen in ["premium","parent_gate"]: shop()
 	elif screen == "boosters" and boost_return_game: game_screen()
 	else: menu()
 
@@ -761,13 +858,14 @@ func boosters(in_game := false) -> void:
 	if in_game and model!=null: checkpoint()
 	boost_return_game = in_game
 	change("boosters")
-	notice.position = Vector2(44,187)
-	notice.size = Vector2(632,32)
+	notice.position = Vector2(44,197)
+	notice.size = Vector2(632,26)
 	button(ui,"‹",Rect2(44,60,68,68),func():
 		if boost_return_game: game_screen()
 		else: menu())
 	label(ui,t("POMOCNIKI","BOOSTERS"),30,Vector2(130,60),Vector2(460,68),WHITE,true)
-	label(ui,"◈ "+str(int(Store.data.coins))+" NEON COINS",19,Vector2(44,145),Vector2(632,44),CYAN)
+	if in_game: label(ui,"◈ "+str(int(Store.data.coins))+" NEON COINS",19,Vector2(44,145),Vector2(632,44),CYAN)
+	else: shop_tabs("boosters")
 	var names := [t("MŁOTEK 3×3","3×3 HAMMER"),t("ZMIANA KLOCKÓW","SHUFFLE BLOCKS")]
 	var descriptions := [t("Wskaż obszar na planszy. Usuń do 9 pól i zrób miejsce.","Choose an area. Clear up to 9 cells and make room."),t("Wymień 3 figury na nowy zestaw. Zachowaj planszę i wynik.","Get 3 fresh pieces. Keep your board and score.")]
 	for i in 2:

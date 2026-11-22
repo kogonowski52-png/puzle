@@ -1,3 +1,9 @@
+# Aktualizacja 1.5.0 — zakupy
+
+Dodano Google Play Billing 8.0.0: płatności obsługuje Google Play. Wydawca nie otrzymuje danych karty; gra sprawdza potwierdzenie zakupu i zapisuje lokalnie uprawnienie oraz skrót tokena. Nie ma serwerowej analityki zakupów ani kont gry. Przed publikacją ponownie oceń deklaracje Google Play, w tym informacje o zakupach i obowiązujące zasady SDK, zgodnie z rzeczywistą konfiguracją i dokumentacją Google. Nie kopiuj bez sprawdzenia starszej deklaracji „brak zakupów”. [Szczegóły](SHOP-1.5.0.md).
+
+---
+
 # Szkic deklaracji Bezpieczeństwo danych — 1.3.1
 
 Wariant z klasycznym Google Mobile Ads **24.9.0 / Poing 4.3.1 / UMP 4.0.0**. APK testowy korzysta z oficjalnych jednostek demonstracyjnych; docelowi odbiorcy to dzieci od 3 lat i dorośli. [Stan reklam](ADS-1.3.md).

@@ -1,1 +1,1 @@
-Improved ad startup and reward handling. Increased rescue-pack reliability.
+New shop: Themes, Boosters and Premium. Optional Neon Plus (Galaxy + Nova, no automatic ads), paid 10 Hammer / 20 Shuffle pack, Neon Plus restore and parent access. Improved device availability declarations.

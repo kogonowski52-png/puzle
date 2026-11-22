@@ -17,7 +17,8 @@ const PALETTES := {
 	"neon":[Color("51d9ff"),Color("b18aff"),Color("ff73b9"),Color("38e4d0"),Color("9be76b")],
 	"aurora":[Color("74f8d2"),Color("66c2ff"),Color("a7f58d"),Color("d1bbff"),Color("67e5b8")],
 	"sunset":[Color("ffb26f"),Color("ff768f"),Color("d896ff"),Color("ffe392"),Color("fe83cf")],
-	"plasma":[Color("ffe176"),Color("88aaff"),Color("ff77dd"),Color("6dfff1"),Color("c1ff85")]}
+	"plasma":[Color("ffe176"),Color("88aaff"),Color("ff77dd"),Color("6dfff1"),Color("c1ff85")],
+	"cyber_galaxy":[Color("b59bff"),Color("52eeff"),Color("ff88dc"),Color("8bafff"),Color("d8c0ff")]}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -121,5 +122,9 @@ func _draw() -> void:
 	for p in particles:
 		var c: Color = p.color
 		c.a = minf(1,p.life*2)
-		if Store.data.effect == "orbit": draw_arc(p.pos,5,0,TAU,10,c,2,true)
+		if Store.data.effect == "nova":
+			draw_line(p.pos-Vector2(7,0),p.pos+Vector2(7,0),c,2,true)
+			draw_line(p.pos-Vector2(0,7),p.pos+Vector2(0,7),c,2,true)
+			draw_circle(p.pos,2,c,true,-1,true)
+		elif Store.data.effect == "orbit": draw_arc(p.pos,5,0,TAU,10,c,2,true)
 		else: draw_circle(p.pos,3.5,c,true,-1,true)

@@ -1,0 +1,16 @@
+{
+  "mode": "test",
+  "publisher_name": "Krystian Development",
+  "contact_email": "kogonowski52@gmail.com",
+  "privacy_url": "",
+  "website_url": "",
+  "audience": "mixed",
+  "admob": {
+    "app_id": "ca-app-pub-3940256099942544~3347511713",
+    "rewarded_id": "ca-app-pub-3940256099942544/5224354917",
+    "interstitial_id": "ca-app-pub-3940256099942544/1033173712"
+  },
+  "ads_enabled": true,
+  "ad_profile": "family_contextual",
+  "ad_sdk": "gma_classic_24.9.0"
+}

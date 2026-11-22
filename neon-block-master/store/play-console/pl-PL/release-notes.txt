@@ -1,0 +1,1 @@
+Usprawniono uruchamianie reklam i odbieranie nagród. Poprawiono niezawodność pakietu ratunkowego.

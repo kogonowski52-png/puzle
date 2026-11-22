@@ -1,0 +1,14 @@
+{
+  "mode": "production",
+  "publisher_name": "",
+  "contact_email": "",
+  "privacy_url": "",
+  "website_url": "",
+  "audience": "unconfigured",
+  "admob": {
+    "app_id": "",
+    "rewarded_id": "",
+    "interstitial_id": ""
+  },
+  "ads_enabled": false
+}

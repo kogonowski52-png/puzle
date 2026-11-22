@@ -1,0 +1,1 @@
+Improved ad startup and reward handling. Increased rescue-pack reliability.

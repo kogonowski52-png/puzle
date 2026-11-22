@@ -1,0 +1,16 @@
+{
+  "mode": "production",
+  "publisher_name": "Krystian Development",
+  "contact_email": "kogonowski52@gmail.com",
+  "privacy_url": "https://kogonowski52-png.github.io/puzle/privacy.html",
+  "website_url": "https://kogonowski52-png.github.io/puzle/",
+  "audience": "mixed",
+  "admob": {
+    "app_id": "ca-app-pub-5988667220268461~2690935374",
+    "rewarded_id": "ca-app-pub-5988667220268461/2523414410",
+    "interstitial_id": "ca-app-pub-5988667220268461/3644924391"
+  },
+  "ads_enabled": true,
+  "ad_profile": "family_contextual",
+  "ad_sdk": "gma_classic_24.9.0"
+}

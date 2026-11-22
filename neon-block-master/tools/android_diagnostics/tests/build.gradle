@@ -1,0 +1,28 @@
+plugins { id 'com.android.library' version '8.6.1' }
+android {
+    namespace 'com.neonblockmaster.diagnostics'
+    compileSdk 36
+    defaultConfig { minSdk 24 }
+    sourceSets.main.java.srcDirs = ['../src', '../../android_runtime/src']
+    testOptions.unitTests.includeAndroidResources = true
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+}
+def unpackGodotApi = tasks.register('unpackGodotApi', Copy) {
+    from({ zipTree(file('../../../android/build/libs/debug/godot-lib.template_debug.aar')) }) { include 'classes.jar' }
+    into layout.buildDirectory.dir('godot-api')
+}
+dependencies {
+    compileOnly files(layout.buildDirectory.file('godot-api/classes.jar')).builtBy(unpackGodotApi)
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+}
+tasks.withType(Test).configureEach {
+    systemProperty 'robolectric.dependency.repo.url','https://repo.maven.apache.org/maven2'
+    systemProperty 'https.proxyHost','proxy'
+    systemProperty 'https.proxyPort','8080'
+    systemProperty 'http.proxyHost','proxy'
+    systemProperty 'http.proxyPort','8080'
+    maxHeapSize='2g'
+    testLogging { events 'passed','failed'; exceptionFormat 'full' }
+}

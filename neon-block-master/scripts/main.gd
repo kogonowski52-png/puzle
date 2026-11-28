@@ -7,6 +7,7 @@ const MUTED := Color("889ab9")
 const CYAN := Color("63e8e0")
 const PURPLE := Color("b79aff")
 var stage: Control
+var background: Control
 var ui: Control
 var overlay: Control
 var view: Control
@@ -31,16 +32,19 @@ var ad_ui_clock := 0.0
 var hammer_button: Button
 var game_instruction: Label
 var premium_status: Label
+var rescue_ad_button: Button
+var suppress_mouse_until := 0
+var drag_has_motion := false
 
 func t(pl: String, en: String) -> String:
 	return pl if Store.data.settings.language == "pl" else en
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
+	background = Backdrop.new()
+	add_child(background)
 	stage = Control.new()
 	add_child(stage)
-	var bg := Backdrop.new()
-	stage.add_child(bg)
 	view = View.new()
 	stage.add_child(view)
 	ui = Control.new()
@@ -77,6 +81,8 @@ func _ready() -> void:
 
 func resize_stage() -> void:
 	var area := get_viewport_rect().size
+	background.size = area
+	background.queue_redraw()
 	var inset := Vector2.ZERO
 	if OS.get_name() == "Android":
 		var safe := DisplayServer.get_display_safe_area()
@@ -122,10 +128,10 @@ func button(parent: Node, text: String, rect: Rect2, action: Callable, primary :
 	b.add_theme_color_override("font_color",Color("081a28") if primary else WHITE)
 	b.add_theme_color_override("font_disabled_color",MUTED)
 	b.add_theme_color_override("font_hover_color",Color("081a28") if primary else CYAN)
-	b.add_theme_stylebox_override("normal",style(CYAN if primary else Color("14213b"),CYAN if primary else Color("2a3a57")))
-	b.add_theme_stylebox_override("hover",style(CYAN.lightened(.15) if primary else Color("1b3050"),CYAN))
-	b.add_theme_stylebox_override("pressed",style(Color("43b9bd") if primary else Color("233959"),PURPLE))
-	b.add_theme_stylebox_override("disabled",style(Color("10192b"),Color("202d45")))
+	b.add_theme_stylebox_override("normal",style(CYAN if primary else Color("14283e"),CYAN if primary else Color("2d4761"),mini(28,int(rect.size.y/2))))
+	b.add_theme_stylebox_override("hover",style(CYAN.lightened(.1) if primary else Color("203b55"),CYAN,mini(28,int(rect.size.y/2))))
+	b.add_theme_stylebox_override("pressed",style(Color("43b9bd") if primary else Color("233959"),PURPLE,mini(28,int(rect.size.y/2))))
+	b.add_theme_stylebox_override("disabled",style(Color("101c2d"),Color("263a4e"),mini(28,int(rect.size.y/2))))
 	b.add_theme_stylebox_override("focus",style(Color(0,0,0,0),PURPLE))
 	b.disabled = disabled
 	b.pressed.connect(func():
@@ -176,32 +182,30 @@ func can_resume() -> bool:
 
 func menu() -> void:
 	change("menu")
-	label(ui,"N B M   /   P U Z Z L E",16,Vector2(44,52),Vector2(460,40),MUTED,false,HORIZONTAL_ALIGNMENT_LEFT)
-	label(ui,"◈  "+str(int(Store.data.coins)),22,Vector2(490,52),Vector2(180,40),CYAN,true,HORIZONTAL_ALIGNMENT_RIGHT)
-	# Original animated block mark, drawn using the same materials as the board.
+	label(ui,"NEON BLOCK MASTER",17,Vector2(38,35),Vector2(440,32),CYAN,true,HORIZONTAL_ALIGNMENT_LEFT)
+	label(ui,"◈ "+str(int(Store.data.coins)),21,Vector2(488,35),Vector2(190,32),WHITE,true,HORIZONTAL_ALIGNMENT_RIGHT)
 	var icon := Sprite2D.new()
 	icon.texture = preload("res://assets/icon.svg")
-	icon.position = Vector2(250,155)
+	icon.position = Vector2(270,125)
 	icon.centered = false
-	icon.scale = Vector2.ONE*(220.0/512.0)
+	icon.scale = Vector2.ONE*(180.0/512.0)
 	ui.add_child(icon)
-	var tw := create_tween().set_loops()
-	tw.tween_property(icon,"position:y",145.0,1.8).set_trans(Tween.TRANS_SINE)
-	tw.tween_property(icon,"position:y",155.0,1.8).set_trans(Tween.TRANS_SINE)
-	# Bind tween to node so leaving the menu does not leak looping animations.
-	tw.bind_node(icon)
-	label(ui,"NEON",76,Vector2(40,376),Vector2(640,90),CYAN,true)
-	label(ui,"BLOCK MASTER",36,Vector2(40,468),Vector2(640,54),WHITE,true)
-	label(ui,t("Małe klocki. Wielki flow.","Small blocks. Infinite flow."),20,Vector2(40,538),Vector2(640,40),MUTED)
-	button(ui,t("GRAJ  →","PLAY  →"),Rect2(60,628,600,90),modes,true)
-	if can_resume(): button(ui,t("Wznów rozgrywkę","Continue game"),Rect2(60,738,600,72),resume_game)
-	else: label(ui,t("8 × 8  •  Bez limitów  •  Offline","8 × 8  •  No limits  •  Offline"),17,Vector2(60,742),Vector2(600,60),MUTED)
-	button(ui,t("Wyzwanie dnia","Daily challenge"),Rect2(60,838,290,76),daily_screen)
-	button(ui,t("Sklep","Shop"),Rect2(370,838,290,76),shop)
-	button(ui,t("Statystyki","Statistics"),Rect2(60,934,290,76),stats)
-	button(ui,t("Ustawienia","Settings"),Rect2(370,934,290,76),settings)
-	button(ui,t("POMOCNIKI  /  Pakiet ratunkowy","BOOSTERS  /  Rescue pack"),Rect2(60,1034,600,76),func(): boosters(false),true)
-	button(ui,t("Jak grać / Prywatność","How to play / Privacy"),Rect2(60,1130,600,58),info)
+	var tw := create_tween().set_loops().bind_node(icon)
+	tw.tween_property(icon,"position:y",115.0,1.8).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(icon,"position:y",125.0,1.8).set_trans(Tween.TRANS_SINE)
+	label(ui,"NEON",66,Vector2(40,326),Vector2(640,82),WHITE,true)
+	label(ui,"BLOCK MASTER",30,Vector2(40,406),Vector2(640,46),CYAN,true)
+	label(ui,t("Układaj. Łącz. Bij rekordy.","Place. Clear. Beat your best."),19,Vector2(40,465),Vector2(640,38),MUTED)
+	button(ui,t("GRAJ  →","PLAY  →"),Rect2(48,538,624,92),modes,true).add_theme_font_size_override("font_size",27)
+	if can_resume(): button(ui,t("Wznów zapisane klocki","Continue your saved game"),Rect2(48,650,624,70),resume_game)
+	else: label(ui,t("Classic • Time Attack • Daily","Classic • Time Attack • Daily"),17,Vector2(48,650),Vector2(624,48),MUTED)
+	button(ui,t("Wyzwanie dnia","Daily challenge"),Rect2(48,756,300,88),daily_screen)
+	button(ui,t("Sklep","Shop"),Rect2(372,756,300,88),shop)
+	button(ui,t("Pomocnicy  •  %d / %d","Boosters  •  %d / %d") % [Store.data.boosts.hammer,Store.data.boosts.shuffle],Rect2(48,870,624,82),func(): boosters(false))
+	button(ui,t("Statystyki","Statistics"),Rect2(48,978,300,72),stats)
+	button(ui,t("Ustawienia","Settings"),Rect2(372,978,300,72),settings)
+	button(ui,t("Jak grać • Prywatność","How to play • Privacy"),Rect2(48,1100,624,58),info)
+	if OS.has_feature("ads_test"): label(ui,t("TEST 2.0 • reklamy demonstracyjne Google","TEST 2.0 • Google demo advertisements"),15,Vector2(36,1200),Vector2(648,30),MUTED)
 
 func modes() -> void:
 	change("modes")
@@ -245,27 +249,46 @@ func resume_game() -> void:
 
 func game_screen() -> void:
 	change("game")
+	if view.model!=model: view.reset_effects()
 	view.model = model
 	view.active = true
-	label(ui,"NBM / "+model.mode.to_upper(),18,Vector2(50,58),Vector2(480,40),MUTED,false,HORIZONTAL_ALIGNMENT_LEFT)
-	button(ui,"Ⅱ",Rect2(594,54,76,66),pause_game)
-	panel(ui,Rect2(46,143,400,146))
-	label(ui,t("TWÓJ WYNIK","YOUR SCORE"),15,Vector2(70,158),Vector2(350,30),MUTED,false,HORIZONTAL_ALIGNMENT_LEFT)
-	score_label = label(ui,str(model.score),54,Vector2(68,188),Vector2(350,82),WHITE,true,HORIZONTAL_ALIGNMENT_LEFT)
-	label(ui,t("REKORD","BEST"),15,Vector2(466,151),Vector2(200,30),MUTED)
-	label(ui,str(int(Store.data.best[model.mode])),30,Vector2(466,191),Vector2(200,48),PURPLE,true)
-	sub_label = label(ui,"",18,Vector2(50,296),Vector2(620,35),CYAN)
-	game_instruction = label(ui,t("PRZECIĄGNIJ FIGURĘ NA PLANSZĘ","DRAG A BLOCK ONTO THE BOARD"),15,Vector2(44,966),Vector2(632,36),MUTED)
-	notice.position = Vector2(44,105)
-	notice.size = Vector2(632,26)
+	label(ui,"NEON / "+model.mode.to_upper(),16,Vector2(38,28),Vector2(470,28),CYAN,true,HORIZONTAL_ALIGNMENT_LEFT)
+	button(ui,"Ⅱ",Rect2(614,34,68,68),pause_game).tooltip_text = t("Pauza","Pause")
+	label(ui,t("WYNIK","SCORE"),13,Vector2(38,70),Vector2(300,25),MUTED,false,HORIZONTAL_ALIGNMENT_LEFT)
+	score_label = label(ui,str(model.score),48,Vector2(34,91),Vector2(340,59),WHITE,true,HORIZONTAL_ALIGNMENT_LEFT)
+	label(ui,t("REKORD","BEST"),13,Vector2(408,69),Vector2(164,25),MUTED)
+	label(ui,str(int(Store.data.best[model.mode])),27,Vector2(408,98),Vector2(164,43),PURPLE,true)
+	sub_label = label(ui,"",16,Vector2(36,151),Vector2(648,27),CYAN)
+	game_instruction = label(ui,t("Przeciągnij figurę. Puść na podświetlonych polach.","Drag a block. Release on the highlighted cells."),17,Vector2(36,855),Vector2(648,64),MUTED)
+	game_instruction.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	game_instruction.visible = not Store.data.tutorial_done
+	notice.position = Vector2(36,855)
+	notice.size = Vector2(648,64)
 	if model.mode!="daily":
-		hammer_button = button(ui,t("Młotek ×%d","Hammer ×%d") % int(Store.data.boosts.hammer),Rect2(44,1190,200,64),select_hammer,false,Store.data.boosts.hammer<1)
-		hammer_button.add_theme_font_size_override("font_size",18)
-		button(ui,t("Zmiana ×%d","Shuffle ×%d") % int(Store.data.boosts.shuffle),Rect2(260,1190,200,64),use_shuffle,false,Store.data.boosts.shuffle<1).add_theme_font_size_override("font_size",18)
-		button(ui,t("+ Pakiet","+ Boosters"),Rect2(476,1190,200,64),func(): boosters(true),true).add_theme_font_size_override("font_size",18)
+		hammer_button = boost_button(preload("res://assets/ui/hammer.svg"),int(Store.data.boosts.hammer),Rect2(42,1150,190,64),select_hammer,Store.data.boosts.hammer<1,t("Młotek 3×3","3×3 Hammer"))
+		boost_button(preload("res://assets/ui/shuffle.svg"),int(Store.data.boosts.shuffle),Rect2(265,1150,190,64),use_shuffle,Store.data.boosts.shuffle<1,t("Zmiana figur","Shuffle pieces"))
+		button(ui,t("+ Pakiet","+ Pack"),Rect2(488,1150,190,64),func(): boosters(true),true).add_theme_font_size_override("font_size",19)
+		label(ui,t("Młotek","Hammer"),14,Vector2(42,1220),Vector2(190,28),MUTED)
+		label(ui,t("Zmiana","Shuffle"),14,Vector2(265,1220),Vector2(190,28),MUTED)
 	else:
-		label(ui,t("W Daily wszyscy grają bez pomocników.","Daily is played without boosters."),16,Vector2(44,1190),Vector2(632,45),MUTED)
+		label(ui,t("Daily • te same zasady dla wszystkich","Daily • the same rules for everyone"),16,Vector2(36,1160),Vector2(648,48),MUTED)
 	update_hud()
+
+func boost_button(texture: Texture2D, count: int, rect: Rect2, action: Callable, disabled: bool, hint: String) -> Button:
+	var control := button(ui,"×"+str(count),rect,action,false,disabled)
+	control.add_theme_font_size_override("font_size",25)
+	control.alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	control.tooltip_text = hint
+	var icon := TextureRect.new()
+	icon.texture = texture
+	icon.position = Vector2(18,10)
+	icon.size = Vector2(44,44)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.size = Vector2(44,44)
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	control.add_child(icon)
+	return control
 
 func update_hud() -> void:
 	if screen != "game" or not is_instance_valid(score_label): return
@@ -275,7 +298,7 @@ func update_hud() -> void:
 		sub_label.text = "%02d:%02d" % [seconds/60,seconds%60]+("  •  COMBO ×"+str(model.combo) if model.combo>1 else "")
 		sub_label.modulate = Color("ff738e") if seconds < 30 else WHITE
 	elif model.mode == "daily": sub_label.text = model.day+"   /   "+str(model.score)+" / "+str(model.target)
-	else: sub_label.text = "COMBO ×"+str(model.combo) if model.combo>1 else t("Każdy ruch to nowa możliwość.","Every move is a new possibility.")
+	else: sub_label.text = "COMBO ×"+str(model.combo) if model.combo>1 else ""
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -287,7 +310,13 @@ func _input(event: InputEvent) -> void:
 	var pressed := false
 	var released := false
 	if event is InputEventScreenTouch:
-		if touch_id >= 0 and event.index != touch_id: return
+		if touch_id >= 0 and event.index != touch_id:
+			get_viewport().set_input_as_handled()
+			return
+		if event.canceled and touch_id==event.index:
+			cancel_drag()
+			get_viewport().set_input_as_handled()
+			return
 		pos = stage.get_global_transform().affine_inverse()*event.position
 		pressed = event.pressed
 		released = not event.pressed
@@ -295,12 +324,16 @@ func _input(event: InputEvent) -> void:
 		if event.index != touch_id: return
 		pos = stage.get_global_transform().affine_inverse()*event.position
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if touch_id >= 0: return
+		if touch_id >= 0 or Time.get_ticks_msec()<suppress_mouse_until:
+			get_viewport().set_input_as_handled()
+			return
 		pos = stage.get_global_transform().affine_inverse()*event.position
 		pressed = event.pressed
 		released = not event.pressed
 	elif event is InputEventMouseMotion:
-		if touch_id >= 0: return
+		if touch_id >= 0 or Time.get_ticks_msec()<suppress_mouse_until:
+			get_viewport().set_input_as_handled()
+			return
 		pos = stage.get_global_transform().affine_inverse()*event.position
 	else: return
 	if hammer_aim:
@@ -322,23 +355,41 @@ func _input(event: InputEvent) -> void:
 		for i in 3:
 			if not model.hand[i].is_empty() and view.tray_rect(i).has_point(pos):
 				view.drag = i
+				drag_has_motion = false
+				notice.text = ""
+				toast_time = 0
+				if is_instance_valid(game_instruction): game_instruction.hide()
 				if event is InputEventScreenTouch: touch_id = event.index
 				Ads.dragging = true
 				break
 	if view.drag < 0: return
-	view.pointer = pos
-	view.update_anchor()
+	get_viewport().set_input_as_handled()
+	if touch_id>=0: suppress_mouse_until = Time.get_ticks_msec()+250
+	# Keep the preview target on release, even when touch-up coordinates jitter.
+	if not released or not drag_has_motion:
+		view.pointer = pos
+		view.update_anchor()
+	if event is InputEventScreenDrag or event is InputEventMouseMotion: drag_has_motion = true
 	if released:
 		var at: Vector2i = view.anchor
 		var index: int = view.drag
+		var inside: bool = view.anchor_inside_board()
 		cancel_drag()
-		apply_move(index,at)
+		var over_tray := false
+		for slot in 3: over_tray = over_tray or view.tray_rect(slot).has_point(pos)
+		var drop_area := Rect2(View.ORIGIN,Vector2(View.CELL*8,View.TRAY_Y-View.ORIGIN.y))
+		if inside and not over_tray and drop_area.has_point(pos): apply_move(index,at)
 		get_viewport().set_input_as_handled()
 
 func cancel_drag() -> void:
-	if view != null: view.drag = -1
+	if touch_id>=0: suppress_mouse_until = Time.get_ticks_msec()+250
+	if view != null:
+		view.drag = -1
+		view.queue_redraw()
 	touch_id = -1
 	Ads.dragging = false
+	drag_has_motion = false
+	if screen=="game" and is_instance_valid(game_instruction): game_instruction.visible = hammer_aim or not Store.data.tutorial_done
 
 func apply_move(index: int, at: Vector2i) -> void:
 	var result := model.place(index,at)
@@ -348,12 +399,15 @@ func apply_move(index: int, at: Vector2i) -> void:
 	Store.data.stats.moves += 1
 	Store.data.stats.lines += result.lines
 	Store.data.stats.points += result.points
+	Store.data.tutorial_done = true
+	if is_instance_valid(game_instruction): game_instruction.hide()
 	Sound.haptic()
 	Sound.play("combo" if model.combo > 1 or result.lines>1 else ("clear" if result.lines>0 else "place"))
-	view.burst(result.cleared)
+	view.land(result.placed)
+	view.burst(result.cleared,result.rows,result.columns)
 	view.queue_redraw()
 	if result.lines > 0:
-		toast("+"+str(result.points)+("  /  COMBO ×"+str(model.combo) if model.combo>1 else t("  Świetnie!","  Nice!"))+("  +"+str(result.seconds)+"s" if result.seconds>0 else ""))
+		toast("+"+str(result.points)+t(" • Linie: %d"," • Lines: %d") % result.lines+(" • COMBO ×"+str(model.combo) if model.combo>1 else "")+("  +"+str(result.seconds)+"s" if result.seconds>0 else ""))
 	update_hud()
 	checkpoint()
 	if model.mode == "daily" and model.score >= model.target: finish(true)
@@ -370,9 +424,12 @@ func _process(delta: float) -> void:
 		ad_ui_clock = 0
 		if is_instance_valid(ad_state_label): ad_state_label.text = Ads.status_text()
 		if is_instance_valid(ad_detail_label): ad_detail_label.text = Ads.details_text()
+		if screen=="boosters" and is_instance_valid(rescue_ad_button): update_rescue_ad_button()
 	if toast_time > 0:
 		toast_time -= delta
-		if toast_time <= 0: notice.text = ""
+		if toast_time <= 0:
+			notice.text = ""
+			if screen=="game" and is_instance_valid(game_instruction): game_instruction.visible = hammer_aim or not Store.data.tutorial_done
 	if screen != "game" or model == null or Ads.fullscreen: return
 	if model.mode == "time":
 		model.remaining = maxf(0,model.remaining-delta)
@@ -426,12 +483,13 @@ func finish(success := false) -> void:
 func result_screen() -> void:
 	change("result")
 	var success := model.mode=="daily" and model.score>=model.target
-	label(ui,t("WYZWANIE UKOŃCZONE","CHALLENGE COMPLETE") if success else t("DOBRA ROZGRYWKA","NICE RUN"),20,Vector2(44,155),Vector2(632,50),CYAN,true)
+	label(ui,t("WYZWANIE UKOŃCZONE","CHALLENGE COMPLETE") if success else t("TWÓJ WYNIK","YOUR SCORE"),20,Vector2(44,155),Vector2(632,50),CYAN,true)
 	label(ui,str(model.score),96,Vector2(44,252),Vector2(632,135),WHITE,true)
 	label(ui,t("punktów","points"),22,Vector2(44,391),Vector2(632,44),MUTED)
 	label(ui,t("Rekord: ","Best: ")+str(int(Store.data.best[model.mode])),26,Vector2(44,466),Vector2(632,48),PURPLE,true)
 	label(ui,"+"+str(result_reward)+" NEON COINS",20,Vector2(44,544),Vector2(632,44),CYAN)
-	button(ui,t("Jeszcze raz","Play again"),Rect2(60,655,600,84),func():
+	label(ui,t("Ruchy: %d  •  Linie: %d","Moves: %d  •  Lines: %d") % [model.moves,model.lines],18,Vector2(48,590),Vector2(624,36),MUTED)
+	button(ui,t("Jeszcze raz","Play again"),Rect2(48,655,624,84),func():
 		Ads.between_games()
 		new_game(model.mode),true)
 	var can_revive := AppConfig.advertising_enabled() and not model.revived and model.mode!="daily" and not (model.mode=="time" and model.remaining<=0)
@@ -439,7 +497,7 @@ func result_screen() -> void:
 		button(ui,t("Reklama: druga szansa","Watch ad: second chance"),Rect2(60,761,600,78),revive_with_ad,false,not Ads.reward_available())
 		label(ui,t("Usuwa środkowe 4 rzędy. Raz na rozgrywkę.","Clears the middle 4 rows. Once per run."),16,Vector2(44,849),Vector2(632,44),MUTED)
 		if not Ads.reward_available(): label(ui,t("Reklama jest teraz niedostępna.","No ad is available right now."),16,Vector2(44,893),Vector2(632,36),MUTED)
-	button(ui,t("Menu główne","Main menu"),Rect2(60,984,600,78),menu)
+	button(ui,t("Menu główne","Main menu"),Rect2(48,984,624,78),menu)
 	var bonus: Dictionary = Store.data.result_bonus
 	if AppConfig.advertising_enabled() and not bonus.is_empty():
 		var text := t("Podwojono nagrodę ✓","Reward doubled ✓") if bonus.claimed else t("Reklama: +%d monet (nagroda ×2)","Watch ad: +%d coins (reward ×2)") % int(bonus.amount)
@@ -624,7 +682,7 @@ func settings() -> void:
 		info())
 	button(ui,t("Informacje i prywatność","About & privacy"),Rect2(44,900,632,85),info)
 	if not AppConfig.production(): button(ui,t("Reklamy testowe — status","Test ads — status"),Rect2(44,1010,632,60),ad_status)
-	label(ui,"NEON BLOCK MASTER  /  1.5.0",16,Vector2(44,1090),Vector2(632,45),MUTED)
+	label(ui,"NEON BLOCK MASTER  /  2.0.0",16,Vector2(44,1090),Vector2(632,45),MUTED)
 
 func info() -> void:
 	change("info")
@@ -660,6 +718,7 @@ func info() -> void:
 	button(ui,t("Licencje","Licenses"),Rect2(370,1080,306,80),licenses)
 
 func toast(text: String) -> void:
+	if screen=="game" and is_instance_valid(game_instruction): game_instruction.hide()
 	notice.text = text
 	toast_time = 3.2
 
@@ -817,12 +876,14 @@ func select_hammer() -> void:
 	cancel_drag()
 	hammer_aim = not hammer_aim
 	if is_instance_valid(hammer_button):
-		hammer_button.text = t("Anuluj młotek","Cancel hammer") if hammer_aim else t("Młotek ×%d","Hammer ×%d") % int(Store.data.boosts.hammer)
+		hammer_button.text = "×" if hammer_aim else "×"+str(int(Store.data.boosts.hammer))
 	if is_instance_valid(game_instruction):
 		game_instruction.text = t("MŁOTEK: WSKAŻ OBSZAR 3×3 NA PLANSZY","HAMMER: CHOOSE A 3×3 AREA ON THE BOARD") if hammer_aim else t("PRZECIĄGNIJ FIGURĘ NA PLANSZĘ","DRAG A BLOCK ONTO THE BOARD")
+		game_instruction.visible = hammer_aim or not Store.data.tutorial_done
 	view.hammer_preview = Vector2i(-1,-1)
 	view.queue_redraw()
-	toast(t("Dotknij planszy: usuń obszar 3×3. Młotek ponownie = anuluj.","Touch the board to clear 3×3. Tap Hammer again to cancel.") if hammer_aim else t("Młotek anulowany","Hammer cancelled"))
+	notice.text = ""
+	toast_time = 0
 
 func use_hammer(cell: Vector2i) -> void:
 	if screen!="game" or model.mode=="daily" or Store.data.boosts.hammer<1: return
@@ -858,38 +919,68 @@ func boosters(in_game := false) -> void:
 	if in_game and model!=null: checkpoint()
 	boost_return_game = in_game
 	change("boosters")
-	notice.position = Vector2(44,197)
-	notice.size = Vector2(632,26)
-	button(ui,"‹",Rect2(44,60,68,68),func():
+	notice.position = Vector2(36,196)
+	notice.size = Vector2(648,28)
+	button(ui,"‹",Rect2(36,38,64,64),func():
 		if boost_return_game: game_screen()
 		else: menu())
-	label(ui,t("POMOCNIKI","BOOSTERS"),30,Vector2(130,60),Vector2(460,68),WHITE,true)
-	if in_game: label(ui,"◈ "+str(int(Store.data.coins))+" NEON COINS",19,Vector2(44,145),Vector2(632,44),CYAN)
+	label(ui,t("Pomocnicy","Boosters"),31,Vector2(120,38),Vector2(480,64),WHITE,true)
+	if in_game: label(ui,"◈ "+str(int(Store.data.coins))+" NEON COINS",17,Vector2(36,136),Vector2(648,38),CYAN)
 	else: shop_tabs("boosters")
-	var names := [t("MŁOTEK 3×3","3×3 HAMMER"),t("ZMIANA KLOCKÓW","SHUFFLE BLOCKS")]
-	var descriptions := [t("Wskaż obszar na planszy. Usuń do 9 pól i zrób miejsce.","Choose an area. Clear up to 9 cells and make room."),t("Wymień 3 figury na nowy zestaw. Zachowaj planszę i wynik.","Get 3 fresh pieces. Keep your board and score.")]
+	var names := [t("Młotek 3×3","3×3 Hammer"),t("Zmiana figur","Shuffle pieces")]
+	var descriptions := [t("Usuń do 9 pól. Wybierz miejsce na planszy.","Clear up to 9 cells. Choose the area."),t("Nowe 3 figury. Plansza i wynik zostają.","3 new pieces. Keep your board and score.")]
+	var textures := [preload("res://assets/ui/hammer.svg"),preload("res://assets/ui/shuffle.svg")]
 	for i in 2:
-		var y := 225+i*170
-		panel(ui,Rect2(44,y,632,145))
-		label(ui,names[i],22,Vector2(70,y+15),Vector2(450,40),CYAN if i==0 else PURPLE,true,HORIZONTAL_ALIGNMENT_LEFT)
-		label(ui,"×"+str(int(Store.data.boosts["hammer" if i==0 else "shuffle"])),36,Vector2(535,y+12),Vector2(110,50),WHITE,true)
-		label(ui,descriptions[i],17,Vector2(70,y+65),Vector2(580,65),MUTED,false,HORIZONTAL_ALIGNMENT_LEFT).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	panel(ui,Rect2(44,590,632,215))
-	label(ui,t("PAKIET RATUNKOWY","RESCUE PACK"),24,Vector2(60,605),Vector2(600,45),WHITE,true)
-	label(ui,t("1 Młotek + 2 Zmiany","1 Hammer + 2 Shuffles"),23,Vector2(60,658),Vector2(600,44),CYAN,true)
-	button(ui,t("Obejrzyj reklamę — odbierz pakiet","Watch an ad — get the pack"),Rect2(60,716,600,70),reward_rescue_pack,true,not Store.can_add_rescue_pack()).add_theme_font_size_override("font_size",20)
-	ad_state_label = label(ui,Ads.status_text(),17,Vector2(44,819),Vector2(632,74),MUTED)
+		var x := 36+i*336
+		panel(ui,Rect2(x,238,312,234))
+		var icon := TextureRect.new()
+		icon.texture = textures[i]
+		icon.position = Vector2(x+24,258)
+		icon.size = Vector2(58,58)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.size = Vector2(58,58)
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		ui.add_child(icon)
+		label(ui,"×"+str(int(Store.data.boosts["hammer" if i==0 else "shuffle"])),38,Vector2(x+116,258),Vector2(170,58),WHITE,true,HORIZONTAL_ALIGNMENT_RIGHT)
+		label(ui,names[i],23,Vector2(x+22,334),Vector2(270,38),CYAN if i==0 else PURPLE,true,HORIZONTAL_ALIGNMENT_LEFT)
+		var description := label(ui,descriptions[i],17,Vector2(x+22,382),Vector2(270,70),MUTED,false,HORIZONTAL_ALIGNMENT_LEFT)
+		description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	panel(ui,Rect2(36,506,648,282))
+	label(ui,t("Pakiet ratunkowy","Rescue pack"),26,Vector2(56,526),Vector2(608,46),WHITE,true)
+	label(ui,t("1 Młotek + 2 Zmiany","1 Hammer + 2 Shuffles"),26,Vector2(56,584),Vector2(608,48),CYAN,true)
+	label(ui,t("Jedna ukończona reklama • nagroda do plecaka","One completed ad • reward added to inventory"),16,Vector2(56,644),Vector2(608,32),MUTED)
+	rescue_ad_button = button(ui,"",Rect2(56,696,608,68),reward_rescue_pack,true)
+	rescue_ad_button.add_theme_font_size_override("font_size",20)
+	update_rescue_ad_button()
+	ad_state_label = label(ui,Ads.status_text(),17,Vector2(36,806),Vector2(648,82),MUTED)
 	ad_state_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	button(ui,t("Albo kup pakiet za 90 monet","Or buy the pack for 90 coins"),Rect2(44,920,632,74),func():
+	button(ui,t("Ten sam pakiet • 90 monet","The same pack • 90 coins"),Rect2(36,914,648,70),func():
 		if Store.buy_rescue_pack():
 			boosters(boost_return_game)
 			toast(t("+1 Młotek i +2 Zmiany","+1 Hammer and +2 Shuffles"))
-		else: toast(t("Potrzebujesz 90 monet lub wolnego miejsca w plecaku.","You need 90 coins and inventory space.")),false,Store.data.coins<90 or not Store.can_add_rescue_pack())
-	label(ui,t("Pakiet startowy gratis. Pomocniki działają w Classic i Time Attack.","Free starter pack. Boosters work in Classic and Time Attack."),16,Vector2(44,1010),Vector2(632,65),MUTED).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	button(ui,t("Wróć do gry","Back to game") if in_game else t("Zagraj i wypróbuj pomocniki","Play and try your boosters"),Rect2(44,1100,632,72),func():
+		else: toast(t("Potrzebujesz 90 monet lub miejsca w plecaku.","You need 90 coins and inventory space.")),false,Store.data.coins<90 or not Store.can_add_rescue_pack())
+	label(ui,t("Classic i Time Attack • w Daily bez pomocników","Classic and Time Attack • Daily has no boosters"),16,Vector2(36,1006),Vector2(648,40),MUTED)
+	button(ui,t("Wróć do gry","Back to game") if in_game else t("Zagraj","Play"),Rect2(36,1080,648,72),func():
 		if boost_return_game: game_screen()
 		else: modes())
-	button(ui,t("Status reklam / Ponów","Ad status / Retry"),Rect2(44,1190,632,48),ad_status).add_theme_font_size_override("font_size",16)
+	button(ui,t("Status reklam • kopiuj szczegóły","Ad status • copy details"),Rect2(36,1180,648,52),ad_status).add_theme_font_size_override("font_size",17)
+
+func update_rescue_ad_button() -> void:
+	if not Store.can_add_rescue_pack():
+		rescue_ad_button.text = t("Plecak jest pełny","Inventory is full")
+		rescue_ad_button.disabled = true
+	elif Ads.reward_available():
+		rescue_ad_button.text = t("Obejrzyj reklamę — odbierz pakiet","Watch an ad — get the pack")
+		rescue_ad_button.disabled = false
+	elif Ads.reward_cooldown_seconds()>0:
+		rescue_ad_button.text = t("Kolejna reklama za %d s","Next ad in %d s") % Ads.reward_cooldown_seconds()
+		rescue_ad_button.disabled = true
+	elif Ads.reward_is_loading():
+		rescue_ad_button.text = t("Ładowanie reklamy…","Loading an ad…")
+		rescue_ad_button.disabled = true
+	else:
+		rescue_ad_button.text = t("Ponów pobieranie reklamy","Retry loading an ad")
+		rescue_ad_button.disabled = false
 
 func reward_rescue_pack() -> void:
 	if not Store.can_add_rescue_pack(): return

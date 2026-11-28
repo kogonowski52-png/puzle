@@ -88,7 +88,12 @@ func place(index: int, at: Vector2i) -> Dictionary:
 	if ended or index < 0 or index >= hand.size() or hand[index].is_empty(): return {}
 	var piece: Dictionary = hand[index]
 	if not can_place(piece.shape, at): return {}
-	for p in piece.shape: cells[(at.y+int(p[1]))*SIZE+at.x+int(p[0])] = piece.color
+	var placed: Array = []
+	for p in piece.shape:
+		var x := at.x+int(p[0])
+		var y := at.y+int(p[1])
+		cells[y*SIZE+x] = piece.color
+		placed.append({"x":x,"y":y,"color":piece.color})
 	var rows: Array = []
 	var columns: Array = []
 	for y in SIZE:
@@ -119,7 +124,7 @@ func place(index: int, at: Vector2i) -> Dictionary:
 		remaining += seconds
 	hand[index] = {}
 	if hand.all(func(p): return p.is_empty()): deal()
-	return {"points":points,"lines":count,"cleared":cleared,"seconds":seconds}
+	return {"points":points,"lines":count,"cleared":cleared,"seconds":seconds,"placed":placed,"rows":rows,"columns":columns}
 
 func revive() -> bool:
 	if revived or mode == "daily" or (mode == "time" and remaining <= 0): return false
@@ -181,6 +186,14 @@ static func restore(data: Dictionary) -> PuzzleBoard:
 	var b := PuzzleBoard.new()
 	b.cells = data.cells.duplicate()
 	b.hand = data.hand.duplicate(true)
+	# JSON numbers are floats. Restore the same canonical integer grid/figures.
+	for index in b.cells.size(): b.cells[index] = int(b.cells[index])
+	for piece in b.hand:
+		if piece.is_empty(): continue
+		piece.color = int(piece.color)
+		for point in piece.shape:
+			point[0] = int(point[0])
+			point[1] = int(point[1])
 	for key in ["score","combo","moves","lines","target"]: b.set(key, int(data[key]))
 	b.mode = data.mode
 	b.remaining = float(data.remaining)

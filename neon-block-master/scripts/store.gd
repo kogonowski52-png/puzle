@@ -10,7 +10,7 @@ func defaults() -> Dictionary:
 		"settings":{"sound":true,"music":true,"vibration":true,"language":"pl"},
 		"best":{"classic":0,"time":0,"daily":0},"stats":{"games":0,"moves":0,"lines":0,"points":0},
 		"daily":{},"login":"","session":{},"ad_free":false,"lab_charges":0,"result_bonus":{},"age_band":"unknown","age_choice_made":false,
-		"boosts":{"hammer":1,"shuffle":2},"boost_receipts":[],"neon_plus":false,"billing_receipts":[]}
+		"boosts":{"hammer":1,"shuffle":2},"boost_receipts":[],"neon_plus":false,"billing_receipts":[],"tutorial_done":false}
 
 func _ready() -> void:
 	load_data()
@@ -44,6 +44,7 @@ func validate(value: Variant) -> bool:
 	for key in ["hammer","shuffle"]:
 		if not _number(boosts.get(key)) or int(boosts[key])!=boosts[key]: return false
 	if not value.get("neon_plus",false) is bool: return false
+	if not value.get("tutorial_done",false) is bool: return false
 	var billing_receipts = value.get("billing_receipts",[])
 	if not billing_receipts is Array or billing_receipts.size()>10000: return false
 	for receipt in billing_receipts:
@@ -74,6 +75,7 @@ func load_data() -> void:
 		if validate(parsed):
 			data = defaults()
 			data.merge(parsed,true)
+			if not parsed.has("tutorial_done"): data.tutorial_done = int(data.stats.moves)>0
 			return
 
 func save() -> bool:

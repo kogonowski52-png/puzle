@@ -64,6 +64,7 @@ def inspect(bundle, config, bundletool, candidate=False):
                 'Lcom/google/android/ump/UserMessagingPlatform;',
                 'Lcom/poingstudios/godot/admob/ads/PoingGodotAdMobConsentInformation;',
                 'Lcom/neonblockmaster/android/NeonWebView;',
+                'Lcom/neonblockmaster/android/NeonConsent;',
                 'Lcom/neonblockmaster/billing/NeonBilling;',
                 'Lcom/neonblockmaster/billing/PurchaseVerifier;',
                 'Lcom/android/billingclient/api/BillingClient;',
@@ -97,6 +98,8 @@ def inspect(bundle, config, bundletool, candidate=False):
             raise ValueError('Manifest uses the wrong AdMob application ID')
         if metadata.get('org.godotengine.plugin.v2.NeonBilling')!='com.neonblockmaster.billing.NeonBilling':
             raise ValueError('Billing bridge not registered')
+        if metadata.get('org.godotengine.plugin.v2.NeonConsent')!='com.neonblockmaster.android.NeonConsent':
+            raise ValueError('UI-thread UMP bridge not registered')
         if metadata.get('com.google.android.play.billingclient.version')!='8.0.0':
             raise ValueError('Unexpected Google Play Billing version')
         permissions = {node.get(ANDROID + 'name') for node in manifest.findall('uses-permission')}

@@ -473,12 +473,12 @@ func run() -> void:
 	var press := InputEventScreenTouch.new()
 	press.index=0
 	press.pressed=true
-	press.position=main.stage.get_global_transform()*Vector2(146,1095)
+	press.position=main.stage.get_global_transform()*main.view.tray_rect(0).get_center()
 	main._input(press)
 	check(main.view.drag==0,"touch picks piece from generous tray hitbox")
 	var drag := InputEventScreenDrag.new()
 	drag.index=0
-	drag.position=main.stage.get_global_transform()*Vector2(94,482)
+	drag.position=main.stage.get_global_transform()*(main.view.ORIGIN+Vector2(.5,1)*main.view.CELL+Vector2(0,main.view.DRAG_LIFT))
 	main._input(drag)
 	check(main.view.anchor==Vector2i.ZERO,"touch preview accounts for finger offset")
 	press.pressed=false
@@ -486,13 +486,14 @@ func run() -> void:
 	main._input(press)
 	check(main.model.cells[0]>0 and main.model.score==10,"touch release places piece")
 	main.model.hand=hand([[0,0]])
+	await create_timer(.4).timeout
 	var mouse := InputEventMouseButton.new()
 	mouse.button_index=MOUSE_BUTTON_LEFT
 	mouse.pressed=true
-	mouse.position=main.stage.get_global_transform()*Vector2(146,1095)
+	mouse.position=main.stage.get_global_transform()*main.view.tray_rect(0).get_center()
 	main._input(mouse)
 	mouse.pressed=false
-	mouse.position=main.stage.get_global_transform()*Vector2(170,482)
+	mouse.position=main.stage.get_global_transform()*(main.view.ORIGIN+Vector2(1.5,1)*main.view.CELL+Vector2(0,main.view.DRAG_LIFT))
 	main._input(mouse)
 	check(main.model.cells[1]>0 and main.model.score==20,"mouse drag places piece")
 	main.model.cells.fill(0)

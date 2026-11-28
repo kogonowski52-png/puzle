@@ -10,3 +10,5 @@
 Przykładowe media Poing w `addons/admob/assets` należą do dystrybucji upstream; nie są używane przez grę i są wyłączone z eksportu. Nie są reklamowane jako własna grafika lub muzyka gry. Folder `third_party` jest wyłączony ze skanowania i eksportu Godot.
 
 W 1.3.0 używana jest klasyczna biblioteka Google Mobile Ads 24.9.0 i UMP 4.0.0, na warunkach Google. Nieużywane upstream fonty Arial/Orange Juice w addonach zastąpiono DejaVu Sans; nazwy plików zachowano dla zgodności odwołań mocków, ale ich zawartość to licencjonowany DejaVu.
+
+Mosty NeonWebView i NeonConsent oraz ikony pomocników dodane w 2.0: własny kod/grafika MIT, na licencji projektu. NeonConsent korzysta z UMP 4.0.0 na warunkach Google.

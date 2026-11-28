@@ -2,6 +2,7 @@ extends Node
 ## Classic Google Mobile Ads 24.9.0 / Poing 4.3.1. No mocked impressions.
 signal changed
 signal visibility(active: bool)
+signal reward_failed
 var rewarded: RewardedAd
 var interstitial: InterstitialAd
 var initialized := false
@@ -16,6 +17,11 @@ var retry_consent_at := 0.0
 var reward_failures := 0
 var interstitial_failures := 0
 var consent_failures := 0
+var consent_deadline := 0.0
+var consent_serial := 0
+var stage := "startup"
+var reward_error_code := -1
+var reward_error_domain := ""
 var reward_loaded_at := 0.0
 var interstitial_loaded_at := 0.0
 var initialization_listener := OnInitializationCompleteListener.new()
@@ -27,6 +33,7 @@ var interstitial_deadline := 0.0
 var reward_serial := 0
 var interstitial_serial := 0
 var last_error := ""
+var interstitial_error := ""
 var events: Array[String] = []
 var webview_plugin: Object
 var webview_ready := false
@@ -76,19 +83,28 @@ func _webview_completed(payload: String) -> void:
 		retry_initialize_at = now()+60
 		record(last_error)
 
-func record(message: String) -> void:
+func record(message: String, phase := "") -> void:
+	if not phase.is_empty(): stage = phase
 	events.append("%ds — %s" % [int(now()),message])
 	while events.size()>8: events.pop_front()
 	changed.emit()
 
 func describe_error(error: Variant) -> String:
 	if error == null: return "Brak szczegółów błędu SDK"
-	return "%s / %s: %s" % [str(error.domain),str(error.code),str(error.message)]
+	var result := "%s / %s: %s" % [str(error.domain),str(error.code),str(error.message)]
+	var cause = error.cause
+	for depth in 3:
+		if cause==null: break
+		result += "\nCause: %s / %s: %s" % [str(cause.domain),str(cause.code),str(cause.message)]
+		cause = cause.cause
+	if error is LoadAdError and error.response_info!=null and not error.response_info.response_id.is_empty():
+		result += "\nResponse ID: "+error.response_info.response_id
+	return result
 
 func bind_native_plugins() -> bool:
 	if OS.get_name() != "Android": return true
 	var names := ["PoingGodotAdMob","PoingGodotAdMobRewardedAd","PoingGodotAdMobInterstitialAd"]
-	if AppConfig.production(): names.append("PoingGodotAdMobConsentInformation")
+	if AppConfig.production(): names.append("NeonConsent")
 	for name in names:
 		if not Engine.has_singleton(name):
 			last_error = "Brak modułu Android: "+name
@@ -101,7 +117,7 @@ func bind_native_plugins() -> bool:
 	InterstitialAdLoader._plugin = Engine.get_singleton("PoingGodotAdMobInterstitialAd")
 	InterstitialAd._plugin = InterstitialAdLoader._plugin
 	if AppConfig.production():
-		ConsentInformation._plugin = Engine.get_singleton("PoingGodotAdMobConsentInformation")
+		ConsentInformation._plugin = Engine.get_singleton("NeonConsent")
 	return true
 
 func now() -> float:
@@ -118,10 +134,14 @@ func initialize() -> void:
 		load_interstitial()
 		return
 	consent_busy = true
+	consent_serial += 1
+	var request_id := consent_serial
+	consent_deadline = now()+30
 	retry_consent_at = 0
 	# Demo units are for testing SDK delivery on the owner's device, not revenue.
 	if not AppConfig.production():
 		consent_busy = false
+		consent_deadline = 0
 		_enable_restricted_ads()
 		return
 	if ConsentInformation._plugin==null:
@@ -131,10 +151,13 @@ func initialize() -> void:
 		return
 	var params := ConsentRequestParameters.new()
 	params.tag_for_under_age_of_consent = true
-	record("Sprawdzanie ustawień UMP")
-	UserMessagingPlatform.consent_information.update(params,_consent_updated,func(error):
+	record("Sprawdzanie ustawień UMP","consent")
+	UserMessagingPlatform.consent_information.update(params,func():
+		if request_id==consent_serial and consent_busy: _consent_updated(),func(error):
+		if request_id!=consent_serial or not consent_busy: return
 		consent_busy = false
-		last_error = "UMP: "+str(error.message)
+		consent_deadline = 0
+		last_error = "UMP / %s: %s" % [str(error.error_code),str(error.message)]
 		record(last_error)
 		consent_failures += 1
 		retry_consent_at = now()+minf(300,60*pow(2,mini(3,consent_failures-1)))
@@ -142,6 +165,7 @@ func initialize() -> void:
 
 func _consent_updated() -> void:
 	consent_busy = false
+	consent_deadline = 0
 	consent_failures = 0
 	var status := UserMessagingPlatform.consent_information.get_consent_status()
 	# Never show an adult consent form to a young child. Production fails closed
@@ -165,7 +189,7 @@ func _enable_restricted_ads() -> void:
 	initializing = true
 	initialization_deadline = now()+45
 	retry_initialize_at = 0
-	record("Inicjalizacja Google Mobile Ads")
+	record("Inicjalizacja Google Mobile Ads","initialize")
 	initialization_listener.on_initialization_complete = func(_status):
 		initialized = true
 		initializing = false
@@ -203,12 +227,14 @@ func load_rewarded() -> void:
 	reward_deadline = now()+75
 	var epoch := generation
 	var callback := RewardedAdLoadCallback.new()
-	record("Pobieranie reklamy z nagrodą")
+	record("Pobieranie reklamy z nagrodą","rewarded_load")
 	callback.on_ad_failed_to_load = func(error):
 		if epoch != generation or request_id != reward_serial: return
 		reward_loading = false
 		reward_deadline = 0
 		last_error = describe_error(error)
+		reward_error_code = int(error.code) if error!=null else -1
+		reward_error_domain = str(error.domain) if error!=null else ""
 		if last_error.to_lower().contains("javascriptengine"):
 			webview_ready = false
 			capture_sdk_log()
@@ -227,6 +253,8 @@ func load_rewarded() -> void:
 		rewarded = ad
 		reward_loaded_at = now()
 		last_error = ""
+		reward_error_code = -1
+		reward_error_domain = ""
 		record("Reklama z nagrodą jest gotowa")
 	RewardedAdLoader.new().load(AppConfig.ad_id("rewarded"),restricted_request(),callback)
 
@@ -239,10 +267,12 @@ func load_interstitial() -> void:
 	interstitial_deadline = now()+75
 	var epoch := generation
 	var callback := InterstitialAdLoadCallback.new()
-	callback.on_ad_failed_to_load = func(_error):
+	callback.on_ad_failed_to_load = func(error):
 		if epoch != generation or request_id != interstitial_serial: return
 		interstitial_loading = false
 		interstitial_deadline = 0
+		interstitial_error = describe_error(error)
+		record("Reklama pełnoekranowa: "+interstitial_error)
 		interstitial_failures += 1
 		retry_interstitial_at = now()+minf(300,15*pow(2,mini(5,interstitial_failures-1)))
 		changed.emit()
@@ -256,6 +286,8 @@ func load_interstitial() -> void:
 		retry_interstitial_at = 0
 		interstitial = ad
 		interstitial_loaded_at = now()
+		interstitial_error = ""
+		record("Reklama pełnoekranowa jest gotowa")
 		changed.emit()
 	InterstitialAdLoader.new().load(AppConfig.ad_id("interstitial"),restricted_request(),callback)
 
@@ -264,7 +296,8 @@ func show_reward(callback: Callable) -> void:
 	MobileAds.set_app_muted(not Store.data.settings.sound)
 	var ad := rewarded
 	rewarded = null
-	var state := {"earned":false,"closed":false}
+	var state := {"earned":false,"closed":false,"failed":false}
+	record("Wyświetlanie reklamy z nagrodą","rewarded_show")
 	var full := FullScreenContentCallback.new()
 	var cleanup := func():
 		if state.closed: return
@@ -275,14 +308,17 @@ func show_reward(callback: Callable) -> void:
 		load_rewarded()
 	full.on_ad_dismissed_full_screen_content = cleanup
 	full.on_ad_failed_to_show_full_screen_content = func(error):
+		state.failed = true
 		last_error = describe_error(error)
 		record("Nie udało się wyświetlić reklamy: "+last_error)
+		reward_failed.emit()
 		cleanup.call()
 	ad.full_screen_content_callback = full
 	var earned := OnUserEarnedRewardListener.new()
 	earned.on_user_earned_reward = func(_item):
-		if state.earned: return
+		if state.earned or state.failed: return
 		state.earned = true
+		record("SDK potwierdziło zdobycie nagrody","rewarded_earned")
 		if callback.is_valid(): callback.call()
 	visibility.emit(true)
 	ad.show(earned)
@@ -318,7 +354,10 @@ func show_interstitial() -> void:
 		visibility.emit(false)
 		load_interstitial()
 	full.on_ad_dismissed_full_screen_content = cleanup
-	full.on_ad_failed_to_show_full_screen_content = func(_error): cleanup.call()
+	full.on_ad_failed_to_show_full_screen_content = func(error):
+		interstitial_error = describe_error(error)
+		record("Nie udało się wyświetlić reklamy pełnoekranowej: "+interstitial_error)
+		cleanup.call()
 	ad.full_screen_content_callback = full
 	visibility.emit(true)
 	ad.show()
@@ -330,6 +369,13 @@ func privacy() -> void:
 
 func _process(_delta: float) -> void:
 	var time := now()
+	if consent_busy and consent_deadline>0 and time>=consent_deadline:
+		consent_busy = false
+		consent_deadline = 0
+		consent_serial += 1
+		last_error = "UMP / timeout: brak odpowiedzi przez 30 s; ponów po sprawdzeniu połączenia"
+		record(last_error,"consent_timeout")
+		retry_consent_at = time+30
 	if webview_busy and time>=webview_deadline:
 		webview_busy = false
 		last_error = "WebView: test JavaScript nie odpowiedział"

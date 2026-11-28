@@ -7,9 +7,9 @@ func _process(delta: float) -> void:
 		time += delta
 		queue_redraw()
 func _draw() -> void:
-	draw_texture_rect(preload("res://assets/backdrop.png"),Rect2(0,0,720,1280),false)
+	draw_texture_rect(preload("res://assets/backdrop.png"),Rect2(Vector2.ZERO,size if size.x>0 else Vector2(720,1280)),false)
 	if Store.data.theme=="cyber_galaxy":
-		draw_rect(Rect2(0,0,720,1280),Color(.025,.02,.09,.9))
+		draw_rect(Rect2(Vector2.ZERO,size if size.x>0 else Vector2(720,1280)),Color(.025,.02,.09,.9))
 		for layer in 6:
 			draw_circle(Vector2(575,215),float(220-layer*28),Color(.4,.18,.8,.025))
 			draw_circle(Vector2(90,1010),float(210-layer*27),Color(.08,.6,.8,.025))

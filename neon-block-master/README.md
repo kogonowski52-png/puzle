@@ -1,3 +1,19 @@
+# Neon Block Master 2.0.0 / kod 12 — aktualizacja gry z Google Play
+
+Przebudowana plansza i obsługa przeciągania, dopasowane tacki, jasne klocki,
+krótkie efekty linii, nowe pomocniki i poprawiona obsługa reklam Android.
+Pakiet aktualizacji pozostaje `com.neonblockmaster.puzzle`; zapisy i zakupy są zachowane.
+
+**[Instrukcja aktualizacji, testy i ograniczenia](docs/UPDATE-2.0.md).**
+AAB wymaga dotychczasowego klucza właściciela. Osobny APK testowy
+`com.neonblockmaster.puzzle.preview` instaluje się obok wersji Play.
+Nie potwierdzono emisji Google na urządzeniu ani rzeczywistych płatności;
+nie publikowano na produkcji. Gotowe pliki: [gałąź apk-download](https://github.com/kogonowski52-png/puzle/tree/apk-download).
+
+Poniżej historyczne instrukcje starszych wydań:
+
+---
+
 # Sklep 1.5.0 / kod 10 — podgląd aktualizacji
 
 Neon Plus (Galaxy + Nova, bez reklam automatycznych), pakiet 10 Młotków + 20 Zmian, Google Play Billing 8.0.0, ekran rodzica i przywracanie trwałego zakupu. **Publiczny klucz licencyjny jest dodany. Właściciel musi jeszcze utworzyć i aktywować produkty w Play oraz sprawdzić transakcje w testach wewnętrznych. Nie potwierdzono sprzedaży.** [Uruchomienie i ograniczenia](docs/SHOP-1.5.0.md).

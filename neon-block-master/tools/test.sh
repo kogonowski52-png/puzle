@@ -6,4 +6,6 @@ test_data=$(mktemp -d)
 trap 'rm -rf "$test_data"' EXIT
 XDG_DATA_HOME="$test_data" timeout 180s godot --headless --path . --script tests/run.gd
 XDG_DATA_HOME="$test_data/billing" timeout 60s godot --headless --path . --script tests/billing.gd
+XDG_DATA_HOME="$test_data/interaction" timeout 60s godot --headless --path . --script tests/interaction.gd
+XDG_DATA_HOME="$test_data/v2" timeout 90s godot --headless --path . --script tests/v2.gd
 python3 -m unittest discover -s tests -p 'test_*.py'

@@ -1,0 +1,6 @@
+cd34e04267da4e0b125c873e21df61ec3e42e8ca6aeb60626808546381217ea1  neon-block-master-2.0-windows-signing.zip
+64fa4b0cefe010198fba895ef477b38b3ca7c9cba85ef833342bd0bc6aa1a062  neon-block-master-2.0-test.apk
+412b571c169f6eec902cb6e4c6e92f2c800a8b77f758114336c7f7c4fc2011ae  neon-block-master-2.0-source.zip
+734cf3a8a8a037098b9686ef7aef6decf3cd5c09e1c42ab174a951d32cccecb4  neon-block-master-2.0-screenshots.zip
+be9c2896e82ea2f18da37580f1ddbcb39ef4e1ec7f426be5344eba907de7a921  neon-block-master-2.0-validation.json
+1feaa950bc1877ed59eb63cb94d11e74a8ebf55578a6a633c5998fde410ff5ec  neon-block-master-2.0-test-evidence.zip

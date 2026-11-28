@@ -1,0 +1,145 @@
+{
+  "version": "2.0.0",
+  "version_code": 12,
+  "package": "com.neonblockmaster.puzzle",
+  "last_confirmed_play_version_code": 10,
+  "new_branch": "redesign-2.0",
+  "source_checks": {
+    "core": 2798,
+    "billing": 110,
+    "interaction": 166,
+    "v2": 1159,
+    "python": 22,
+    "gui_engine_input": 6,
+    "failures": 0
+  },
+  "exact_compiled_aab_resource_checks": {
+    "core": 2798,
+    "billing": 110,
+    "interaction": 166,
+    "v2": 1151,
+    "failures": 0
+  },
+  "v2_count_note": "UI button counts vary with test/production configuration; both suites finished with zero failures.",
+  "renderer": "Godot 4.6.3 Compatibility / Mesa llvmpipe / Xvfb",
+  "screenshots_are_actual_game_frames": true,
+  "layouts": {
+    "phone_20_9": [
+      1080,
+      2400
+    ],
+    "tablet_7_profile": [
+      800,
+      1280
+    ],
+    "tablet_10_profile": [
+      1600,
+      2560
+    ],
+    "landscape_code_test": [
+      1280,
+      800
+    ]
+  },
+  "languages": [
+    "pl",
+    "en"
+  ],
+  "native_ump_ui_thread_bridge_compiled_against_actual_api": true,
+  "android_device_available": false,
+  "android_execution_verified": false,
+  "google_test_ad_display_verified": false,
+  "production_ad_serving_verified": false,
+  "real_play_billing_transaction_verified": false,
+  "published_to_play_production": false,
+  "owner_private_key_or_password_included": false,
+  "save_and_purchase_ids_preserved": true,
+  "aab": {
+    "artifact": "neon-block-master-production-candidate-unsigned.aab",
+    "sha256": "3f7ca55436bf3b7a2887365e1be5797bc32566d11a6f4bf6b0ebbf9a49ec9770",
+    "bytes": 33973509,
+    "package": "com.neonblockmaster.puzzle",
+    "version_code": "12",
+    "version_name": "2.0.0",
+    "mode": "production",
+    "admob": {
+      "app_id": "ca-app-pub-5988667220268461~2690935374",
+      "rewarded_id": "ca-app-pub-5988667220268461/2523414410",
+      "interstitial_id": "ca-app-pub-5988667220268461/3644924391"
+    },
+    "signed": false,
+    "debuggable": false,
+    "elf_alignment": {
+      "base/lib/arm64-v8a/libc++_shared.so": [
+        16384,
+        16384,
+        16384
+      ],
+      "base/lib/arm64-v8a/libgodot_android.so": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    "artifact_checks_passed": true,
+    "billing_library": "8.0.0",
+    "billing_configured": true,
+    "billing_products": {
+      "neon_plus": "neon_plus",
+      "rescue_pack": "rescue_pack_10_20"
+    },
+    "live_payments_verified": false,
+    "play_approval_verified": false,
+    "device_ad_serving_verified": false,
+    "expected_upload_certificate_sha256": "813efb0ae5ebf0cba2c270a7492d623a94053b46417bc00053c541c567fee467",
+    "billing_products_activated_by_owner": true,
+    "intended_track": "internal_testing",
+    "ready_for_public_release": false
+  },
+  "test_apk": {
+    "artifact": "neon-block-master-2.0-test.apk",
+    "sha256": "64fa4b0cefe010198fba895ef477b38b3ca7c9cba85ef833342bd0bc6aa1a062",
+    "bytes": 89720209,
+    "package": "com.neonblockmaster.puzzle.preview",
+    "version_name": "2.0.0",
+    "version_code": 12,
+    "official_google_test_units": true,
+    "purchases_disabled": true,
+    "separate_save_and_package_from_play": true,
+    "signature_v2_v3_verified": true,
+    "certificate_sha256": "2911ae6515a1cdd450467ec71f016313353a461bc50fa96f7cdd04a904646f7f",
+    "native_module_definitions_verified": true,
+    "native_zip_offsets_16kb": {
+      "lib/arm64-v8a/libc++_shared.so": 9666560,
+      "lib/arm64-v8a/libgodot_android.so": 11042816
+    },
+    "elf_load_alignment": {
+      "lib/arm64-v8a/libc++_shared.so": [
+        16384,
+        16384,
+        16384
+      ],
+      "lib/arm64-v8a/libgodot_android.so": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    "game_scripts_identical_to_production_aab": [
+      "assets/scripts/admob_adapter.gdc",
+      "assets/scripts/ads.gdc",
+      "assets/scripts/app_config.gdc",
+      "assets/scripts/backdrop.gdc",
+      "assets/scripts/billing.gdc",
+      "assets/scripts/board.gdc",
+      "assets/scripts/board_view.gdc",
+      "assets/scripts/cosmetic_preview.gdc",
+      "assets/scripts/main.gdc",
+      "assets/scripts/parent_gate.gdc",
+      "assets/scripts/sound.gdc",
+      "assets/scripts/store.gdc"
+    ],
+    "physical_android_execution_verified": false,
+    "test_ad_display_verified": false
+  }
+}

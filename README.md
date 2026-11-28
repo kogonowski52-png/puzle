@@ -1,3 +1,24 @@
+# Neon Block Master 2.0.0 / kod 12 — aktualizacja gry z Play
+
+**Najpierw [pobierz paczkę Windows z AAB do podpisania](neon-block-master-2.0-windows-signing.zip)** → Download raw → rozpakuj → `podpisz.cmd`. Użyj **dotychczasowego** klucza. Do testów wewnętrznych **tej samej gry** prześlij `wynik/neon-block-master-2.0.0-play-signed.aab`. Pakiet pozostaje `com.neonblockmaster.puzzle`; zapisy i zakupy są zachowane. Nie odinstalowuj gry z Play.
+
+Większa plansza, jasne klocki, miniatury mieszczące się w tackach, podgląd zgodny z osadzeniem, poprawione gesty i stan reklam. Nie publikowano na produkcji.
+
+- **[APK 2.0 do telefonu — osobny test](neon-block-master-2.0-test.apk)** → Download raw. Pakiet `com.neonblockmaster.puzzle.preview`, instaluje się obok Play, osobny zapis, oficjalne reklamy testowe Google, płatności wyłączone. Nie generuje przychodu.
+- [Źródła ZIP](neon-block-master-2.0-source.zip) · [gałąź redesign-2.0](https://github.com/kogonowski52-png/puzle/tree/redesign-2.0) · [zmiany względem 1.5.0](https://github.com/kogonowski52-png/puzle/compare/shop-1.5.0...redesign-2.0).
+- [Cztery prawdziwe zrzuty oraz telefon/tablety](preview-2.0/README.md) · [zrzuty ZIP](neon-block-master-2.0-screenshots.zip).
+- [Instrukcja i wynik testów](docs/UPDATE-2.0.md) · [raport JSON](neon-block-master-2.0-validation.json) · [logi weryfikacji](neon-block-master-2.0-test-evidence.zip) · [sumy SHA-256](UPDATE-2.0-SHA256SUMS.txt).
+
+**Potwierdzono:** uruchomiony silnik i interfejs na pulpicie, logikę gry, migrację zapisów, stan nagród, zawartość finalnego AAB/APK i podpis APK. **Nie potwierdzono:** uruchomienia na Androidzie, wyświetlenia reklamy Google ani płatności — brak podłączonego urządzenia z usługami Google.
+
+Test telefonu: **Pomocnicy → poczekaj na „Obejrzyj reklamę” → obejrzyj do nagrody → zamknij → sprawdź +1 Młotek i +2 Zmiany. Błąd: Status reklam → Kopiuj szczegóły.** Produkcyjne AAB ma Twoje rzeczywiste identyfikatory AdMob i klucz publiczny zakupów; sam poprawny build nie gwarantuje emisji/przychodu.
+
+Źródła: `5a5a30342b7c7ca52d0c004f4f957a6b8dc884c9`.
+
+Poniżej archiwalne pliki i instrukcje starszych wydań:
+
+---
+
 # Ikony produktów do Google Play
 
 **[Pobierz obie ikony w ZIP](neon-block-master-product-icons.zip)** → Download raw.
